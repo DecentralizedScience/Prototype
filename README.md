@@ -29,6 +29,8 @@ For now, a workaround is to modify the `datamodel.prisma` file, so it only conta
   - authors
   - review_assignment
   - users
+
+The `docker-compose.yml` file must also be modified. Inside the file, there is a field `schema` followed by the name of the database (in this case, *ojs2*). Change the name of the field from `schema` to database. There is also a field `restart`, with value `always`. Change the value to `on-failure`.
   
 Once the file is modified, start Prisma and connect it to the database:
 ```
