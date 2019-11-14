@@ -5,6 +5,7 @@ services:
     restart: always
     ports:
     - "4466:4466"
+    network_mode: "host"
     environment:
       PRISMA_CONFIG: |
         port: 4466
@@ -13,10 +14,10 @@ services:
         databases:
           default:
             connector: mysql
-            host: ojs.decentralized.science
+            host: localhost
             database: ojs2
             user: <user>
             password: <password>
             rawAccess: true
-            port: '3307'
+            port: '3306'
             migrations: false
