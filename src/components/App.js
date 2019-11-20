@@ -1,21 +1,28 @@
 import React, { Component } from 'react'
 import AuthorList from './AuthorList'
 import Header from './Header'
-import { Switch, Route } from 'react-router-dom'
+
+import { withStyles } from '@material-ui/core/styles'
+import { Paper } from '@material-ui/core'
+
+const styles = theme => console.log(theme) || ({
+  root: {
+    margin: 20,
+    padding: 20,
+    maxWidth: 800
+  }
+})
 
 class App extends Component {
   render() {
+    const {classes } = this.props
     return (
-      <div className="center w85">
+      <Paper className={classes.root}>
         <Header />
-        <div className="ph3 pv1 background-gray">
-          <Switch>
-            <Route exact path="/" component={AuthorList} />
-          </Switch>
-        </div>
-      </div>
+        <AuthorList />
+      </Paper>
     )
   }
 }
 
-export default App
+export default withStyles(styles)(App)

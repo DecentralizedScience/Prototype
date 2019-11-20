@@ -9,7 +9,24 @@ import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import { BrowserRouter } from 'react-router-dom'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#374784',
+      light: '#a7cee2',
+      dark: '#21305c',
+      contrastText: '#ffffff'
+    },
+    secondary: {
+      main: '#ef696a',
+      light: '#f3e8b7',
+      dark: '#b8383f',
+      contrastText: '#000000'
+    }
+  }
+})
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4466'
@@ -21,11 +38,11 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </BrowserRouter>,
+  <MuiThemeProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 )
 
