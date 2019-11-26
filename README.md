@@ -19,10 +19,10 @@ npm install
 npm start
 ```
 
-A browser list should then open, showing the list of the users (now mocked).
+A browser window should then open, showing the list of the users (now mocked).
 
 ### With Prisma
-If you want to test the prototype with the database using Prisma, you have to go back to commit https://github.com/DecentralizedScience/Prototype/tree/b70a5275b8e55fddcfd782cbedeae9375c956a6e, where everything was set to use Prisma. Then, proceed with the following steps.
+If you want to test the prototype with the database using Prisma, you have to go back to [this older version of the repo](https://github.com/DecentralizedScience/Prototype/tree/b70a5275b8e55fddcfd782cbedeae9375c956a6e), where everything was set to use Prisma. Then, proceed with the following steps.
 
 First, Prisma must be installed globally:
 ```
