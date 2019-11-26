@@ -2,6 +2,28 @@
 Decentralized science prototype (WIP)
 
 ## How to run this prototipe
+
+### Without Prisma
+First, you have to initialize the server. To do so, go to the `server` directory, install the dependecies and run the code:
+```
+cd server
+npm install
+node src/index.js
+```
+
+The server is now running on http://localhost:4000
+
+Now, go back to the main directory (`cd ..`) and start the React application:
+```
+npm install
+npm start
+```
+
+A browser list should then open, showing the list of the users (now mocked).
+
+### With Prisma
+If you want to test the prototype with the database using Prisma, you have to go back to commit https://github.com/DecentralizedScience/Prototype/tree/b70a5275b8e55fddcfd782cbedeae9375c956a6e, where everything was set to use Prisma. Then, proceed with the following steps.
+
 First, Prisma must be installed globally:
 ```
 sudo npm install -g prisma
