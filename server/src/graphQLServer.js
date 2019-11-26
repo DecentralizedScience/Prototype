@@ -1,18 +1,21 @@
+
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
-// import knex from 'knex'
 
+import config from './serverConfig.json'
+
+console.log(JSON.stringify(config))
+
+// import knex from 'knex'
 var knex = require('knex')({
   client: 'mysql',
-  connection: {
-    user : '<user>',
-    password : '<password>',
-    database : 'ojs2'
-  }
+  connection: config
 });
 
 const { graphql } = require('graphql')
+const { GraphQLServer } = require('graphql-yoga')
+
 
 const User = new GraphQLObjectType({
   name: 'User',
@@ -71,7 +74,6 @@ const QueryRoot = new GraphQLObjectType({
       resolve: (parent, args, context, resolveInfo) => {
         return joinMonster(resolveInfo, {}, sql => {
           // knex is a SQL query library for NodeJS. This method returns a `Promise` of the data
-          console.log(sql + ';')
           return knex.raw(sql + ';').then(rows => rows[0]);
         },  {dialect: 'mysql'})
       }
@@ -79,10 +81,6 @@ const QueryRoot = new GraphQLObjectType({
   })
 })
 
-export default new GraphQLSchema({
-  description: 'a test schema',
-  query: QueryRoot
-})
 
 const query1 = `{
   users {
@@ -100,4 +98,8 @@ const schema = new GraphQLSchema({
   query: QueryRoot
 })
 
-graphql(schema, query1).then(rows => console.log(JSON.stringify(rows))).catch(e => console.log(e))
+const server = new GraphQLServer({
+  schema
+})
+
+export default server
