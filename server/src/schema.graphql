@@ -1,0 +1,16 @@
+type Query {
+  info: String!
+  users: [User!]!
+}
+
+type User {
+  id: ID!
+  name: String!
+  surname: String!
+  interests: [Interest!]!
+}
+
+type Interest {
+  id: ID!,
+  text: String!
+}

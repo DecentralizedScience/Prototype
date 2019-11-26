@@ -10,7 +10,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton'
-import { CloseIcon } from '@material-ui/icons/Close'
+import CloseIcon from '@material-ui/icons/Close'
 
 
 /*const useStyles = makeStyles({
@@ -28,7 +28,7 @@ const styles = theme => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palete.grey[500],
+    color: theme.palette.grey[500],
   },
 });
 
@@ -61,12 +61,12 @@ const DialogActions = withStyles(theme => ({
 
 
 //class Stats extends Component {
-function Stats() {
+export default function Stats() {
 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(false);
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -78,50 +78,42 @@ function Stats() {
     //const statsData = [];
 
 
-    return (
-      //<Card className={classes.card}>
+  return (
+      /*<Card className={classes.card}>*/
+    <div>
       <Card>
         <CardActionArea onClick={handleClickOpen}>
           <CardMedia
             component="img"
             alt="Author statistics"
-            height="100"
-            image={require("../assets/logo.jpg")}
+            height="20"
+            image={require("../assets/stats_short.png")}
             title="Author statistics"
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Author Statistics
-            </Typography>
-          </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary" onClick={handleClickOpen}>
-            More
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          arial-labelledby="customized-dialog-title"
-        >
-          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-            Detailed Author Statistics
-          </DialogTitle>
-          <DialogContent dividers>
-            <Typography gutterBottom>
-              Here is where the deetailed statistics should be.
-            </Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button autoFocus onclick={handleClose} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Card>
-    )
-  //}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        arial-labelledby="customized-dialog-title"
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Detailed Author Statistics
+        </DialogTitle>
+        <DialogContent dividers>
+          <CardMedia
+            component="img"
+            alt="Author statistics"
+            image={require("../assets/stats_long.png")}
+            title="Author statistics"
+          />
+        </DialogContent>
+        <DialogActions>
+        </DialogActions>
+      </Dialog>
+    </div>
+  )
+  /*}*/
 }
 
-export default Stats
+//export default Stats

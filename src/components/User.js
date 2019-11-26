@@ -4,27 +4,28 @@ import { TableRow, TableCell, Chip } from '@material-ui/core'
 import Stats from './Stats.js'
 
 
-class Author extends Component {
+class User extends Component {
   render() {
-    const chipData = [
-        { key: 0, label: 'Blockchain' },
-        { key: 1, label: 'Decentralization' },
-        { key: 2, label: 'Governance' }
-    ];
+
+    const interestsToRender = this.props.user.interests
+
     return (
-      <TableRow key={this.props.author.author_id}>
+      <TableRow key={this.props.user.id}>
         <TableCell component="th" scope="row">
-          {this.props.author.author_id}
+          {this.props.user.id}
         </TableCell>
         <TableCell align="center">
-          {this.props.author.firstName}
+          {this.props.user.name}
         </TableCell>
         <TableCell align="center">
-          {chipData.map(data => {
+          {this.props.user.surname}
+        </TableCell>
+        <TableCell align="center">
+          {interestsToRender.map(interest => {
             return(
               <Chip
-                key={data.key}
-                label={data.label}
+                key={interest.id}
+                label={interest.text}
                 color='primary'
               />
             )
@@ -38,4 +39,4 @@ class Author extends Component {
   }
 }
 
-export default Author
+export default User

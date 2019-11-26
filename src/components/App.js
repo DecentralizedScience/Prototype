@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AuthorList from './AuthorList'
+import UserList from './UserList'
 import Header from './Header'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -9,7 +9,7 @@ const styles = theme => console.log(theme) || ({
   root: {
     margin: 20,
     padding: 20,
-    maxWidth: 800
+    maxWidth: 900
   }
 })
 
@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <Paper className={classes.root}>
         <Header />
-        <AuthorList />
+        <UserList />
       </Paper>
     )
   }

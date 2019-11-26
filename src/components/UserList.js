@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Author from './Author.js'
+import User from './User.js'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -10,30 +10,24 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const AUTHORS_QUERY = gql`
+const USERS_QUERY = gql`
   {
-    authors {
-      author_id
-      country
-      email
-      firstName
-      includeInBrowse
-      lastName
-      middleName
-      primaryContact
-      seq
-      submissionId
-      suffix
-      url
-      userGroupId
+    users {
+      id
+      name
+      surname
+      interests {
+        id
+        text
+      }
     }
   }
 `
 
-class AuthorList extends Component {
+class UserList extends Component {
   render() {
     return (
-      <Query query={AUTHORS_QUERY}>
+      <Query query={USERS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <div>Fetching</div>
           if (error){
@@ -41,7 +35,7 @@ class AuthorList extends Component {
             return <div>{error}</div>
           }
 
-          const authorsToRender = data.authors
+          const authorsToRender = data.users
 
           return (
             <Paper>
@@ -50,13 +44,14 @@ class AuthorList extends Component {
                   <TableRow>
                     <TableCell>ID</TableCell>
                     <TableCell align="center">Name</TableCell>
+                    <TableCell align="center">Surname</TableCell>
                     <TableCell align="center">Interests</TableCell>
                     <TableCell align="center">Statistics</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {authorsToRender.map(author => (
-                    <Author key={author.author_id} author={author}/>
+                  {authorsToRender.map(user => (
+                    <User key={user.id} user={user}/>
                   ))}
                 </TableBody>
               </Table>
@@ -68,4 +63,4 @@ class AuthorList extends Component {
   }
 }
 
-export default AuthorList
+export default UserList
