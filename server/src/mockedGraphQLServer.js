@@ -38,6 +38,54 @@ let users = [{
     id: 'int-2.1',
     text: 'Interest2.1'
   }]
+},
+{
+  id: 'user-3',
+  name: 'Name3',
+  surname: 'Surname3',
+  interests: [{
+    id: 'int-3.0',
+    text: 'Long interest qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+  }]
+},
+{
+  id: 'user-4',
+  name: 'Name4',
+  surname: 'Surname4',
+  interests: [{
+    id: 'int-4.0',
+    text: 'Interest4.0'
+  },
+  {
+    id: 'int-4.1',
+    text: 'Interest4.1'
+  }]
+},
+{
+  id: 'user-5',
+  name: 'Name5',
+  surname: 'Surname5',
+  interests: [{
+    id: 'int-5.0',
+    text: 'Interest5.0'
+  },
+  {
+    id: 'int-5.1',
+    text: 'Interest5.1'
+  }]
+},
+{
+  id: 'user-6',
+  name: 'Name6',
+  surname: 'Surname6',
+  interests: [{
+    id: 'int-6.0',
+    text: 'Interest6.0'
+  },
+  {
+    id: 'int-6.1',
+    text: 'Interest6.1'
+  }]
 }]
 
 const resolvers = {

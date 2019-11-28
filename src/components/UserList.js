@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import User from './User.js'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 
 const USERS_QUERY = gql`
@@ -28,8 +29,20 @@ const USERS_QUERY = gql`
   }
 `
 
-class UserList extends Component {
-  render() {
+export default function UserList() {
+
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    }
+
+    const handleChangeRowsPerPage = event => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    }
+
     return (
       <Query query={USERS_QUERY}>
         {({ loading, error, data }) => {
@@ -54,17 +67,26 @@ class UserList extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {authorsToRender.map(user => (
+                  {authorsToRender.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(user =>
                     <User key={user.id} user={user}/>
-                  ))}
+                  )}
+                  {/*{authorsToRender.map(user => (
+                    <User key={user.id} user={user}/>
+                  ))}*/}
                 </TableBody>
               </Table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={authorsToRender.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
             </Paper>
           )
         }}
       </Query>
     )
-  }
 }
-
-export default UserList
