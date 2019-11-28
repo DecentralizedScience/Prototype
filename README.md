@@ -8,7 +8,7 @@ First, you have to initialize the server. To do so, go to the `server` directory
 ```
 cd server
 npm install
-node src/index.js
+npm start
 ```
 
 The server is now running on http://localhost:4000
