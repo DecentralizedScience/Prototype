@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -r esm src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -11,18 +11,15 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "esm": "^3.2.25",
     "graphql": "^0.13.2",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.2",
     "mysql": "^2.17.1",
     "prisma-client-lib": "^1.34.10"
-
   },
   "devDependencies": {
     "knex-mariadb": "^2.0.0"
-  },
-  "scripts": {
-    "start": "node -r esm src/index.js"
-  },
+  }
 }
