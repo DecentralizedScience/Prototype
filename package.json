@@ -10,7 +10,6 @@
     "boost": "^0.63.1",
     "eslint-config-react-app": "^5.0.2",
     "graphql": "^14.5.8",
-    "join-monster": "^2.1.1",
     "knex": "^0.20.2",
     "mysql": "^2.17.1",
     "react": "^16.11.0",
