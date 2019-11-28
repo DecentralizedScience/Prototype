@@ -3,5 +3,6 @@
   "port": 3306,
   "user" : "<user>",
   "password" : "<password>",
-  "database" : "ojs2"
+  "database" : "ojs2",
+  "charset": "latin1_swedish_ci"
 }
