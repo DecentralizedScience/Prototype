@@ -29,7 +29,12 @@ const User = new GraphQLObjectType({
     name: {
       type: GraphQLString,
       sqlDeps: [ 'first_name', 'middle_name' ],
-      resolve: user => `${user.first_name} ${user.middle_name}`
+      resolve: user => {
+        const name = `${user.first_name}`
+        const middleName = `${user.middle_name}`
+        const composed = (middleName === 'null')? name: name + ' ' + middleName
+        return composed
+      }
     },
     surname: {
       type: GraphQLString,
