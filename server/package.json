@@ -21,5 +21,8 @@
   },
   "devDependencies": {
     "knex-mariadb": "^2.0.0"
-  }
+  },
+  "scripts": {
+    "start": "node -r esm src/index.js"
+  },
 }
