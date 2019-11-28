@@ -46,8 +46,29 @@ const User = new GraphQLObjectType({
           (junctionTable, interestTable, args) => `${junctionTable}.controlled_vocab_entry_id = ${interestTable}.controlled_vocab_entry_id`
         ]
       }
+    },
+    reviews: {
+      type: new GraphQLList(Review),
+      sqlJoin:
+        (userTable, reviewAssignmentTable) => `${userTable}.user_id = ${reviewAssignmentTable}.reviewer_id`
     }
   })
+})
+
+const Review = new GraphQLObjectType({
+  name: 'Review',
+  sqlTable: 'review_assignments',
+  uniqueKey: 'review_id',
+  fields:{
+    id: {
+      type: GraphQLInt,
+      sqlColumn: 'review_id'
+    },
+    dateAssigned: {
+      type: GraphQLString,
+      sqlColumn: 'date_assigned'
+    }
+  }
 })
 
 const Interest = new GraphQLObjectType({
