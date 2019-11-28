@@ -102,18 +102,6 @@ const QueryRoot = new GraphQLObjectType({
   })
 })
 
-
-const query1 = `{
-  users {
-    name,
-    surname,
-    interests {
-      id,
-      text
-    }
-  }
-}`
-
 const schema = new GraphQLSchema({
   description: 'a test schema',
   query: QueryRoot
