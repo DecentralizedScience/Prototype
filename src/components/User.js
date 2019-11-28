@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { TableRow, TableCell, Chip } from '@material-ui/core'
+import { TableRow, TableCell, Chip, Tooltip } from '@material-ui/core'
 import Stats from './Stats.js'
 
 
@@ -23,11 +23,13 @@ class User extends Component {
         <TableCell align="center">
           {interestsToRender.map(interest => {
             return(
-              <Chip
-                key={interest.id}
-                label={interest.text}
-                color='primary'
-              />
+              <Tooltip title={interest.text} enterDelay={500} leaveDelay={200}>
+                <Chip
+                  key={interest.id}
+                  label={interest.text}
+                  color='primary'
+                />
+              </Tooltip>
             )
           })}
         </TableCell>
