@@ -9,7 +9,7 @@ const styles = theme => console.log(theme) || ({
   root: {
     margin: 20,
     padding: 20,
-    maxWidth: 900
+    maxWidth: 1200
   }
 })
 

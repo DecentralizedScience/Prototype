@@ -1,15 +1,12 @@
-import React from 'react'
-import User from './User.js'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
-import Paper from '@material-ui/core/Paper';
+import { Chip, Tooltip, Button, Icon } from '@material-ui/core'
+
+import MaterialTable from "material-table";
+
+const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
 const USERS_QUERY = gql`
   {
@@ -21,27 +18,14 @@ const USERS_QUERY = gql`
         id
         text
       }
-      reviews{
-        id
-        dateAssigned
-      }
     }
   }
 `
 
-export default function UserList() {
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+class UserList extends Component {
 
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-    }
-
-    const handleChangeRowsPerPage = event => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    }
+  render(){
 
     return (
       <Query query={USERS_QUERY}>
@@ -55,38 +39,91 @@ export default function UserList() {
           const authorsToRender = data.users
 
           return (
-            <Paper>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell align="center">Name</TableCell>
-                    <TableCell align="center">Surname</TableCell>
-                    <TableCell align="center">Interests</TableCell>
-                    <TableCell align="center">Statistics</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {authorsToRender.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(user =>
-                    <User key={user.id} user={user}/>
-                  )}
-                  {/*{authorsToRender.map(user => (
-                    <User key={user.id} user={user}/>
-                  ))}*/}
-                </TableBody>
-              </Table>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={authorsToRender.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
-            </Paper>
+            <MaterialTable
+              title="Recommended Reviewers"
+              columns={[
+                { title: '', field: 'avatar', render: rowData =>
+                  <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                },
+                { title: 'Name', field: 'name' },
+                { title: 'Surname', field: 'surname' },
+                { title: 'Interests',
+                  field: 'interests',
+                  customFilterAndSearch: (term, rowData) => {
+                    rowData.interests.find(interest => interest.text===term)
+                  },
+                  render: rowData =>
+                  <div>
+                    {rowData.interests.map(interest => {
+                      return(
+                        <Tooltip title={interest.text} enterDelay={500} leaveDelay={200}>
+                          <Chip
+                            key={interest.id}
+                            label={interest.text}
+                            color='primary'
+                          />
+                        </Tooltip>
+                      )
+                    })}
+                  </div>
+                },
+                {
+                  title: 'Timeliness', field: 'time', render: rowData =>
+                  <Button
+                    startIcon={<Icon>alarm</Icon>}
+                  >
+                    {rowData.time}%
+                  </Button>
+                },
+                {
+                  title: 'Acceptance', field: 'accept', render: rowData =>
+                  <Button
+                    startIcon={<Icon>thumb_up</Icon>}
+                  >
+                    {rowData.accept}%
+                  </Button>
+                },
+                {
+                  title: 'Rating', field: 'rating', render: rowData =>
+                  <Button
+                    startIcon={<Icon>star_rate</Icon>}
+                  >
+                    {rowData.rating}/5
+                  </Button>
+                },
+              ]}
+              data={
+                authorsToRender.map(user =>{
+                  return({
+                    avatar: avatarUrl,
+                    name: user.name,
+                    surname: user.surname,
+                    interests: user.interests.map(interest =>{
+                      return({
+                        id: interest.id,
+                        text: interest.text
+                      })
+                    }),
+                    time: 80,
+                    accept: 45,
+                    rating: 3.8
+                  })
+                })
+              }
+              actions={[
+                {
+                  //icon: 'send',
+                  icon: 'rate_review',
+                  tooltip: 'Request review',
+                  onClick: (event, rowData) => alert("You requested a review from " + rowData.name)
+                }
+              ]}
+            />
           )
         }}
       </Query>
     )
+  }
 }
+
+export default UserList
