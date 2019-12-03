@@ -23,7 +23,7 @@ const USERS_QUERY = gql`
 `
 
 
-class UserList extends Component {
+class UserList2 extends Component {
 
   render(){
 
@@ -50,7 +50,7 @@ class UserList extends Component {
                 { title: 'Interests',
                   field: 'interests',
                   customFilterAndSearch: (term, rowData) => {
-                    rowData.interests.find(interest => interest.text===term)
+                    return (rowData.interests.find(interest => interest.text===term)!=undefined)
                   },
                   render: rowData =>
                   <div>
@@ -118,6 +118,9 @@ class UserList extends Component {
                   onClick: (event, rowData) => alert("You requested a review from " + rowData.name)
                 }
               ]}
+              options={{
+                filtering: true
+              }}
             />
           )
         }}
@@ -126,4 +129,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList
+export default UserList2
