@@ -23,7 +23,7 @@ const USERS_QUERY = gql`
 `
 
 
-class UserList extends Component {
+class UserList2 extends Component {
 
   render(){
 
@@ -45,12 +45,14 @@ class UserList extends Component {
                 { title: '', field: 'avatar', render: rowData =>
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
                 },
-                { title: 'Name', field: 'name' },
+                { title: 'Name', field: 'name',
+                  customFilterAndSearch: (term, rowData) => term == rowData.name.length
+                 },
                 { title: 'Surname', field: 'surname' },
                 { title: 'Interests',
                   field: 'interests',
                   customFilterAndSearch: (term, rowData) => {
-                    rowData.interests.find(interest => interest.text===term)
+                    return (rowData.interests.find(interest => interest.text.includes(term))!=undefined)
                   },
                   render: rowData =>
                   <div>
@@ -118,6 +120,9 @@ class UserList extends Component {
                   onClick: (event, rowData) => alert("You requested a review from " + rowData.name)
                 }
               ]}
+              options={{
+                filtering: true
+              }}
             />
           )
         }}
@@ -126,4 +131,15 @@ class UserList extends Component {
   }
 }
 
-export default UserList
+export default UserList2
+
+
+
+
+/*actions={[
+  {
+    icon: 'save',
+    tooltip: 'Save User',
+    onClick: (event, rowData) => alert("You saved " + rowData.name)
+  }
+]}*/
