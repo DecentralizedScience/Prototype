@@ -132,17 +132,3 @@ class UserList2 extends Component {
 }
 
 export default UserList2
-<<<<<<< HEAD
-
-
-
-
-/*actions={[
-  {
-    icon: 'save',
-    tooltip: 'Save User',
-    onClick: (event, rowData) => alert("You saved " + rowData.name)
-  }
-]}*/
-=======
->>>>>>> 7c33e854d97a87186b814a2cc2227062d56bab50
