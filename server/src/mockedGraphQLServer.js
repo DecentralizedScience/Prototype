@@ -4,6 +4,7 @@ let users = [{
   id: 'user-0',
   name: 'Name0',
   surname: 'Surname0',
+  email: 'email0@example.com',
   interests: [{
     id: 'int-0.0',
     text: 'Interest0.0'
@@ -17,6 +18,7 @@ let users = [{
   id: 'user-1',
   name: 'Name1',
   surname: 'Surname1',
+  email: 'email1@example.com',
   interests: [{
     id: 'int-1.0',
     text: 'Interest1.0'
@@ -30,6 +32,7 @@ let users = [{
   id: 'user-2',
   name: 'Name2',
   surname: 'Surname2',
+  email: 'email2@example.com',
   interests: [{
     id: 'int-2.0',
     text: 'Interest2.0'
@@ -43,6 +46,7 @@ let users = [{
   id: 'user-3',
   name: 'Name3',
   surname: 'Surname3',
+  email: 'email3@example.com',
   interests: [{
     id: 'int-3.0',
     text: 'Long interest qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
@@ -52,6 +56,7 @@ let users = [{
   id: 'user-4',
   name: 'Name4',
   surname: 'Surname4',
+  email: 'email4@example.com',
   interests: [{
     id: 'int-4.0',
     text: 'Interest4.0'
@@ -65,6 +70,7 @@ let users = [{
   id: 'user-5',
   name: 'Name5',
   surname: 'Surname5',
+  email: 'email5@example.com',
   interests: [{
     id: 'int-5.0',
     text: 'Interest5.0'
@@ -78,6 +84,7 @@ let users = [{
   id: 'user-6',
   name: 'Name6',
   surname: 'Surname6',
+  email: 'email6@example.com',
   interests: [{
     id: 'int-6.0',
     text: 'Interest6.0'

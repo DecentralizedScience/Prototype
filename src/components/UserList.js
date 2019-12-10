@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import { Chip, Tooltip, Button, Icon } from '@material-ui/core'
 
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
@@ -14,6 +15,7 @@ const USERS_QUERY = gql`
       id
       name
       surname
+      email
       interests {
         id
         text
@@ -43,14 +45,34 @@ class UserList2 extends Component {
               title="Recommended Reviewers"
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
-                  <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                  <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
+                  sorting: false
                 },
                 { title: 'Name', field: 'name' },
                 { title: 'Surname', field: 'surname' },
+                { title: 'e-mail', field: 'email',
+                  render: rowData =>
+                  <div>
+                    <CopyToClipboard text={rowData.email}
+                      onCopy={() => this.setState({copied: true})}>
+                      <Button
+                        startIcon={<Icon>assignment</Icon>}
+                        onClick={() => alert(rowData.email + " coped to clipboard")}
+                      >
+                      </Button>
+                    </CopyToClipboard>
+                    {rowData.email}
+                  </div>
+                },
                 { title: 'Interests',
                   field: 'interests',
                   customFilterAndSearch: (term, rowData) => {
-                    return (rowData.interests.find(interest => interest.text.includes(term))!=undefined)
+                    let inputTerms = term.split(' ');
+                    let found=true;
+                    inputTerms.map(term => {
+                       found = found && rowData.interests.find(interest => interest.text.toLowerCase().includes(term.toLowerCase()))!=undefined
+                    })
+                    return found
                   },
                   render: rowData =>
                   <div>
@@ -96,6 +118,7 @@ class UserList2 extends Component {
                 authorsToRender.map(user =>{
                   return({
                     avatar: avatarUrl,
+                    email: user.email,
                     name: user.name,
                     surname: user.surname,
                     interests: user.interests.map(interest =>{
@@ -119,7 +142,15 @@ class UserList2 extends Component {
                 }
               ]}
               options={{
-                filtering: true
+                draggable: false
+              }}
+              components={{
+                Toolbar: props => (
+                  <div>
+                    <MTableToolbar {...props} />
+                    {props.searchText}
+                  </div>
+                )
               }}
             />
           )
