@@ -77,6 +77,26 @@ const Review = new GraphQLObjectType({
     dateAssigned: {
       type: GraphQLString,
       sqlColumn: 'date_assigned'
+    },
+    dateCompleted: {
+      type: GraphQLString,
+      sqlColumn: 'date_completed'
+    },
+    dateDue: {
+      type: GraphQLString,
+      sqlColumn: 'date_due'
+    },
+    declined: {
+      type: GraphQLInt,
+      sqlColumn: 'declined'
+    },
+    quality: {
+      type: GraphQLInt,
+      sqlColumn: 'quality'
+    },
+    recommendation: {
+      type: GraphQLInt,
+      sqlColumn: 'recommendation'
     }
   }
 })
