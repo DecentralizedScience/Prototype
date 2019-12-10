@@ -45,9 +45,7 @@ class UserList2 extends Component {
                 { title: '', field: 'avatar', render: rowData =>
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
                 },
-                { title: 'Name', field: 'name',
-                  customFilterAndSearch: (term, rowData) => term == rowData.name.length
-                 },
+                { title: 'Name', field: 'name' },
                 { title: 'Surname', field: 'surname' },
                 { title: 'Interests',
                   field: 'interests',
