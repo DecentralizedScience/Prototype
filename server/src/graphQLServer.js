@@ -19,7 +19,8 @@ const { GraphQLServer } = require('graphql-yoga')
 
 const User = new GraphQLObjectType({
   name: 'User',
-  sqlTable: 'users',
+  // Select only reviewers
+  sqlTable: '(SELECT * from users WHERE users.user_id IN (SELECT reviewer_id FROM review_assignments))',
   uniqueKey: 'user_id',
   fields: () => ({
     id: {
