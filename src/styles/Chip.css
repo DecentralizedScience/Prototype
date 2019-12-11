@@ -4,3 +4,9 @@
   text-overflow: ellipsis;
   display: block !important;
 }
+
+.MuiChip-colorPrimary{
+  color: #fff;
+  background-color: #0285bb !important;
+  margin: 5px;
+}
