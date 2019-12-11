@@ -65,6 +65,23 @@ const User = new GraphQLObjectType({
   })
 })
 
+const Keyword = new GraphQLObjectType({
+  name: 'Keyword',
+  sqlTable: '(SELECT submission_id, keyword_text FROM submission_search_keyword_list as c INNER JOIN (Select submission_id, keyword_id FROM submission_search_object_keywords AS a INNER JOIN submission_search_objects as b ON a.object_id = b.object_id) as d ON c.keyword_id = d.keyword_id)',
+  uniqueKey: ['submission_id', 'keyword_text'],
+  fields: {
+      submissionId: {
+        type: GraphQLString,
+        sqlColumn: 'submission_id'
+      },
+      keywordText:{
+        type: GraphQLString,
+        sqlColumn: 'keyword_text'
+    }
+  }
+})
+
+
 const Review = new GraphQLObjectType({
   name: 'Review',
   sqlTable: 'review_assignments',
@@ -97,9 +114,15 @@ const Review = new GraphQLObjectType({
     recommendation: {
       type: GraphQLInt,
       sqlColumn: 'recommendation'
+    },
+    submissionKeywords: {
+      type: GraphQLList(Keyword),
+      sqlJoin:
+        (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`
     }
   }
 })
+
 
 const Interest = new GraphQLObjectType({
   name: 'Interest',
