@@ -20,6 +20,15 @@ const USERS_QUERY = gql`
         id
         text
       }
+      reviews {
+        id
+        dateAssigned
+        dateCompleted
+        dateDue
+        declined
+        quality
+        recommendation
+      }
     }
   }
 `
