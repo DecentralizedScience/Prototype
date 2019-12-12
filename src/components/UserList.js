@@ -58,7 +58,6 @@ class UserList2 extends Component {
           }
 
           const authorsToRender = data.users
-          console.log(data.users)
 
           return (
             <MaterialTable

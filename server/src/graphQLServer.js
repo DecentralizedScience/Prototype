@@ -5,8 +5,6 @@ import joinMonster from 'join-monster'
 
 import config from './serverConfig.json'
 
-console.log(JSON.stringify(config))
-
 // import knex from 'knex'
 var knex = require('knex')({
   client: 'mysql',
@@ -124,9 +122,6 @@ const Review = new GraphQLObjectType({
       sqlJoin:
         (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`,
 
-      resolve: a => {
-        console.log(a)
-      }
     }
   }
 })
