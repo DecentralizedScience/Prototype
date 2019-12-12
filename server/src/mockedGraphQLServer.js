@@ -5,6 +5,7 @@ let users = [{
   name: 'Name0',
   surname: 'Surname0',
   email: 'email0@example.com',
+  url: 'http://www.web_user0.com',
   interests: [{
     id: 'int-0.0',
     text: 'Interest0.0'
@@ -19,6 +20,7 @@ let users = [{
   name: 'Name1',
   surname: 'Surname1',
   email: 'email1@example.com',
+  url: 'http://www.web_user1.com',
   interests: [{
     id: 'int-1.0',
     text: 'Interest1.0'
@@ -33,6 +35,7 @@ let users = [{
   name: 'Name2',
   surname: 'Surname2',
   email: 'email2@example.com',
+  url: 'http://www.web_user2.com',
   interests: [{
     id: 'int-2.0',
     text: 'Interest2.0'
@@ -47,6 +50,7 @@ let users = [{
   name: 'Name3',
   surname: 'Surname3',
   email: 'email3@example.com',
+  url: 'http://www.web_user3.com',
   interests: [{
     id: 'int-3.0',
     text: 'Long interest qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
@@ -57,6 +61,7 @@ let users = [{
   name: 'Name4',
   surname: 'Surname4',
   email: 'email4@example.com',
+  url: 'http://www.web_user4.com',
   interests: [{
     id: 'int-4.0',
     text: 'Interest4.0'
@@ -71,6 +76,7 @@ let users = [{
   name: 'Name5',
   surname: 'Surname5',
   email: 'email5@example.com',
+  url: 'http://www.web_user5.com',
   interests: [{
     id: 'int-5.0',
     text: 'Interest5.0'
@@ -85,6 +91,7 @@ let users = [{
   name: 'Name6',
   surname: 'Surname6',
   email: 'email6@example.com',
+  url: 'http://www.web_user6.com',
   interests: [{
     id: 'int-6.0',
     text: 'Interest6.0'

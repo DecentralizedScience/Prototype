@@ -45,6 +45,10 @@ const User = new GraphQLObjectType({
       type: GraphQLString,
       sqlColumn: 'email'
     },
+    url: {
+      type: GraphQLString,
+      sqlColumn: 'url'
+    },
     interests: {
       type: new GraphQLList(Interest),
       junction: {

@@ -3,11 +3,15 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import { Chip, Tooltip, Button, Icon } from '@material-ui/core'
+import { Chip, Tooltip, Button, Icon, IconButton } from '@material-ui/core'
+import Link from '@material-ui/core/Link'
+import Typography from '@material-ui/core/Typography'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+
+const scholarSearch='https://scholar.google.es/scholar?hl=es&as_sdt=0%2C5&q='
 
 const USERS_QUERY = gql`
   {
@@ -16,6 +20,7 @@ const USERS_QUERY = gql`
       name
       surname
       email
+      url
       interests {
         id
         text
@@ -51,27 +56,42 @@ class UserList2 extends Component {
 
           return (
             <MaterialTable
-              title="Recommended Reviewers"
+              title=""
               columns={[
+              { title: 'e-mail', field: 'email',
+                render: rowData =>
+                <div>
+                  <CopyToClipboard text={rowData.email}
+                    onCopy={() => this.setState({copied: true})}>
+                    <IconButton
+                      aria-label="mail"
+                      onClick={() => alert(rowData.email + " coped to clipboard")}
+                    >
+                      <Icon>mail</Icon>
+                    </IconButton>
+                  </CopyToClipboard>
+                </div>
+              },
                 { title: '', field: 'avatar', render: rowData =>
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
                   sorting: false
                 },
-                { title: 'Name', field: 'name' },
-                { title: 'Surname', field: 'surname' },
-                { title: 'e-mail', field: 'email',
-                  render: rowData =>
-                  <div>
-                    <CopyToClipboard text={rowData.email}
-                      onCopy={() => this.setState({copied: true})}>
-                      <Button
-                        startIcon={<Icon>assignment</Icon>}
-                        onClick={() => alert(rowData.email + " coped to clipboard")}
-                      >
-                      </Button>
-                    </CopyToClipboard>
-                    {rowData.email}
-                  </div>
+                { title: 'Name', field: 'name',
+                  render: rowData => {
+                    let web
+                    if (rowData.url=='' || rowData.url==undefined) {
+                      web = scholarSearch+rowData.name.split(' ').join('+')
+                    } else {
+                      web = rowData.url
+                    }
+                    return (
+                      <Typography>
+                        <Link href={web} onClick={event => event.preventDefault()}>
+                          {rowData.name}
+                        </Link>
+                      </Typography>
+                    )
+                  }
                 },
                 { title: 'Interests',
                   field: 'interests',
@@ -128,7 +148,9 @@ class UserList2 extends Component {
                   return({
                     avatar: avatarUrl,
                     email: user.email,
-                    name: user.name,
+                    url: user.url,
+                    name: user.name + " " + user.surname,
+                    first_name: user.name,
                     surname: user.surname,
                     interests: user.interests.map(interest =>{
                       return({
@@ -142,24 +164,13 @@ class UserList2 extends Component {
                   })
                 })
               }
-              actions={[
-                {
-                  //icon: 'send',
-                  icon: 'rate_review',
-                  tooltip: 'Request review',
-                  onClick: (event, rowData) => alert("You requested a review from " + rowData.name)
+              localization={{
+                toolbar: {
+                  searchPlaceholder: 'Search by interest or name'
                 }
-              ]}
+              }}
               options={{
                 draggable: false
-              }}
-              components={{
-                Toolbar: props => (
-                  <div>
-                    <MTableToolbar {...props} />
-                    {props.searchText}
-                  </div>
-                )
               }}
             />
           )
