@@ -13,6 +13,15 @@ let users = [{
   {
     id: 'int-0.1',
     text: 'Interest0.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -28,6 +37,15 @@ let users = [{
   {
     id: 'int-1.1',
     text: 'Interest1.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -43,6 +61,15 @@ let users = [{
   {
     id: 'int-2.1',
     text: 'Interest2.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -54,6 +81,15 @@ let users = [{
   interests: [{
     id: 'int-3.0',
     text: 'Long interest qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -69,6 +105,15 @@ let users = [{
   {
     id: 'int-4.1',
     text: 'Interest4.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -84,6 +129,15 @@ let users = [{
   {
     id: 'int-5.1',
     text: 'Interest5.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 },
 {
@@ -99,6 +153,15 @@ let users = [{
   {
     id: 'int-6.1',
     text: 'Interest6.1'
+  }],
+  reviews: [{
+    id: 3,
+    dateAssigned: '2019-09-24T13:31:37.000Z',
+    dateCompleted: '2019-10-10T22:53:32.000Z',
+    dateDue: '2019-10-28T23:00:00.000Z',
+    declined: 0,
+    quality: 3,
+    recommendation: 2,
   }]
 }]
 
@@ -113,12 +176,28 @@ const resolvers = {
     name: (parent) => parent.name,
     surname: (parent) => parent.surname,
     interests: (parent) => parent.interests,
+    reviews: (parent) => parent.reviews
   },
 
   Interest: {
     id: (parent) => parent.id,
     text: (parent) => parent.text,
   },
+
+  Review: {
+    id: (parent) => parent.id,
+    dateAssigned: (parent) => parent.dateAssigned,
+    dateCompleted: (parent) => parent.dateCompleted,
+    dateDue: (parent) => parent.dateDue,
+    declined: (parent) => parent.declined,
+    quality: (parent) => parent.quality,
+    recommendation: (parent) => parent.recommendation,
+    submissionKeywords: (parent) => parent.keywords
+  },
+
+  Keywords: {
+      keywords:(parent) => parent.keywords
+  }
 }
 
 

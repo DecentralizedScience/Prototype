@@ -10,9 +10,26 @@ type User {
   email: String!
   url: String!
   interests: [Interest!]!
+  reviews: [Review!]
 }
 
 type Interest {
-  id: ID!,
+  id: ID!
   text: String!
+}
+
+type Review {
+  id: ID!
+  dateAssigned: String!
+  dateCompleted: String
+  dateDue: String
+  declined: Int
+  quality: Int
+  recommendation: Int
+  submissionKeywords: Keywords
+}
+
+type Keywords {
+  submissionId: ID!
+  keywords: String
 }
