@@ -96,7 +96,7 @@ class UserList2 extends Component {
                     }
                     return (
                       <Typography>
-                        <Link href={web}>
+                        <Link href={web} target="_blank">
                           {rowData.name}
                         </Link>
                       </Typography>
