@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import CloseIcon from '@material-ui/icons/Close'
 
 import { Chip, Tooltip, Button, Icon, IconButton } from '@material-ui/core'
 import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
+import Snackbar from '@material-ui/core/Snackbar';
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { green } from '@material-ui/core/colors'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
@@ -43,7 +47,6 @@ const USERS_QUERY = gql`
   }
 `
 
-
 class UserList2 extends Component {
 
   render(){
@@ -51,6 +54,9 @@ class UserList2 extends Component {
     return (
       <Query query={USERS_QUERY}>
         {({ loading, error, data }) => {
+
+          const [open, setOpen] = React.useState(false)
+
           if (loading) return <div>Fetching</div>
           if (error){
             console.error(error)
@@ -59,7 +65,20 @@ class UserList2 extends Component {
 
           const authorsToRender = data.users
 
+          const handleClick = () => {
+            setOpen(true)
+          };
+
+          const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+            if (reason === 'clickaway') {
+              return;
+            }
+
+            setOpen(false);
+          };
+
           return (
+
             <MaterialTable
               title=""
               columns={[
@@ -70,11 +89,34 @@ class UserList2 extends Component {
                     onCopy={() => this.setState({copied: true})}>
                     <IconButton
                       aria-label="mail"
-                      onClick={() => alert(rowData.email + " copied to clipboard")}
+                      onClick={handleClick}
                     >
                       <Icon>mail</Icon>
                     </IconButton>
                   </CopyToClipboard>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    ContentProps={{
+                      'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id"><Icon>mail</Icon> Email copied to clipboard</span>}
+                    action={[
+                      <IconButton
+                        key="close"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClose}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                  ]}
+                  />
                 </div>
               },
                 { title: '', field: 'avatar', render: rowData =>
