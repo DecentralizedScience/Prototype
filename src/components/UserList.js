@@ -71,7 +71,7 @@ class UserList2 extends Component {
                     onCopy={() => this.setState({copied: true})}>
                     <IconButton
                       aria-label="mail"
-                      onClick={() => alert(rowData.email + " coped to clipboard")}
+                      onClick={() => alert(rowData.email + " copied to clipboard")}
                     >
                       <Icon>mail</Icon>
                     </IconButton>
