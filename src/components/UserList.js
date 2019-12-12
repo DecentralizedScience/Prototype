@@ -82,43 +82,6 @@ class UserList2 extends Component {
             <MaterialTable
               title=""
               columns={[
-              { title: 'e-mail', field: 'email',
-                render: rowData =>
-                <div>
-                  <CopyToClipboard text={rowData.email}
-                    onCopy={() => this.setState({copied: true})}>
-                    <IconButton
-                      aria-label="mail"
-                      onClick={handleClick}
-                    >
-                      <Icon>mail</Icon>
-                    </IconButton>
-                  </CopyToClipboard>
-                  <Snackbar
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                    ContentProps={{
-                      'aria-describedby': 'message-id',
-                    }}
-                    message={<span id="message-id"><Icon>mail</Icon> Email copied to clipboard</span>}
-                    action={[
-                      <IconButton
-                        key="close"
-                        aria-label="close"
-                        color="inherit"
-                        onClick={handleClose}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                  ]}
-                  />
-                </div>
-              },
                 { title: '', field: 'avatar', render: rowData =>
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
                   sorting: false
@@ -139,6 +102,43 @@ class UserList2 extends Component {
                       </Typography>
                     )
                   }
+                },
+                { title: 'e-mail', field: 'email',
+                  render: rowData =>
+                  <div>
+                    <CopyToClipboard text={rowData.email}
+                      onCopy={() => this.setState({copied: true})}>
+                      <IconButton
+                        aria-label="mail"
+                        onClick={handleClick}
+                      >
+                        <Icon>mail</Icon>
+                      </IconButton>
+                    </CopyToClipboard>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                      }}
+                      open={open}
+                      autoHideDuration={6000}
+                      onClose={handleClose}
+                      ContentProps={{
+                        'aria-describedby': 'message-id',
+                      }}
+                      message={<span id="message-id"><Icon>mail</Icon> Email copied to clipboard</span>}
+                      action={[
+                        <IconButton
+                          key="close"
+                          aria-label="close"
+                          color="inherit"
+                          onClick={handleClose}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                    ]}
+                    />
+                  </div>
                 },
                 { title: 'Interests',
                   field: 'interests',

@@ -6,7 +6,7 @@ class Header extends Component {
   render() {
     return(
       <Typography variant='h4' align='center' gutterBottom>
-        List of Users
+        Recommended Reviewers
       </Typography>
     )
   }
