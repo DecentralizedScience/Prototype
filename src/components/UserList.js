@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
+import gravatar from 'gravatar'
+
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
 const scholarSearch='https://scholar.google.es/scholar?hl=es&as_sdt=0%2C5&q='
@@ -150,7 +152,7 @@ class UserList2 extends Component {
               data={
                 authorsToRender.map(user =>{
                   return({
-                    avatar: avatarUrl,
+                    avatar: gravatar.url(user.email, {d: 'identicon'}),
                     email: user.email,
                     url: user.url,
                     name: user.name + " " + user.surname,
