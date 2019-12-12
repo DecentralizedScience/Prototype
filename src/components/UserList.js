@@ -90,7 +90,7 @@ class UserList2 extends Component {
                     }
                     return (
                       <Typography>
-                        <Link href={web} onClick={event => event.preventDefault()}>
+                        <Link href={web}>
                           {rowData.name}
                         </Link>
                       </Typography>
