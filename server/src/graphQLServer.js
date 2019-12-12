@@ -1,4 +1,4 @@
-
+import escape from 'pg-escape'
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
@@ -69,18 +69,18 @@ const User = new GraphQLObjectType({
   })
 })
 
-const Keyword = new GraphQLObjectType({
-  name: 'Keyword',
-  sqlTable: '(SELECT submission_id, keyword_text FROM submission_search_keyword_list as c INNER JOIN (Select submission_id, keyword_id FROM submission_search_object_keywords AS a INNER JOIN submission_search_objects as b ON a.object_id = b.object_id) as d ON c.keyword_id = d.keyword_id)',
-  uniqueKey: ['submission_id', 'keyword_text'],
+const Keywords = new GraphQLObjectType({
+  name: 'Keywords',
+  sqlTable: '(SELECT submission_id, GROUP_CONCAT(keyword_text SEPARATOR \' \') as keywords FROM submission_search_keyword_list as c INNER JOIN (Select submission_id, keyword_id FROM submission_search_object_keywords AS a INNER JOIN submission_search_objects as b ON a.object_id = b.object_id) as d ON c.keyword_id = d.keyword_id GROUP BY submission_id)',
+  uniqueKey: 'submission_id',
   fields: {
       submissionId: {
         type: GraphQLString,
         sqlColumn: 'submission_id'
       },
-      keywordText:{
+      keywords:{
         type: GraphQLString,
-        sqlColumn: 'keyword_text'
+        sqlColumn: 'keywords'
     }
   }
 })
@@ -120,13 +120,16 @@ const Review = new GraphQLObjectType({
       sqlColumn: 'recommendation'
     },
     submissionKeywords: {
-      type: GraphQLList(Keyword),
+      type: GraphQLList(Keywords),
       sqlJoin:
-        (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`
+        (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`,
+
+      resolve: a => {
+        console.log(a)
+      }
     }
   }
 })
-
 
 const Interest = new GraphQLObjectType({
   name: 'Interest',
