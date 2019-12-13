@@ -12,6 +12,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
+import config from '../config.json'
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -30,7 +32,7 @@ const theme = createMuiTheme({
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: (config.host || 'http://localhost') + ':' + (config.port || 4000)
 })
 
 const client = new ApolloClient({
