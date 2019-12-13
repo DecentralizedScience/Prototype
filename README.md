@@ -1,7 +1,13 @@
 # Prototype
 Decentralized science prototype (WIP)
 
-## How to run this prototipe
+## Requisites
+
+To run and install this application you need:
+
+* [node](https://nodejs.org) and [npm](https://www.npmjs.com/)
+
+## How to run this prototype
 
 ### Without Prisma
 First, you have to initialize the server. To do so, go to the `server` directory, install the dependecies and run the code:
@@ -11,7 +17,7 @@ npm install
 npm start
 ```
 
-The server is now running on http://localhost:4000
+The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can copy `config.json.exampe` to `config.json` and set the host and port configuration.
 
 Now, go back to the main directory (`cd ..`) and start the React application:
 ```
