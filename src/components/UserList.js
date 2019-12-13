@@ -3,6 +3,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import CloseIcon from '@material-ui/icons/Close'
+import MailIcon from '@material-ui/icons/Mail'
 
 import { Chip, Tooltip, Button, Icon, IconButton } from '@material-ui/core'
 import Link from '@material-ui/core/Link'
@@ -86,7 +87,7 @@ class UserList2 extends Component {
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
                   sorting: false
                 },
-                { title: 'Name', field: 'name',
+                { title: 'NAME', field: 'name',
                   render: rowData => {
                     let web
                     if (rowData.url=='' || rowData.url==undefined) {

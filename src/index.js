@@ -12,7 +12,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
-import config from './config.json'
+const config = require('./config.json')
 
 const theme = createMuiTheme({
   palette: {
