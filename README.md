@@ -17,7 +17,7 @@ npm install
 npm start
 ```
 
-The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can copy `config.json.exampe` to `config.json` and set the host and port configuration.
+The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can copy `src/config.json.exampe` to `src/config.json` and set the host and port configuration.
 
 Now, go back to the main directory (`cd ..`) and start the React application:
 ```
