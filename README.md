@@ -29,16 +29,7 @@ A browser window should then open, showing the list of the users (now mocked).
 
 #### With real data
 
-Instead of using mocked data, you can connect to a real OJS database. To connect to a OJS database, copy `server/src/serverConfig.json.example` to `server/src/serverConfig.json` and change `server/src/index.js` to start with the following code:
-
-```javascript
-// Mocked Data Version:
-// import server from './mockedGraphQLServer'
-
-// Real Data Version:
-import server from './graphQLServer'
-```
-
+Instead of using mocked data, you can connect to a real OJS database. To connect to a OJS database, copy `server/src/serverConfig.json.example` to `server/src/serverConfig.json` and set the database connection configuration variables `host`, `port`, `user`, `password`, and `database`.
 
 ### With Prisma
 If you want to test the prototype with the database using Prisma, you have to go back to [this older version of the repo](https://github.com/DecentralizedScience/Prototype/tree/b70a5275b8e55fddcfd782cbedeae9375c956a6e), where everything was set to use Prisma. Then, proceed with the following steps.
