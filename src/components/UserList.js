@@ -178,7 +178,6 @@ class UserList2 extends Component {
                         aria-label="mail"
                         onClick={handleClick}
                       >
-                        {/*<Icon>mail</Icon>*/}
                         <MailIcon style={{ color: "#0285BB" }}/>
                       </IconButton>
                     </CopyToClipboard>
@@ -228,12 +227,7 @@ class UserList2 extends Component {
                     }),
                     time: 80,
                     accept: 45,
-                    rating: 3.8,
-                    //Hay que unir las keywords de todos los artículos en una única lista (y luego ver
-                    // cuál es la mejor manera de mostrar esto. Porque seguramente sería hacer el panel
-                    // desplegable, con una fila para cada conjunto de intereses (relativos a un artículo))
-                    //keywords: user.reviews.submissionKeywords.keywords.join(' ')
-                    keywords: user.reviews.map(review => review.submissionKeywords.keywords).join(' ')
+                    rating: 3.8
                   })
                 })
               }
@@ -260,25 +254,3 @@ class UserList2 extends Component {
 }
 
 export default UserList2
-
-
-
-
-
-
-
-//{ title: "Has keywords", field: 'keywords',
-//  render: rowData => {
-//    let output
-//    if (rowData.keywords=='' || rowData.keywords==undefined) {
-//      output="No keywords"
-//    } else {
-//      output="Has keywords: "+rowData.keywords
-//    }
-//    return(
-//      <div>
-//        {output}
-//      </div>
-//    )
-//  }
-//},
