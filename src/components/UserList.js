@@ -9,7 +9,7 @@ import { Chip, Tooltip, Button, Icon, IconButton } from '@material-ui/core'
 import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import Snackbar from '@material-ui/core/Snackbar';
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { withStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { green } from '@material-ui/core/colors'
 
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -48,6 +48,15 @@ const USERS_QUERY = gql`
     }
   }
 `
+
+const HtmlTooltip = withStyles(theme => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
 
 class UserList2 extends Component {
 
@@ -145,11 +154,19 @@ class UserList2 extends Component {
                 },
                 {
                   title: 'TIMELINESS', field: 'time', render: rowData =>
-                  <Button
-                    startIcon={<Icon>alarm</Icon>}
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <img src={require('../assets/stats_long.png')} alt="Graph"/>
+                      </React.Fragment>
+                    }
                   >
-                    {rowData.time}%
-                  </Button>,
+                    <Button
+                        startIcon={<Icon>alarm</Icon>}
+                    >
+                        {rowData.time}%
+                    </Button>
+                  </HtmlTooltip>,
                   cellStyle: {
                     width: "100px"
                   },
@@ -159,11 +176,19 @@ class UserList2 extends Component {
                 },
                 {
                   title: 'ACCEPTANCE', field: 'accept', render: rowData =>
-                  <Button
-                    startIcon={<Icon>thumb_up</Icon>}
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <img src={require('../assets/stats_long.png')} alt="Graph"/>
+                      </React.Fragment>
+                    }
                   >
-                    {rowData.accept}%
-                  </Button>,
+                    <Button
+                        startIcon={<Icon>thumb_up</Icon>}
+                    >
+                        {rowData.accept}%
+                    </Button>
+                  </HtmlTooltip>,
                   cellStyle: {
                     width: "100px"
                   },
