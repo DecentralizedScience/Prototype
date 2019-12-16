@@ -3,7 +3,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import CloseIcon from '@material-ui/icons/Close'
-import MailIcon from '@material-ui/icons/Mail'
+import MailIcon from '@material-ui/icons/Mail';
 
 import { Chip, Tooltip, Button, Icon, IconButton } from '@material-ui/core'
 import Link from '@material-ui/core/Link'
@@ -15,6 +15,7 @@ import { green } from '@material-ui/core/colors'
 import MaterialTable, { MTableToolbar } from "material-table";
 
 import gravatar from 'gravatar'
+
 
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
@@ -102,9 +103,73 @@ class UserList2 extends Component {
                         </Link>
                       </Typography>
                     )
+                  },
+                  headerStyle: {
+                    fontSize: "12px",
                   }
                 },
-                { title: 'e-mail', field: 'email',
+                { title: 'INTERESTS',
+                  field: 'interests',
+                  customFilterAndSearch: (term, rowData) => {
+                    let inputTerms = term.split(' ');
+                    let found=true;
+                    inputTerms.map(term => {
+                       found = found && rowData.interests.find(interest => interest.text.toLowerCase().includes(term.toLowerCase()))!=undefined
+                    })
+                    return found
+                  },
+                  render: rowData =>
+                  <div>
+                    {rowData.interests.map(interest => {
+                      return(
+                        <Tooltip title={interest.text} enterDelay={500} leaveDelay={200}>
+                          <Chip
+                            key={interest.id}
+                            label={interest.text}
+                            color='primary'
+                          />
+                        </Tooltip>
+                      )
+                    })}
+                  </div>,
+                  headerStyle: {
+                    fontSize: "12px",
+                  }
+                },
+                {
+                  title: 'TIMELINESS', field: 'time', render: rowData =>
+                  <Button
+                    startIcon={<Icon>alarm</Icon>}
+                  >
+                    {rowData.time}%
+                  </Button>,
+                  headerStyle: {
+                    fontSize: "12px",
+                  }
+                },
+                {
+                  title: 'ACCEPTANCE', field: 'accept', render: rowData =>
+                  <Button
+                    startIcon={<Icon>thumb_up</Icon>}
+                  >
+                    {rowData.accept}%
+                  </Button>,
+                  headerStyle: {
+                    fontSize: "12px",
+                  }
+                },
+                {
+                  title: 'RATING', field: 'rating', render: rowData =>
+                  <Button
+                    startIcon={<Icon>star_rate</Icon>}
+                  >
+                    {rowData.rating}/5
+                  </Button>,
+                  headerStyle: {
+                    fontSize: "12px",
+                  }
+                },
+                { title: 'E-MAIL', field: 'email',
                   render: rowData =>
                   <div>
                     <CopyToClipboard text={rowData.email}
@@ -113,7 +178,8 @@ class UserList2 extends Component {
                         aria-label="mail"
                         onClick={handleClick}
                       >
-                        <Icon>mail</Icon>
+                        {/*<Icon>mail</Icon>*/}
+                        <MailIcon style={{ color: "#0285BB" }}/>
                       </IconButton>
                     </CopyToClipboard>
                     <Snackbar
@@ -139,57 +205,11 @@ class UserList2 extends Component {
                         </IconButton>
                     ]}
                     />
-                  </div>
-                },
-                { title: 'Interests',
-                  field: 'interests',
-                  customFilterAndSearch: (term, rowData) => {
-                    let inputTerms = term.split(' ');
-                    let found=true;
-                    inputTerms.map(term => {
-                       found = found && rowData.interests.find(interest => interest.text.toLowerCase().includes(term.toLowerCase()))!=undefined
-                    })
-                    return found
-                  },
-                  render: rowData =>
-                  <div>
-                    {rowData.interests.map(interest => {
-                      return(
-                        <Tooltip title={interest.text} enterDelay={500} leaveDelay={200}>
-                          <Chip
-                            key={interest.id}
-                            label={interest.text}
-                            color='primary'
-                          />
-                        </Tooltip>
-                      )
-                    })}
-                  </div>
-                },
-                {
-                  title: 'Timeliness', field: 'time', render: rowData =>
-                  <Button
-                    startIcon={<Icon>alarm</Icon>}
-                  >
-                    {rowData.time}%
-                  </Button>
-                },
-                {
-                  title: 'Acceptance', field: 'accept', render: rowData =>
-                  <Button
-                    startIcon={<Icon>thumb_up</Icon>}
-                  >
-                    {rowData.accept}%
-                  </Button>
-                },
-                {
-                  title: 'Rating', field: 'rating', render: rowData =>
-                  <Button
-                    startIcon={<Icon>star_rate</Icon>}
-                  >
-                    {rowData.rating}/5
-                  </Button>
-                },
+                  </div>,
+                  headerStyle: {
+                    fontSize: "12px",
+                  }
+                }
               ]}
               data={
                 authorsToRender.map(user =>{
@@ -208,9 +228,20 @@ class UserList2 extends Component {
                     }),
                     time: 80,
                     accept: 45,
-                    rating: 3.8
+                    rating: 3.8,
+                    //Hay que unir las keywords de todos los artículos en una única lista (y luego ver
+                    // cuál es la mejor manera de mostrar esto. Porque seguramente sería hacer el panel
+                    // desplegable, con una fila para cada conjunto de intereses (relativos a un artículo))
+                    //keywords: user.reviews.submissionKeywords.keywords.join(' ')
+                    keywords: user.reviews.map(review => review.submissionKeywords.keywords).join(' ')
                   })
                 })
+              }
+              detailPanel={
+                rowData =>
+                <div>
+                  {rowData.keywords}
+                </div>
               }
               localization={{
                 toolbar: {
@@ -229,3 +260,25 @@ class UserList2 extends Component {
 }
 
 export default UserList2
+
+
+
+
+
+
+
+//{ title: "Has keywords", field: 'keywords',
+//  render: rowData => {
+//    let output
+//    if (rowData.keywords=='' || rowData.keywords==undefined) {
+//      output="No keywords"
+//    } else {
+//      output="Has keywords: "+rowData.keywords
+//    }
+//    return(
+//      <div>
+//        {output}
+//      </div>
+//    )
+//  }
+//},
