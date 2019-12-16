@@ -60,6 +60,27 @@ const HtmlTooltip = withStyles(theme => ({
   },
 }))(Tooltip);
 
+const RedBadge = withStyles(theme => ({
+  badge: {
+    backgroundColor: '#f44336',
+    color: "white"
+  },
+}))(Badge);
+
+const YellowBadge = withStyles(theme => ({
+  badge: {
+    backgroundColor: '#ffeb3b',
+    color: "black"
+  },
+}))(Badge);
+
+const GreenBadge = withStyles(theme => ({
+  badge: {
+    backgroundColor: '#4caf50',
+    color: "white"
+  },
+}))(Badge);
+
 class UserList2 extends Component {
 
   render(){
@@ -102,19 +123,25 @@ class UserList2 extends Component {
                       revs=revs+1
                     }
                   })
-                  {/*let color
                   if(revs==0){
-                    color=green[500];
-                  } else if(revs>0 && revs<3){
-                    color=yellow[500];
-                  } else {
-                    color=red[500];
-                  }*/}
                     return(
-                      <Badge badgeContent={revs} color="primary" showZero>
+                      <GreenBadge badgeContent={revs} showZero>
                         <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-                      </Badge>
+                      </GreenBadge>
                     )
+                  } else if(revs>0 && revs<3){
+                    return(
+                      <YellowBadge badgeContent={revs} showZero>
+                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                      </YellowBadge>
+                    )
+                  } else {
+                    return(
+                      <RedBadge badgeContent={revs} showZero>
+                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                      </RedBadge>
+                    )
+                  }
                 },
                   sorting: false,
                   cellStyle: {
