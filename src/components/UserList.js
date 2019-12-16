@@ -10,7 +10,8 @@ import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
+import { red, green, yellow } from '@material-ui/core/colors'
+import Badge from '@material-ui/core/Badge'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
@@ -48,6 +49,7 @@ const USERS_QUERY = gql`
     }
   }
 `
+
 
 const HtmlTooltip = withStyles(theme => ({
   tooltip: {
@@ -93,8 +95,27 @@ class UserList2 extends Component {
             <MaterialTable
               title=""
               columns={[
-                { title: '', field: 'avatar', render: rowData =>
-                  <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
+                { title: '', field: 'avatar', render: rowData => {
+                  let revs=0
+                  rowData.reviews.map(review => {
+                    if(review.dateCompleted==undefined && review.declined==0){
+                      revs=revs+1
+                    }
+                  })
+                  {/*let color
+                  if(revs==0){
+                    color=green[500];
+                  } else if(revs>0 && revs<3){
+                    color=yellow[500];
+                  } else {
+                    color=red[500];
+                  }*/}
+                    return(
+                      <Badge badgeContent={revs} color="primary" showZero>
+                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                      </Badge>
+                    )
+                },
                   sorting: false,
                   cellStyle: {
                     width: "50px"
@@ -162,9 +183,9 @@ class UserList2 extends Component {
                     }
                   >
                     <Button
-                        startIcon={<Icon>alarm</Icon>}
+                      startIcon={<Icon>alarm</Icon>}
                     >
-                        {rowData.time}%
+                      {rowData.time}%
                     </Button>
                   </HtmlTooltip>,
                   cellStyle: {
@@ -184,9 +205,9 @@ class UserList2 extends Component {
                     }
                   >
                     <Button
-                        startIcon={<Icon>thumb_up</Icon>}
+                      startIcon={<Icon>thumb_up</Icon>}
                     >
-                        {rowData.accept}%
+                      {rowData.accept}%
                     </Button>
                   </HtmlTooltip>,
                   cellStyle: {
@@ -271,7 +292,17 @@ class UserList2 extends Component {
                     }),
                     time: 80,
                     accept: 45,
-                    rating: 3.8
+                    rating: 3.8,
+                    keywords: user.reviews.map(review => review.submissionKeywords.keywords).join(' '),
+                    reviews: user.reviews.map(review =>{
+                      return({
+                        id: review.id,
+                        dateAssigned: review.dateAssigned,
+                        dateCompleted: review.dateCompleted,
+                        declined: review.declined,
+                        quality: review.quality
+                      })
+                    })
                   })
                 })
               }
@@ -279,6 +310,12 @@ class UserList2 extends Component {
                 rowData =>
                 <div>
                   {rowData.keywords}
+                  <p>Reviews</p>
+                  {rowData.reviews.map(review => {
+                    return(
+                      <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Declined: {review.declined}       Quality: {review.quality}</p>
+                    )
+                  })}
                 </div>
               }
               localization={{
