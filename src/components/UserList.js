@@ -86,7 +86,10 @@ class UserList2 extends Component {
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
                   <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>,
-                  sorting: false
+                  sorting: false,
+                  cellStyle: {
+                    width: "50px"
+                  }
                 },
                 { title: 'NAME', field: 'name',
                   render: rowData => {
@@ -104,9 +107,13 @@ class UserList2 extends Component {
                       </Typography>
                     )
                   },
+                  cellStyle: {
+                    width: "300px"
+                  },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  width: "300px"
                 },
                 { title: 'INTERESTS',
                   field: 'interests',
@@ -143,6 +150,9 @@ class UserList2 extends Component {
                   >
                     {rowData.time}%
                   </Button>,
+                  cellStyle: {
+                    width: "100px"
+                  },
                   headerStyle: {
                     fontSize: "12px",
                   }
@@ -154,6 +164,9 @@ class UserList2 extends Component {
                   >
                     {rowData.accept}%
                   </Button>,
+                  cellStyle: {
+                    width: "100px"
+                  },
                   headerStyle: {
                     fontSize: "12px",
                   }
@@ -165,6 +178,9 @@ class UserList2 extends Component {
                   >
                     {rowData.rating}/5
                   </Button>,
+                  cellStyle: {
+                    width: "100px"
+                  },
                   headerStyle: {
                     fontSize: "12px",
                   }
@@ -205,6 +221,9 @@ class UserList2 extends Component {
                     ]}
                     />
                   </div>,
+                  cellStyle: {
+                    width: "70px"
+                  },
                   headerStyle: {
                     fontSize: "12px",
                   }

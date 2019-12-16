@@ -8,8 +8,7 @@ import { Paper } from '@material-ui/core'
 const styles = theme => console.log(theme) || ({
   root: {
     margin: 20,
-    padding: 20,
-    maxWidth: 1200
+    padding: 20
   }
 })
 
