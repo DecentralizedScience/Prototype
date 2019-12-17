@@ -255,7 +255,8 @@ class UserList2 extends Component {
                         <Button
                           startIcon={<Icon>alarm</Icon>}
                         >
-                          {(onTime/total)*100}%
+                          {/*Round to two decimals*/}
+                          {Math.round((((onTime/total)*100)+ Number.EPSILON)*100)/100}%
                         </Button>
                       </HtmlTooltip>
                     )
@@ -290,12 +291,33 @@ class UserList2 extends Component {
                   }
                 },
                 {
-                  title: 'RATING', field: 'rating', render: rowData =>
-                  <Button
-                    startIcon={<Icon>star_rate</Icon>}
-                  >
-                    {rowData.rating}/5
-                  </Button>,
+                  title: 'RATING', field: 'rating', render: rowData => {
+                    let sum=0, num=0
+                    rowData.reviews.map(review => {
+                      if(review.quality!=undefined){
+                        sum=sum+review.quality
+                        num++
+                      }
+                    })
+                    if(num==0){
+                      return(
+                        <Button
+                          startIcon={<Icon>star_rate</Icon>}
+                          disabled
+                        >
+                          -/5
+                        </Button>
+                      )
+                    } else {
+                      return(
+                        <Button
+                          startIcon={<Icon>star_rate</Icon>}
+                        >
+                          {sum/num}/5
+                        </Button>
+                      )
+                    }
+                  },
                   cellStyle: {
                     width: "100px"
                   },
@@ -380,6 +402,7 @@ class UserList2 extends Component {
                 })
               }
               detailPanel={
+                //Details for debugging
                 rowData => {
 
                   let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
@@ -398,6 +421,14 @@ class UserList2 extends Component {
                     total++
                   })
 
+                  let sumQuality=0, numQuality=0
+                  rowData.reviews.map(review => {
+                    if(review.quality!=undefined){
+                      sumQuality=sumQuality+review.quality
+                      numQuality++
+                    }
+                  })
+
                   return(
                     <div>
                       {rowData.keywords}
@@ -414,6 +445,10 @@ class UserList2 extends Component {
                       <p>Late: {late}</p>
                       <p>Never: {never}</p>
                       <p>Total: {total}</p>
+                      <p>------------------------</p>
+                      <p>QUALITY</p>
+                      <p>Total: {sumQuality}</p>
+                      <p>Number of evaluations: {numQuality}</p>
                     </div>
                   )
                 }
