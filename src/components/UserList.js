@@ -69,7 +69,7 @@ const RedBadge = withStyles(theme => ({
 
 const YellowBadge = withStyles(theme => ({
   badge: {
-    backgroundColor: '#ffeb3b',
+    backgroundColor: '#fbc02d',
     color: "black"
   },
 }))(Badge);
@@ -125,21 +125,48 @@ class UserList2 extends Component {
                   })
                   if(revs==0){
                     return(
-                      <GreenBadge badgeContent={revs} showZero>
-                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-                      </GreenBadge>
+                      <HtmlTooltip title={<div>{revs} reviews pending</div>}>
+                        <GreenBadge
+                          variant="dot"
+                          showZero
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right'
+                          }}
+                        >
+                          <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                        </GreenBadge>
+                      </HtmlTooltip>
                     )
                   } else if(revs>0 && revs<3){
                     return(
-                      <YellowBadge badgeContent={revs} showZero>
-                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-                      </YellowBadge>
+                      <HtmlTooltip title={<div>{revs} reviews pending</div>}>
+                        <YellowBadge
+                          variant="dot"
+                          showZero
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right'
+                          }}
+                        >
+                          <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                        </YellowBadge>
+                      </HtmlTooltip>
                     )
                   } else {
                     return(
-                      <RedBadge badgeContent={revs} showZero>
-                        <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-                      </RedBadge>
+                      <HtmlTooltip title={<div>{revs} reviews pending</div>}>
+                        <RedBadge
+                          variant="dot"
+                          showZero
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right'
+                          }}
+                        >
+                          <img src={rowData.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+                        </RedBadge>
+                      </HtmlTooltip>
                     )
                   }
                 },
