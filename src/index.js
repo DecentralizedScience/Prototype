@@ -32,7 +32,7 @@ const theme = createMuiTheme({
 })
 
 const httpLink = createHttpLink({
-  uri: (config.host || 'http://localhost') + ':' + (config.port || 4000)
+  uri: (config.host || 'http://localhost') + ':' + (config.port || 4000) + (config.path || '')
 })
 
 const client = new ApolloClient({
