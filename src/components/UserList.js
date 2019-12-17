@@ -257,7 +257,7 @@ class UserList2 extends Component {
                           startIcon={<Icon>alarm</Icon>}
                         >
                           {/*Round to two decimals*/}
-                          {Math.round((((onTime/total)*100)+ Number.EPSILON)*100)/100}%
+                          {Math.round(((((onTime+late/2)/total)*100)+ Number.EPSILON)*100)/100}%
                         </Button>
                       </HtmlTooltip>
                     )
