@@ -251,6 +251,7 @@ class UserList2 extends Component {
                             <img src={require('../assets/stats_long.png')} alt="Graph"/>
                           </React.Fragment>
                         }
+                        interactive
                       >
                         <Button
                           startIcon={<Icon>alarm</Icon>}
@@ -276,6 +277,7 @@ class UserList2 extends Component {
                         <img src={require('../assets/stats_long.png')} alt="Graph"/>
                       </React.Fragment>
                     }
+                    interactive
                   >
                     <Button
                       startIcon={<Icon>thumb_up</Icon>}
@@ -301,12 +303,16 @@ class UserList2 extends Component {
                     })
                     if(num==0){
                       return(
-                        <Button
-                          startIcon={<Icon>star_rate</Icon>}
-                          disabled
-                        >
-                          -/5
-                        </Button>
+                        <Tooltip title="No information available">
+                          <span>
+                            <Button
+                              startIcon={<Icon>star_rate</Icon>}
+                              disabled
+                            >
+                              -/5
+                            </Button>
+                          </span>
+                        </Tooltip>
                       )
                     } else {
                       return(
