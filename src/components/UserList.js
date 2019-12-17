@@ -228,20 +228,38 @@ class UserList2 extends Component {
                   }
                 },
                 {
-                  title: 'TIMELINESS', field: 'time', render: rowData =>
-                  <HtmlTooltip
-                    title={
-                      <React.Fragment>
-                        <img src={require('../assets/stats_long.png')} alt="Graph"/>
-                      </React.Fragment>
-                    }
-                  >
-                    <Button
-                      startIcon={<Icon>alarm</Icon>}
-                    >
-                      {rowData.time}%
-                    </Button>
-                  </HtmlTooltip>,
+                  title: 'TIMELINESS', field: 'time', render: rowData =>{
+                    let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
+                    rowData.reviews.map(review =>{
+                      if(review.declined){
+                        declined++
+                      } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+                        never++
+                      } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
+                        onTime++
+                      } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
+                        late++
+                      } else {
+                        qqqqq++
+                      }
+                      total++
+                    })
+                    return(
+                      <HtmlTooltip
+                        title={
+                          <React.Fragment>
+                            <img src={require('../assets/stats_long.png')} alt="Graph"/>
+                          </React.Fragment>
+                        }
+                      >
+                        <Button
+                          startIcon={<Icon>alarm</Icon>}
+                        >
+                          {(onTime/total)*100}%
+                        </Button>
+                      </HtmlTooltip>
+                    )
+                  },
                   cellStyle: {
                     width: "100px"
                   },
@@ -353,6 +371,7 @@ class UserList2 extends Component {
                         id: review.id,
                         dateAssigned: review.dateAssigned,
                         dateCompleted: review.dateCompleted,
+                        dateDue: review.dateDue,
                         declined: review.declined,
                         quality: review.quality
                       })
@@ -361,16 +380,43 @@ class UserList2 extends Component {
                 })
               }
               detailPanel={
-                rowData =>
-                <div>
-                  {rowData.keywords}
-                  <p>Reviews</p>
-                  {rowData.reviews.map(review => {
-                    return(
-                      <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Declined: {review.declined}       Quality: {review.quality}</p>
-                    )
-                  })}
-                </div>
+                rowData => {
+
+                  let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
+                  rowData.reviews.map(review =>{
+                    if(review.declined){
+                      declined++
+                    } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+                      never++
+                    } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
+                      onTime++
+                    } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
+                      late++
+                    } else {
+                      qqqqq++
+                    }
+                    total++
+                  })
+
+                  return(
+                    <div>
+                      {rowData.keywords}
+                      <p>Reviews</p>
+                      {rowData.reviews.map(review => {
+                        return(
+                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}</p>
+                        )
+                      })}
+                      <p></p>
+                      <p>TIMELINESS</p>
+                      <p>On time: {onTime}</p>
+                      <p>Declined: {declined}</p>
+                      <p>Late: {late}</p>
+                      <p>Never: {never}</p>
+                      <p>Total: {total}</p>
+                    </div>
+                  )
+                }
               }
               localization={{
                 toolbar: {
