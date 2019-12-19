@@ -125,7 +125,10 @@ server {
         alias <your_path_to_build/_folder>;
     }
     location /decentralized-science {
+        location /decentralized-science/ {
             proxy_pass     http://localhost:5000;
+        }
+        root /decentralized-science;
     }
 
     location <path_at_your_/src/config.json> {
