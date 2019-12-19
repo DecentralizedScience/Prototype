@@ -318,7 +318,8 @@ class UserList extends Component {
                   headerStyle: {
                     fontSize: "12px",
                   },
-                  width: "300px"
+                  width: "300px",
+                  filtering:true
                 },
                 { title: 'INTERESTS',
                   field: 'interests',
@@ -346,7 +347,8 @@ class UserList extends Component {
                   </div>,
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  filtering: true
                 },
                 {
                   title: 'TIMELINESS', field: 'time', render: rowData =>{
@@ -411,29 +413,6 @@ class UserList extends Component {
                     fontSize: "12px",
                   },
                   customSort: (a, b) => calculateTimeliness(a.reviews)[5] - calculateTimeliness(b.reviews)[5]
-                },
-                {
-                  title: 'ACCEPTANCE', field: 'accept', render: rowData =>
-                  <HtmlTooltip
-                    title={
-                      <React.Fragment>
-                        <img src={require('../assets/stats_long.png')} alt="Graph"/>
-                      </React.Fragment>
-                    }
-                    interactive
-                  >
-                    <Button
-                      startIcon={<Icon>thumb_up</Icon>}
-                    >
-                      {rowData.accept}%
-                    </Button>
-                  </HtmlTooltip>,
-                  cellStyle: {
-                    width: "100px"
-                  },
-                  headerStyle: {
-                    fontSize: "12px",
-                  }
                 },
                 {
                   title: 'RATING', field: 'rating', render: rowData => {
@@ -515,7 +494,8 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  search: false
                 }
               ]}
               data={
@@ -551,54 +531,8 @@ class UserList extends Component {
                 })
               }
               detailPanel={
-                //Details for debugging
                 rowData => {
-
-                  let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
-                  rowData.reviews.map(review =>{
-                    if(review.declined){
-                      declined++
-                    } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
-                      never++
-                    } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
-                      onTime++
-                    } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
-                      late++
-                    } else {
-                      qqqqq++
-                    }
-                    total++
-                  })
-
-                  let sumQuality=0, numQuality=0
-                  rowData.reviews.map(review => {
-                    if(review.quality!=undefined){
-                      sumQuality=sumQuality+review.quality
-                      numQuality++
-                    }
-                  })
-
-                  return(
-                    <div>
-                      {rowData.keywords}
-                      <p>Reviews</p>
-                      {rowData.reviews.map(review => {
-                        return(
-                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}</p>
-                        )
-                      })}
-                      <p></p>
-                      <p>TIMELINESS</p>
-                      <p>On time: {onTime}</p>
-                      <p>Declined: {declined}</p>
-                      <p>Late: {late}</p>
-                      <p>Never: {never}</p>
-                      <p>Total: {total}</p>
-                      <p>------------------------</p>
-                      <p>QUALITY</p>
-                      <p>Total: {sumQuality}</p>
-                      <p>Number of evaluations: {numQuality}</p>
-                    </div>
+                  return(<div>Articles will go here</div>
                   )
                 }
               }
@@ -609,7 +543,8 @@ class UserList extends Component {
               }}
               options={{
                 draggable: false,
-                sort: true
+                sort: true,
+                filtering: false
               }}
             />
           )
