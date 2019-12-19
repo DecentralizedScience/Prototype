@@ -1,11 +1,11 @@
 {
   "name": "react-prueba",
   "version": "0.1.0",
-  "homepage": "home/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.7.1",
     "@material-ui/icons": "^4.5.1",
+    "@nivo/pie": "^0.60.0",
     "apollo": "^2.21.0",
     "apollo-boost": "^0.4.4",
     "boost": "^0.63.1",

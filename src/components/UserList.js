@@ -12,10 +12,13 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { red, green, yellow } from '@material-ui/core/colors'
 import Badge from '@material-ui/core/Badge'
+import { Box } from '@material-ui/core'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
 import gravatar from 'gravatar'
+
+import { ResponsivePie, Pie } from '@nivo/pie'
 
 
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
@@ -55,6 +58,7 @@ const HtmlTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: '#f5f5f9',
     color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 400,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
   },
@@ -81,7 +85,103 @@ const GreenBadge = withStyles(theme => ({
   },
 }))(Badge);
 
-class UserList2 extends Component {
+const MyResponsivePie = ({ data }) => (
+  <Pie
+    data={data}
+    height={400}
+    width={400}
+    margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+    innerRadius={0.5}
+    padAngle={0.7}
+    cornerRadius={3}
+    colors={{ scheme: 'accent' }}
+    borderWidth={1}
+    borderColor={{ from: 'color', modifiers: [ ['darker', 0.2 ] ] }}
+    enableRadialLabels={false}
+    radialLabelsSkipAngle={10}
+    radialLabelsTextOffset={6}
+    radialLabelsTextColor="#333333"
+    radialLabelsLinkOffset={0}
+    radialLabelsLinkDiagonalLength={16}
+    radialLabelsLinkHorizontalLength={24}
+    radialLabelsLinkStrokeWidth={1}
+    radialLabelsLinkColor={{ from: 'color' }}
+    slicesLabelsSkipAngle={10}
+    slicesLabelsTextColor="#333333"
+    animate={true}
+    motionStiffness={90}
+    motionDamping={15}
+    defs={[
+      {
+        id: 'dots',
+        type: 'patternDots',
+        background: 'inherit',
+        color: 'rgba(255, 255, 255, 0.3)',
+        size: 4,
+        padding: 1,
+        stagger: true
+      },
+      {
+        id: 'lines',
+        type: 'patternLines',
+        background: 'inherit',
+        color: 'rgba(255, 255, 255, 0.3)',
+        rotation: -45,
+        lineWidth: 6,
+        spacing: 10
+      }
+    ]}
+    fill={[
+      {
+        match: {
+          id: 'onTime'
+        },
+        id: 'lines'
+      },
+      {
+        match: {
+          id: 'late'
+        },
+        id: 'dots'
+      },
+      {
+        match: {
+          id: 'declined'
+        },
+        id: 'dots'
+      },
+      {
+        match: {
+          id: 'never'
+        },
+        id: 'dots'
+      }
+    ]}
+    legends={[
+      {
+        anchor: 'bottom',
+        direction: 'column',
+        translateY: 56,
+        itemWidth: 100,
+        itemHeight: 18,
+        itemTextColor: '#999',
+        symbolSize: 13,
+        symbolShape: 'square',
+        effects: [
+          {
+            on: 'hover',
+            style: {
+              itemTextColor: '#000'
+            }
+          }
+        ]
+      }
+    ]}
+  />
+)
+
+
+class UserList extends Component {
 
   render(){
 
@@ -244,11 +344,39 @@ class UserList2 extends Component {
                       }
                       total++
                     })
+
+                    const timeData=[
+                      {
+                        "id": "On time",
+                        "label": "onTime",
+                        "value": onTime,
+                        "color": "hs1(125, 70%, 50%)"
+                      },
+                      {
+                        "id": "Late",
+                        "label": "late",
+                        "value": late,
+                        "color": "hs1(355, 70%, 50%)"
+                      },
+                      {
+                        "id": "Declined",
+                        "label": "declined",
+                        "value": declined,
+                        "color": "hs1(217, 70%, 50%)"
+                      },
+                      {
+                        "id": "Never answered",
+                        "label": "never",
+                        "value": never,
+                        "color": "hs1(186, 70%, 50%)"
+                      }
+                    ]
+
                     return(
                       <HtmlTooltip
                         title={
                           <React.Fragment>
-                            <img src={require('../assets/stats_long.png')} alt="Graph"/>
+                            <MyResponsivePie data={timeData}/>
                           </React.Fragment>
                         }
                         interactive
@@ -475,4 +603,4 @@ class UserList2 extends Component {
   }
 }
 
-export default UserList2
+export default UserList
