@@ -211,6 +211,27 @@ class UserList extends Component {
             setOpen(false);
           };
 
+          const calculateTimeliness = (reviews) => {
+            let declined=0, onTime=0, late=0, never=0, total=0
+            reviews.map(review => {
+              if(review.declined){
+                declined++
+              } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+                never++
+              } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
+                onTime++
+              } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
+                late++
+              }
+              total++
+            })
+
+            //Round to two decimals
+            let percentage = Math.round(((((onTime+declined+late/2)/total)*100)+ Number.EPSILON)*100)/100
+
+            return [declined, onTime, late, never, total, percentage]
+          };
+
           return (
 
             <MaterialTable
@@ -329,21 +350,15 @@ class UserList extends Component {
                 },
                 {
                   title: 'TIMELINESS', field: 'time', render: rowData =>{
-                    let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
-                    rowData.reviews.map(review =>{
-                      if(review.declined){
-                        declined++
-                      } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
-                        never++
-                      } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
-                        onTime++
-                      } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
-                        late++
-                      } else {
-                        qqqqq++
-                      }
-                      total++
-                    })
+                    let declined, onTime, late, never, total, percentage
+                    let timeliness = calculateTimeliness(rowData.reviews)
+
+                    declined = timeliness[0]
+                    onTime = timeliness[1]
+                    late = timeliness[2]
+                    never = timeliness[3]
+                    total = timeliness[4]
+                    percentage = timeliness[5]
 
                     const timeData=[
                       {
@@ -384,8 +399,7 @@ class UserList extends Component {
                         <Button
                           startIcon={<Icon>alarm</Icon>}
                         >
-                          {/*Round to two decimals*/}
-                          {Math.round(((((onTime+late/2)/total)*100)+ Number.EPSILON)*100)/100}%
+                          {percentage}%
                         </Button>
                       </HtmlTooltip>
                     )
@@ -395,7 +409,8 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  customSort: (a, b) => calculateTimeliness(a.reviews)[5] - calculateTimeliness(b.reviews)[5]
                 },
                 {
                   title: 'ACCEPTANCE', field: 'accept', render: rowData =>
@@ -593,7 +608,8 @@ class UserList extends Component {
                 }
               }}
               options={{
-                draggable: false
+                draggable: false,
+                sort: true
               }}
             />
           )
