@@ -9,23 +9,24 @@ To run and install this application you need:
 
 ## How to run this prototype
 
-### Without Prisma
-First, you have to initialize the server. To do so, go to the `server` directory, install the dependecies and run the code:
+To install, run
+
 ```
-cd server
 npm install
-npm start
+```
+
+### Run server
+
+To start the server, run:
+
+#### With mocked data
+
+```
+npm start server
 ```
 
 The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can set the host and port configuration at `src/config.json`.
 
-Now, go back to the main directory (`cd ..`) and start the React application:
-```
-npm install
-npm start
-```
-
-A browser window should then open, showing the list of the users (now mocked).
 
 #### With real data
 
@@ -40,7 +41,17 @@ To avoid access from outside your computer, you can close the port for external 
 iptables -A INPUT ! -s 127.0.0.1 -p tcp -m tcp --dport 4000 -j DROP
 ```
 
-See Deployment section for instructions on how to password protect the data to allow external usage. 
+See Deployment section for instructions on how to password protect the data to allow external usage.
+
+### Run the web app
+
+To run the web app, run:
+
+```
+npm start
+```
+
+A browser window should then open, with our web app working and connected to the server's data.
 
 ### With Prisma
 If you want to test the prototype with the database using Prisma, you have to go back to [this older version of the repo](https://github.com/DecentralizedScience/Prototype/tree/b70a5275b8e55fddcfd782cbedeae9375c956a6e), where everything was set to use Prisma. Then, proceed with the following steps.
@@ -96,7 +107,7 @@ iptables -A INPUT ! -s 127.0.0.1 -p tcp -m tcp --dport 4000 -j DROP
 You can use [let's encrypt](https://letsencrypt.org/), and set it up for your system and [nginx](nginx.org) server using the recommended [certbot](https://certbot.eff.org/).
 
 #### Set passwords to access the data
-You can use basic .htpaccess protection. For that, install `apache2-utils` and set the password for your users 
+You can use basic .htpaccess protection. For that, install `apache2-utils` and set the password for your users
 
 `sudo apt-get install apache2-utils`
 `sudo htpasswd -c /etc/apache2/.htpasswd <username>`
@@ -107,12 +118,12 @@ You can use basic .htpaccess protection. For that, install `apache2-utils` and s
 - configure your `src/config.json`file, and set the host to your server name, port to `433` and path to the path you want to use for your server, for instance `DSServer`
 - The static files at `build/` folder should also be served. For that you can use nginx, with a configuration similar to:
 
-``` 
+```
 server {
     listen 443;
     server_name <your_server_name>;
-    
-    # SSL Configuration using letsencrypt and certbot 
+
+    # SSL Configuration using letsencrypt and certbot
     ssl on;
     ssl_certificate /etc/letsencrypt/live/<your_server_name>/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/<your_server_name>/privkey.pem;
