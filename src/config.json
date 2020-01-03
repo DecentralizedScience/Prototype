@@ -1,5 +1,5 @@
 {
-  "host": "http://localhost",
-  "port": 4000,
-  "path": ""
+  "host": "https://decentralized.science",
+  "port": 443,
+  "path": "/iberamiaServer"
 }
