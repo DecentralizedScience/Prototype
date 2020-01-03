@@ -17,12 +17,12 @@ npm install
 
 ### Run server
 
-To start the server, run:
-
 #### With mocked data
 
+To start the server, run:
+
 ```
-npm start server
+npm start --prefix server
 ```
 
 The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can set the host and port configuration at `src/config.json`.
@@ -31,6 +31,12 @@ The server is now running on http://localhost:4000. If you want to change the ad
 #### With real data
 
 Instead of using mocked data, you can connect to a real OJS database. To connect to a OJS database, copy `server/src/serverConfig.json.example` to `server/src/serverConfig.json` and set the database connection configuration variables `host`, `port`, `user`, `password`, and `database`.
+
+Then, to start the server, run:
+
+```
+npm start --prefix server
+```
 
 ##### Protect your data
 Now your data is served at port `4000` and can probably be accessed from outside your computer.
