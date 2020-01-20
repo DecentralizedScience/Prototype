@@ -84,6 +84,37 @@ const Keywords = new GraphQLObjectType({
 })
 
 
+const ReviewComment = new GraphQLObjectType({
+  name: 'ReviewComment',
+  sqlTable: 'submission_comments',
+  uniqueKey: 'comment_id',
+  fields: {
+    id: {
+      type: GraphQLInt,
+      sqlColumn: 'comment_id'
+    },
+    text: {
+      type: GraphQLString,
+      sqlColumn: 'comments'
+    },
+    viewable: {
+      type: GraphQLInt,
+      sqlColumn: 'viewable'
+    },
+    submission_id: {
+      type: GraphQLInt,
+      sqlColumn: 'submission_id'
+    },
+    review_id: {
+      type: GraphQLInt,
+      sqlColumn: 'assoc_id'
+    }
+  },
+  where: (usersTable) => {
+    return `${usersTable}.viewable = 1`
+  }
+})
+
 const Review = new GraphQLObjectType({
   name: 'Review',
   sqlTable: 'review_assignments',
@@ -122,6 +153,11 @@ const Review = new GraphQLObjectType({
       sqlJoin:
         (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`,
 
+    },
+    reviewComments: {
+      type: GraphQLList(ReviewComment),
+      sqlJoin:
+        (reviewAssignmentTable, reviewCommentsTable) => `${reviewCommentsTable}.assoc_id = ${reviewAssignmentTable}.review_id`,
     }
   }
 })

@@ -45,6 +45,10 @@ const USERS_QUERY = gql`
         declined
         quality
         recommendation
+        reviewComments {
+          id
+          text
+        }
         submissionKeywords {
           keywords
         }
@@ -544,7 +548,9 @@ class UserList extends Component {
                         dateCompleted: review.dateCompleted,
                         dateDue: review.dateDue,
                         declined: review.declined,
-                        quality: review.quality
+                        quality: review.quality,
+                        recommendation: review.recommendation,
+                        reviewComments: review.reviewComments
                       })
                     })
                   })
@@ -553,7 +559,6 @@ class UserList extends Component {
               detailPanel={
                 //Details for debugging
                 rowData => {
-
                   let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
                   rowData.reviews.map(review =>{
                     if(review.declined){
@@ -584,7 +589,8 @@ class UserList extends Component {
                       <p>Reviews</p>
                       {rowData.reviews.map(review => {
                         return(
-                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}</p>
+                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}<br/>
+                          { (review.reviewComments[0]) ? 'Review text: ' + review.reviewComments[0].text : ''}</p>
                         )
                       })}
                       <p></p>

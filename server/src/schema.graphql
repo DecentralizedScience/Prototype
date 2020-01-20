@@ -18,6 +18,14 @@ type Interest {
   text: String!
 }
 
+type ReviewComment {
+  id: ID
+  text: String
+  viewable: Int
+  submission_id: Int
+  review_id: Int
+}
+
 type Review {
   id: ID!
   dateAssigned: String!
@@ -26,7 +34,8 @@ type Review {
   declined: Int
   quality: Int
   recommendation: Int
-  submissionKeywords: Keywords
+  submissionKeywords: [Keywords]
+  reviewComments: [ReviewComment]
 }
 
 type Keywords {
