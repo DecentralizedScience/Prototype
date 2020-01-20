@@ -1,0 +1,5 @@
+{
+  "host": "http://localhost",
+  "port": 4000,
+  "path": "/graphql"
+}

@@ -3,8 +3,13 @@ import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
 
-import config from './serverConfig.json'
-
+var config
+try {
+   config = require('./serverConfig.json')
+} catch (e) {
+  console.info('Server configuration file not found.')
+  console.error('Cannot start server without configuration file');
+}
 // import knex from 'knex'
 var knex = require('knex')({
   client: 'mysql',

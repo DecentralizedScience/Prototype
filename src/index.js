@@ -12,7 +12,17 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
-const config = require('./config.json')
+var config
+try {
+   config = require('./config.json')
+} catch (e) {
+  console.error('Client configuration file not found.')
+  config = {
+    host: 'http://localhost',
+    port: 4000,
+    path: '/graphql'
+  }
+}
 
 const theme = createMuiTheme({
   palette: {
@@ -32,7 +42,7 @@ const theme = createMuiTheme({
 })
 
 const httpLink = createHttpLink({
-  uri: (config.host || 'http://localhost') + ':' + (config.port || 4000) + (config.path || '/graphql')
+  uri: config.host  + ':' + config.port + config.path
 })
 
 const client = new ApolloClient({
