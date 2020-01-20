@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm src/index.js"
+    "start": "node -r esm src/index.js",
+    "mocked": "graphql-faker src/schema.graphql -p4000"
   },
   "keywords": [],
   "author": "",

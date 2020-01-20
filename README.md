@@ -19,10 +19,16 @@ npm install
 
 #### With mocked data
 
-To start the server, run:
+We use [GraphQL Faker](https://github.com/APIs-guru/graphql-faker) to generate mocked data. To use it, first install it globally:
 
 ```
-npm start --prefix server
+npm install -g graphql-faker
+```
+
+Then, to start the server, run:
+
+```
+npm mocked --prefix server
 ```
 
 The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can set the host and port configuration at `src/config.json`.

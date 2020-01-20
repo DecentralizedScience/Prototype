@@ -5,9 +5,9 @@ type Query {
 
 type User {
   id: ID!
-  name: String!
-  surname: String!
-  email: String!
+  name: String! @fake(type: firstName)
+  surname: String! @fake(type: lastName)
+  email: String! @fake(type:email)
   url: String!
   interests: [Interest!]!
   reviews: [Review!]
@@ -15,30 +15,30 @@ type User {
 
 type Interest {
   id: ID!
-  text: String!
+  text: String! @fake(type: words)
 }
 
 type ReviewComment {
   id: ID
-  text: String
-  viewable: Int
+  text: String @fake(type: lorem )
+  viewable: Int @examples(values: [1, 0])
   submission_id: Int
   review_id: Int
 }
 
 type Review {
   id: ID!
-  dateAssigned: String!
-  dateCompleted: String
-  dateDue: String
-  declined: Int
-  quality: Int
-  recommendation: Int
+  dateAssigned: String! @fake(type: pastDate)
+  dateCompleted: String @fake(type: pastDate)
+  dateDue: String @fake(type: futureDate)
+  declined: Int @examples(values:[0, 1, 2, 3, 4, 5, 6])
+  quality: Int @examples(values:[0, 1, 2, 3, 4, 5])
+  recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
   submissionKeywords: [Keywords]
   reviewComments: [ReviewComment]
 }
 
 type Keywords {
   submissionId: ID!
-  keywords: String
+  keywords: String @fake(type: words)
 }
