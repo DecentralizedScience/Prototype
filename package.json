@@ -31,7 +31,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "cd server && npm install"
+    "postinstall": "cd server && npm install",
+    "server": "npm start --prefix server",
+    "mocked": "npm run mocked --prefix server"
   },
   "eslintConfig": {
     "extends": "react-app"

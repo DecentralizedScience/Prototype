@@ -28,7 +28,7 @@ npm install -g graphql-faker
 Then, to start the server, run:
 
 ```
-npm mocked --prefix server
+npm run mocked
 ```
 
 The server is now running on http://localhost:4000. If you want to change the address the clien should connect to, you can set the host and port configuration at `src/config.json`.
@@ -41,7 +41,7 @@ Instead of using mocked data, you can connect to a real OJS database. To connect
 Then, to start the server, run:
 
 ```
-npm start --prefix server
+npm run server
 ```
 
 ##### Protect your data
