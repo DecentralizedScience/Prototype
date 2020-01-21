@@ -50,8 +50,19 @@ const USERS_QUERY = gql`
           id
           text
         }
-        submissionKeywords {
-          keywords
+        submission {
+          keywords {
+            keywords
+          }
+          title {
+            text
+          }
+          abstract {
+            text
+          }
+          doi {
+            url
+          }
         }
       }
     }
@@ -541,7 +552,7 @@ class UserList extends Component {
                     time: 80,
                     accept: 45,
                     rating: 3.8,
-                    keywords: user.reviews.map(review => review.submissionKeywords.keywords).join(' '),
+                    keywords: user.reviews.map(review => review.submission.keywords.keywords).join(' '),
                     reviews: user.reviews.map(review =>{
                       return({
                         id: review.id,
@@ -551,7 +562,27 @@ class UserList extends Component {
                         declined: review.declined,
                         quality: review.quality,
                         recommendation: review.recommendation,
-                        reviewComments: review.reviewComments
+                        reviewComments: review.reviewComments,
+                        submission: review.submission,
+                        // .map(submission =>{
+                        //   return({
+                        //     title: submission.title.map(title => {
+                        //       return {
+                        //         text: title.text
+                        //       }
+                        //     }),
+                        //     abstract: submission.abstract.map(abstract => {
+                        //       return {
+                        //         text: abstract.text
+                        //       }
+                        //     }),
+                        //     doi: submission.title.map(doi => {
+                        //       return {
+                        //         url: doi.url
+                        //       }
+                        //     })
+                        //  })
+                      //  }),
                       })
                     })
                   })
@@ -591,6 +622,8 @@ class UserList extends Component {
                       {rowData.reviews.map(review => {
                         return(
                           <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}<br />
+                          <div dangerouslySetInnerHTML={{__html: (review.reviewComments[0]) ? '<h3> Review of ' + xss('<em>' + review.submission.title.text + '</em>') + ((review.submission.doi !== null)?
+                            '<a target="_blank" rel="noopener noreferrer" href="https://doi.org/' + xss(review.submission.doi.url) +  '"> doi </a>' : '') + ' </h3>' + xss(review.reviewComments[0].text) : ''}}></div>
                           <div dangerouslySetInnerHTML={{__html: (review.reviewComments[0]) ? '<h3> Review text </h3>' + xss(review.reviewComments[0].text) : ''}}></div>
                           </p>
                         )

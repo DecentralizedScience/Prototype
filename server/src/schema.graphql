@@ -1,6 +1,7 @@
 type Query {
   info: String!
   users: [User!]!
+  submissions: [Submission!]!
 }
 
 type User {
@@ -20,7 +21,7 @@ type Interest {
 
 type ReviewComment {
   id: ID
-  text: String @fake(type: lorem )
+  text: String @fake(type: lorem)
   viewable: Int @examples(values: [1, 0])
   submission_id: Int
   review_id: Int
@@ -34,7 +35,7 @@ type Review {
   declined: Int @examples(values:[0, 1, 2, 3, 4, 5, 6])
   quality: Int @examples(values:[0, 1, 2, 3, 4, 5])
   recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
-  submissionKeywords: [Keywords]
+  submission: Submission!
   reviewComments: [ReviewComment]
 }
 
@@ -42,3 +43,29 @@ type Keywords {
   submissionId: ID!
   keywords: String @fake(type: words)
 }
+
+type Submission {
+  id: ID
+  abstract: Abstract
+  title: Title
+  doi: Doi
+  keywords: Keywords
+  status: Int @examples(values:[0, 1, 2, 3, 4])
+  hide_author: Int @examples(values:[0, 1])
+}
+
+type Title {
+  text: String @fake(type: lorem, options: {loremSize: sentence})
+  locale: String @fake(type: locale)
+}
+
+
+type Abstract {
+  text: String @fake(type: lorem, options: {loremSize: paragraphs})
+  locale: String @fake(type: locale)
+}
+
+type Doi {
+  url: String @examples(values:["10.24251/HICSS.2019.560"])
+}
+

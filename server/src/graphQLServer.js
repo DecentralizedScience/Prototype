@@ -120,6 +120,104 @@ const ReviewComment = new GraphQLObjectType({
   }
 })
 
+const SubmissionSetting = new GraphQLObjectType({
+  name: 'SubmissionSetting',
+  // Preferring english version if available
+  sqlTable: 'SELECT * WHEN locale = \'en_US\' then 1 else 2 end as SortingId FROM submission_settings ORDER BY SortingId;',
+  uniqueKey: ['submission_id', 'locale', 'setting_name'],
+  fields: {
+    text: {
+      type: GraphQLString,
+      sqlColumn: 'setting_value'
+    },
+    locale: {
+      type: GraphQLString,
+      sqlColumn: 'locale'
+    }
+  }
+})
+
+const Title = new GraphQLObjectType({
+  name: 'Title',
+  sqlTable: '(SELECT submission_id, setting_value, locale, IF(locale = \'en_US\', 1, 2) as SortingId FROM submission_settings WHERE setting_name = \'title\' ORDER BY SortingId)',
+  uniqueKey: ['submission_id', 'locale'],
+  fields: {
+    text: {
+      type: GraphQLString,
+      sqlColumn: 'setting_value'
+    },
+    locale: {
+      type: GraphQLString,
+      sqlColumn: 'locale'
+    }
+  }
+})
+
+const Abstract = new GraphQLObjectType({
+  name: 'Abstract',
+  sqlTable: '(SELECT submission_id, setting_value, locale, IF(locale = \'en_US\', 1, 2) as SortingId FROM submission_settings WHERE setting_name = \'abstract\' ORDER BY SortingId)',
+  uniqueKey: ['submission_id', 'locale'],
+  fields: {
+    text: {
+      type: GraphQLString,
+      sqlColumn: 'setting_value'
+    },
+    locale: {
+      type: GraphQLString,
+      sqlColumn: 'locale'
+    }
+  }
+})
+
+const Doi = new GraphQLObjectType({
+  name: 'Doi',
+  sqlTable: '(SELECT submission_id, setting_value, locale, IF(locale = \'en_US\', 1, 2) as SortingId FROM submission_settings WHERE setting_name = \'pub-id::doi\' ORDER BY SortingId)',
+  uniqueKey: ['submission_id', 'locale'],
+  fields: {
+    url: {
+      type: GraphQLString,
+      sqlColumn: 'setting_value'
+    }
+  }
+})
+
+const Submission = new GraphQLObjectType({
+  name: 'Submission',
+  sqlTable: 'submissions',
+  uniqueKey: ['submission_id'],
+  fields: {
+    id: {
+      type: GraphQLInt,
+      sqlColumn: 'submission_id'
+    },
+    abstract: {
+      type: Abstract,
+      sqlJoin: (submissionTable, abstractsTable) => `${submissionTable}.submission_id = ${abstractsTable}.submission_id`
+    },
+    title: {
+      type: Title,
+      sqlJoin: (submissionTable, titlesTable) => `${submissionTable}.submission_id = ${titlesTable}.submission_id`
+    },
+    doi: {
+      type: Doi,
+      sqlJoin: (submissionTable, doisTable) => `${submissionTable}.submission_id = ${doisTable}.submission_id`
+    },
+    keywords: {
+      type: GraphQLList(Keywords),
+      sqlJoin:
+        (submissionsTable, keywordsTable) => `${keywordsTable}.submission_id = ${submissionsTable}.submission_id`
+    },
+    status: {
+      type: GraphQLInt,
+      sqlColumn: 'status'
+    },
+    hide_author: {
+      type: GraphQLInt,
+      sqlColumn: 'hide_author'
+    }
+  }
+})
+
 const Review = new GraphQLObjectType({
   name: 'Review',
   sqlTable: 'review_assignments',
@@ -153,11 +251,9 @@ const Review = new GraphQLObjectType({
       type: GraphQLInt,
       sqlColumn: 'recommendation'
     },
-    submissionKeywords: {
-      type: GraphQLList(Keywords),
-      sqlJoin:
-        (reviewAssignmentTable, keywordsTable) => `${keywordsTable}.submission_id = ${reviewAssignmentTable}.submission_id`,
-
+    submission: {
+      type: Submission,
+      sqlJoin: (reviewAssignmentTable, submissionTable) => `${submissionTable}.submission_id = ${reviewAssignmentTable}.submission_id`
     },
     reviewComments: {
       type: GraphQLList(ReviewComment),
