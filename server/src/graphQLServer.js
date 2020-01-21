@@ -290,7 +290,33 @@ const QueryRoot = new GraphQLObjectType({
           return knex.raw(sql + ';').then(rows => rows[0]);
         },  {dialect: 'mysql'})
       }
-    }
+    },
+    submissions: {
+      type: new GraphQLList(Submission),
+      resolve: (parent, args, context, resolveInfo) => {
+        return joinMonster(resolveInfo, {}, sql => {
+          // knex is a SQL query library for NodeJS. This method returns a `Promise` of the data
+          return knex.raw(sql + ';').then(rows => rows[0]);
+        },  {dialect: 'mysql'})
+      }
+    },
+    submission: {
+      type: Submission,
+      args: {
+        id: {
+          type: GraphQLInt
+        }
+      },
+      where: (submissionsTable, args, context) => {
+        return escape(`${submissionsTable}.submission_id = ${args.id}`)
+      },
+      resolve: (parent, args, context, resolveInfo) => {
+        return joinMonster(resolveInfo, {}, sql => {
+          // knex is a SQL query library for NodeJS. This method returns a `Promise` of the data
+          return knex.raw(sql + ';').then(rows => rows[0]);
+        },  {dialect: 'mysql'})
+      }
+    },
   })
 })
 
