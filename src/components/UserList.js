@@ -624,7 +624,7 @@ class UserList extends Component {
                           <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}<br />
                           <div dangerouslySetInnerHTML={{__html: (review.reviewComments[0]) ? '<h3> Review of ' + xss('<em>' + review.submission.title.text + '</em>') + ((review.submission.doi !== null)?
                             '<a target="_blank" rel="noopener noreferrer" href="https://doi.org/' + xss(review.submission.doi.url) +  '"> doi </a>' : '') + ' </h3>' + xss(review.reviewComments[0].text) : ''}}></div>
-                          <div dangerouslySetInnerHTML={{__html: (review.reviewComments[0]) ? '<h3> Review text </h3>' + xss(review.reviewComments[0].text) : ''}}></div>
+                          
                           </p>
                         )
                       })}
