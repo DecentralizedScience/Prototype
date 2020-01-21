@@ -20,6 +20,7 @@ import gravatar from 'gravatar'
 
 import { ResponsivePie, Pie } from '@nivo/pie'
 
+import * as xss from 'xss';
 
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
@@ -589,8 +590,9 @@ class UserList extends Component {
                       <p>Reviews</p>
                       {rowData.reviews.map(review => {
                         return(
-                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}<br/>
-                          { (review.reviewComments[0]) ? 'Review text: ' + review.reviewComments[0].text : ''}</p>
+                          <p id={review.id}>Assigned: {review.dateAssigned}       Completed: {review.dateCompleted}       Due: {review.dateDue}       Declined: {review.declined}       Quality: {review.quality}<br />
+                          <div dangerouslySetInnerHTML={{__html: (review.reviewComments[0]) ? '<h3> Review text </h3>' + xss(review.reviewComments[0].text) : ''}}></div>
+                          </p>
                         )
                       })}
                       <p></p>
