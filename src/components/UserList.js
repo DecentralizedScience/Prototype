@@ -13,6 +13,9 @@ import { withStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { red, green, yellow } from '@material-ui/core/colors'
 import Badge from '@material-ui/core/Badge'
 import { Box } from '@material-ui/core'
+import Collapse from '@material-ui/core/Collapse'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Switch from '@material-ui/core/Switch'
 
 import MaterialTable, { MTableToolbar } from "material-table";
 
@@ -598,6 +601,40 @@ class UserList extends Component {
 
                   return(
                     <div>
+                      <MaterialTable
+                        title="Reviews"
+                        columns={[
+                          {
+                            title: 'Article reviewed', field: 'title',
+                            render: rowData =>
+                            <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? '<h3> Review of ' + xss('<em>' + rowData.submission.title.text + '</em>') + ((rowData.submission.doi !== null)?
+                              '<a target="_blank" rel="noopener noreferrer" href="https://doi.org/' + xss(rowData.submission.doi.url) +  '"> doi </a>' : '') : ''}}></div>,
+                            cellStyle: {
+                              width: "400px",
+                              verticalAlign: 'top'
+                            },
+                          },
+                          { title: 'Text', field: 'text',
+                            render: rowData =>
+                              <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ''}}></div>
+                          }
+                        ]}
+                        data={
+                          rowData.reviews.map(review =>{
+                            return({
+                              id: review.id,
+                              dateAssigned: review.dateAssigned,
+                              dateCompleted: review.dateCompleted,
+                              dateDue: review.dateDue,
+                              declined: review.declined,
+                              quality: review.quality,
+                              recommendation: review.recommendation,
+                              reviewComments: review.reviewComments,
+                              submission: review.submission,
+                            })
+                          })
+                        }
+                      />
                       {rowData.keywords}
                       <p>Reviews</p>
                       {rowData.reviews.map(review => {
