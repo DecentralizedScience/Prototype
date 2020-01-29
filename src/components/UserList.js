@@ -25,6 +25,9 @@ import { ResponsivePie, Pie } from '@nivo/pie'
 
 import * as xss from 'xss';
 
+import ReviewerDetails from './ReviewerDetails.js';
+
+
 const avatarUrl='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
 
 const scholarSearch='https://scholar.google.es/scholar?hl=es&as_sdt=0%2C5&q='
@@ -209,6 +212,7 @@ class UserList extends Component {
         {({ loading, error, data }) => {
 
           const [open, setOpen] = React.useState(false)
+          //const [checked, setChecked] = React.useState(false)
 
           if (loading) return <div>Fetching</div>
           if (error){
@@ -229,6 +233,10 @@ class UserList extends Component {
 
             setOpen(false);
           };
+
+          //const handleChange = () => {
+          //  setChecked(prev => !prev);
+          //};
 
           const calculateTimeliness = (reviews) => {
             let declined=0, onTime=0, late=0, never=0, total=0
@@ -599,42 +607,17 @@ class UserList extends Component {
                     }
                   })
 
+                  //Fuente: https://material-ui.com/es/components/transitions/
+                  //let [checked, setChecked] = React.useState(false)
+
+                  //let handleChange = () => {
+                  //  setChecked(prev => !prev);
+                  //}
+
                   return(
                     <div>
-                      <MaterialTable
-                        title="Reviews"
-                        columns={[
-                          {
-                            title: 'Article reviewed', field: 'title',
-                            render: rowData =>
-                            <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? '<h3> Review of ' + xss('<em>' + rowData.submission.title.text + '</em>') + ((rowData.submission.doi !== null)?
-                              '<a target="_blank" rel="noopener noreferrer" href="https://doi.org/' + xss(rowData.submission.doi.url) +  '"> doi </a>' : '') : ''}}></div>,
-                            cellStyle: {
-                              width: "400px",
-                              verticalAlign: 'top'
-                            },
-                          },
-                          { title: 'Text', field: 'text',
-                            render: rowData =>
-                              <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ''}}></div>
-                          }
-                        ]}
-                        data={
-                          rowData.reviews.map(review =>{
-                            return({
-                              id: review.id,
-                              dateAssigned: review.dateAssigned,
-                              dateCompleted: review.dateCompleted,
-                              dateDue: review.dateDue,
-                              declined: review.declined,
-                              quality: review.quality,
-                              recommendation: review.recommendation,
-                              reviewComments: review.reviewComments,
-                              submission: review.submission,
-                            })
-                          })
-                        }
-                      />
+                      <ReviewerDetails data={rowData}/>
+
                       {rowData.keywords}
                       <p>Reviews</p>
                       {rowData.reviews.map(review => {
