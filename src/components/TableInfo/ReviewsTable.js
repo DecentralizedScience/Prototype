@@ -16,7 +16,7 @@ class ReviewsTable extends Component {
           title="Reviews"
           columns={[
             {
-              title: 'Article reviewed', field: 'title',
+              title: 'ARTICLE REVIEWED', field: 'title',
               render: rowData =>
               <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? '<h3> Review of ' + xss('<em>' + rowData.submission.title.text + '</em>') + ((rowData.submission.doi !== null)?
                 '<a target="_blank" rel="noopener noreferrer" href="https://doi.org/' + xss(rowData.submission.doi.url) +  '"> doi </a>' : '') : ''}}></div>,
@@ -24,11 +24,17 @@ class ReviewsTable extends Component {
                 width: "400px",
                 verticalAlign: 'top'
               },
+              headerStyle: {
+                fontSize: "12px",
+              }
             },
-            { title: 'Review', field: 'text',
+            { title: 'REVIEW', field: 'text',
               render: rowData =>
-                <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ''}}></div>
-            }
+                <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ''}}></div>,
+              headerStyle: {
+                fontSize: "12px",
+              }
+            },
           ]}
           data={
             this.state.data.reviews.map(review =>{
@@ -45,6 +51,10 @@ class ReviewsTable extends Component {
               })
             })
           }
+          options={{
+            search: false,
+            toolbar: false
+          }}
         />
       </div>
     )

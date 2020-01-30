@@ -97,6 +97,26 @@ class UserList extends Component {
             return [declined, onTime, late, never, total, percentage]
           };
 
+          const calculateRating = (reviews) => {
+            let sum=0, num=0
+            reviews.map(review => {
+              if(review.quality!=undefined){
+                sum=sum+review.quality
+                num++
+              }
+            })
+
+            // Round to two decimals
+            let rating
+            if(num==0) {
+              rating = 0
+            } else {
+              rating = Math.round(((sum/num)+ Number.EPSILON)*100)/100
+            }
+
+            return [num, rating]
+          };
+
           return (
 
             <MaterialTable
@@ -165,7 +185,8 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  customSort: (a, b) => calculateRating(a.reviews)[1] - calculateRating(b.reviews)[1]
                 },
                 { title: 'E-MAIL', field: 'email',
                   render: rowData =>
@@ -193,9 +214,7 @@ class UserList extends Component {
                         text: interest.text
                       })
                     }),
-                    time: 80,
                     accept: 45,
-                    rating: 3.8,
                     keywords: user.reviews.map(review => review.submission.keywords.keywords).join(' '),
                     reviews: user.reviews.map(review =>{
                       return({

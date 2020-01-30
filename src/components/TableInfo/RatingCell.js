@@ -12,14 +12,28 @@ class RatingCell extends Component {
     }
   }
 
-  render() {
+  calculateRating = (reviews) => {
     let sum=0, num=0
-    this.state.reviews.map(review => {
+    reviews.map(review => {
       if(review.quality!=undefined){
         sum=sum+review.quality
         num++
       }
     })
+
+    // Round to two decimals
+    let rating = Math.round(((sum/num)+ Number.EPSILON)*100)/100
+
+    return [num, rating]
+  };
+
+  render() {
+    let num, rating
+
+    num = this.calculateRating(this.state.reviews)[0]
+    rating = this.calculateRating(this.state.reviews)[1]
+
+
     if(num==0){
       return(
         <Tooltip title="No information available">
@@ -38,7 +52,7 @@ class RatingCell extends Component {
         <Button
           startIcon={<StarIcon />}
         >
-          {sum/num}/5
+          {rating}/5
         </Button>
       )
     }
