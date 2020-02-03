@@ -19,11 +19,47 @@ class AcceptanceCell extends Component {
   constructor(props){
     super(props)
     this.state={
-      accept: this.props.accept
+      accept: this.props.accept,
+      reviews: this.props.reviews
     }
   }
 
+
+  calculateAcceptance = (reviews) => {
+    let accept=0, minorChanges=0, majorChanges=0, reject=0, total=0
+    reviews.map(review => {
+      if(review.recommendation==1){
+        accept++
+      } else if(review.recommendation==2){
+        minorChanges++
+      } else if(review.recommendation==3){
+        majorChanges++
+      } else if(review.recommendation>3){
+        reject++
+      }
+
+      if(review.recommendation>0)
+      total++
+    })
+
+    //Round to two decimals
+    let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
+
+    return [accept, minorChanges, majorChanges, reject, total, percentage]
+  };
+
+
   render() {
+    let accept, minorChanges, majorChanges, reject, total, percentage
+    let acceptance = this.calculateAcceptance(this.state.reviews)
+
+    accept = acceptance[0]
+    minorChanges = acceptance[1]
+    majorChanges = acceptance[2]
+    reject = acceptance[3]
+    total = acceptance[4]
+    percentage = acceptance[5]
+
     return(
       <HtmlTooltip
         title={
@@ -36,7 +72,7 @@ class AcceptanceCell extends Component {
         <Button
           startIcon={<Icon>thumb_up</Icon>}
         >
-          {this.state.accept}%
+          {percentage}%
         </Button>
       </HtmlTooltip>
     )

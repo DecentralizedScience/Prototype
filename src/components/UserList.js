@@ -169,7 +169,7 @@ class UserList extends Component {
                 },
                 {
                   title: 'ACCEPTANCE', field: 'accept', render: rowData =>
-                    <AcceptanceCell accept={rowData.accept} />,
+                    <AcceptanceCell accept={rowData.accept} reviews={rowData.reviews} />,
                   cellStyle: {
                     width: "100px"
                   },
