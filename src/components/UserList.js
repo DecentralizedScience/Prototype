@@ -97,6 +97,29 @@ class UserList extends Component {
             return [declined, onTime, late, never, total, percentage]
           };
 
+          const calculateAcceptance = (reviews) => {
+            let accept=0, minorChanges=0, majorChanges=0, reject=0, total=0
+            reviews.map(review => {
+              if(review.recommendation==1){
+                accept++
+              } else if(review.recommendation==2){
+                minorChanges++
+              } else if(review.recommendation==3){
+                majorChanges++
+              } else if(review.recommendation>3){
+                reject++
+              }
+
+              if(review.recommendation>0)
+              total++
+            })
+
+            //Round to two decimals
+            let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
+
+            return [accept, minorChanges, majorChanges, reject, total, percentage]
+          };
+
           const calculateRating = (reviews) => {
             let sum=0, num=0
             reviews.map(review => {
@@ -175,7 +198,8 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  customSort: (a, b) => calculateAcceptance(a.reviews)[5] - calculateAcceptance(b.reviews)[5]
                 },
                 {
                   title: 'RATING', field: 'rating', render: rowData =>
