@@ -143,7 +143,7 @@ class UserList extends Component {
           return (
 
             <MaterialTable
-              title="RECOMMENDED REVIEWERS"
+              title=""
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
                     <AvatarCell reviews={rowData.reviews} avatar={rowData.avatar} />,
@@ -286,21 +286,6 @@ class UserList extends Component {
                   return(
                     <div>
                       <ReviewerDetails data={rowData}/>
-
-                      {rowData.keywords}
-                      <p>Reviews</p>
-
-                      <p></p>
-                      <p>TIMELINESS</p>
-                      <p>On time: {onTime}</p>
-                      <p>Declined: {declined}</p>
-                      <p>Late: {late}</p>
-                      <p>Never: {never}</p>
-                      <p>Total: {total}</p>
-                      <p>------------------------</p>
-                      <p>QUALITY</p>
-                      <p>Total: {sumQuality}</p>
-                      <p>Number of evaluations: {numQuality}</p>
                     </div>
                   )
                 }

@@ -75,14 +75,10 @@ class ReviewerDetails extends Component {
         <AppBar position="static">
           <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
             <Tab label="Reviews" {...a11yProps(0)} />
-            <Tab label="Papers" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={this.state.value} index={0}>
           <ReviewsTable data={this.props.data}/>
-        </TabPanel>
-        <TabPanel value={this.state.value} index={1}>
-          A table containing the papers of the reviewer will be displayed here
         </TabPanel>
       </div>
     );
