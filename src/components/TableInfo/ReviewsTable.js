@@ -95,7 +95,8 @@ class ReviewsTable extends Component {
           }
           options={{
             search: false,
-            toolbar: false
+            toolbar: false,
+            draggable: false
           }}
         />
       </div>
