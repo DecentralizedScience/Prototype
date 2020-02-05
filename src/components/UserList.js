@@ -67,7 +67,6 @@ class UserList extends Component {
     return (
       <Query query={USERS_QUERY}>
         {({ loading, error, data }) => {
-
           if (loading) return <div>Fetching</div>
           if (error){
             console.error(error)
@@ -322,4 +321,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList
+export { UserList as default, USERS_QUERY as USERS_QUERY}
