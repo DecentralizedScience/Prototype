@@ -16,7 +16,7 @@ class InterestsCell extends Component{
       <div>
         {this.state.interests.map(interest => {
           return(
-            <Tooltip title={interest.text} enterDelay={500} leaveDelay={200}>
+            <Tooltip key={interest.id} title={interest.text} enterDelay={500} leaveDelay={200}>
               <Chip
                 key={interest.id}
                 label={interest.text}
