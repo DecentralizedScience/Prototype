@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DecentralizedScience/Prototype.png?branch=master)](https://travis-ci.org/DecentralizedScience/Prototype/)
+
 # Prototype
 Decentralized science prototype (WIP)
 
