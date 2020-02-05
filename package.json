@@ -7,6 +7,8 @@
     "@material-ui/core": "^4.7.1",
     "@material-ui/icons": "^4.5.1",
     "@nivo/pie": "^0.60.0",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.0",
     "apollo": "^2.21.0",
     "apollo-boost": "^0.4.4",
     "boost": "^0.63.1",
