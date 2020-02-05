@@ -120,7 +120,7 @@ server {
     }
 
     location <path_at_your_/src/config.json> {
-        proxy_pass     http://localhost:4000/;
+        proxy_pass     http://localhost:4000/graphql;
         auth_basic            "Restricted Area";
         auth_basic_user_file  /etc/apache2/.htpasswd;
     }
