@@ -6,12 +6,22 @@ import { Paper } from '@material-ui/core'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
+import Box from '@material-ui/core/Box'
+
+import Background from '../assets/DS_background.png'
 
 const styles = theme => console.log(theme) || ({
   root: {
+    margin: -20,
+    marginBottom: -100,
+    padding: 40,
+    paddingBottom: 150,
+    //background: '#21305c'
+    backgroundImage: `url(${Background})`
+  },
+  search: {
     margin: 20,
-    padding: 100,
-    background: '#21305c'
+    paddingTop: 85
   },
   font: {
     color: '#a7cee2'
@@ -36,24 +46,29 @@ class Header extends Component {
         Recommended Reviewers
       </Typography>*/
       <Paper className={classes.root}>
-        <Typography variant='h5' align='center' color='white' gutterBottom className={classes.font}>
-          SEARCH THE BEST REVIEWER FOR YOUR PAPER
-        </Typography>
-        <div align='center'>
-          <InputBase
-            className={classes.input}
-            placeholder="Search by name or interest"
-            inputProps={{
-              'aria-label': 'reviewers search',
-              style: {textAlign: 'center'}
-            }}
-            endAdornment={
-              <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            }
-          />
-        </div>
+        <React.Fragment>
+          <img src={require('../assets/DS_logo.png')} height='85'/>
+        </React.Fragment>
+        <Box className={classes.search}>
+          <Typography variant='h5' align='center' color='white' gutterBottom paragraph className={classes.font}>
+            SEARCH THE BEST REVIEWER FOR YOUR PAPER
+          </Typography>
+          <div align='center'>
+            <InputBase
+              className={classes.input}
+              placeholder="Search by name or interest"
+              inputProps={{
+                'aria-label': 'reviewers search',
+                style: {textAlign: 'center'}
+              }}
+              endAdornment={
+                <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                  <SearchIcon />
+                </IconButton>
+              }
+            />
+          </div>
+        </Box>
       </Paper>
 
     )
