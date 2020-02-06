@@ -325,4 +325,4 @@ class UserList extends Component {
   }
 }
 
-xport { UserList as default, USERS_QUERY as USERS_QUERY}
+export { UserList as default, USERS_QUERY as USERS_QUERY}
