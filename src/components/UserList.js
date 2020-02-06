@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import MaterialTable, { MTableToolbar } from "material-table";
+import MaterialTable from "material-table";
 
 import gravatar from 'gravatar'
 
@@ -325,4 +325,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList
+xport { UserList as default, USERS_QUERY as USERS_QUERY}
