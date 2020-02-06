@@ -13,12 +13,31 @@ const styles = theme => console.log(theme) || ({
 })
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      searchValue: ''
+    }
+  }
+
+  handleValueChange = (event) => {
+    this.setState({
+      searchValue: event.target.value
+    })
+  }
+
   render() {
     const {classes } = this.props
     return (
       <Paper className={classes.root}>
-        <Header />
-        <UserList />
+        <Header
+          onChange={this.handleValueChange}
+        />
+        <UserList
+          value={this.state.searchValue}
+          key={this.state.searchValue}
+        />
       </Paper>
     )
   }

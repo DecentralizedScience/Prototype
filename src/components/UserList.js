@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 
 import gravatar from 'gravatar'
 
@@ -67,6 +67,7 @@ class UserList extends Component {
     return (
       <Query query={USERS_QUERY}>
         {({ loading, error, data }) => {
+
           if (loading) return <div>Fetching</div>
           if (error){
             console.error(error)
@@ -143,6 +144,11 @@ class UserList extends Component {
 
             <MaterialTable
               title="RECOMMENDED REVIEWERS"
+              components={{
+                /*Toolbar: props => (
+                  <MTableToolbar {...props} searchText={this.props.value} />
+                )*/
+              }}
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
                     <AvatarCell reviews={rowData.reviews} avatar={rowData.avatar} />,
@@ -311,7 +317,8 @@ class UserList extends Component {
               }}
               options={{
                 draggable: false,
-                sort: true
+                sort: true,
+                searchText: this.props.value
               }}
             />
           )
@@ -321,4 +328,4 @@ class UserList extends Component {
   }
 }
 
-export { UserList as default, USERS_QUERY as USERS_QUERY}
+export default UserList

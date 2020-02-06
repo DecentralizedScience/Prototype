@@ -39,6 +39,7 @@ const styles = theme => console.log(theme) || ({
 })
 
 class Header extends Component {
+
   render() {
     const {classes} = this.props
     return(
@@ -57,6 +58,8 @@ class Header extends Component {
             <InputBase
               className={classes.input}
               placeholder="Search by name or interest"
+              value={this.props.value}
+              onChange={this.props.onChange}
               inputProps={{
                 'aria-label': 'reviewers search',
                 style: {textAlign: 'center'}
