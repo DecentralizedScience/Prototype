@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/DecentralizedScience/Prototype.png?branch=master)](https://travis-ci.org/DecentralizedScience/Prototype/)
-
-[![Coverage Status](https://coveralls.io/repos/github/DecentralizedScience/Prototype/badge.svg?branch=master)](https://coveralls.io/github/DecentralizedScience/Prototype?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/DecentralizedScience/Prototype/badge.svg?branch=master&service=github)](https://coveralls.io/github/DecentralizedScience/Prototype?branch=master&service=github)
+[![License: AGPL v3](https://img.shields.io/github/license/DecentralizedScience/Prototype?color=blue)](http://www.gnu.org/licenses/agpl-3.0)
 
 # Prototype
 Decentralized science prototype (WIP)
