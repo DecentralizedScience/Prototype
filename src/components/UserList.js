@@ -14,6 +14,7 @@ import TimelinessCell from './TableInfo/TimelinessCell.js'
 import InterestsCell from './TableInfo/InterestsCell.js'
 import NameCell from './TableInfo/NameCell.js'
 import AvatarCell from './TableInfo/AvatarCell.js'
+import TableToolbar from './TableToolbar.js'
 
 
 const USERS_QUERY = gql`
@@ -144,6 +145,11 @@ class UserList extends Component {
 
             <MaterialTable
               title="RECOMMENDED REVIEWERS"
+              components={{
+                Toolbar: props => (
+                  <TableToolbar />
+                )
+              }}
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
                     <AvatarCell reviews={rowData.reviews} avatar={rowData.avatar} />,
