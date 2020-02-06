@@ -144,11 +144,6 @@ class UserList extends Component {
 
             <MaterialTable
               title="RECOMMENDED REVIEWERS"
-              components={{
-                /*Toolbar: props => (
-                  <MTableToolbar {...props} searchText={this.props.value} />
-                )*/
-              }}
               columns={[
                 { title: '', field: 'avatar', render: rowData =>
                     <AvatarCell reviews={rowData.reviews} avatar={rowData.avatar} />,
@@ -182,7 +177,8 @@ class UserList extends Component {
                   <InterestsCell interests={rowData.interests} />,
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  sorting: false
                 },
                 {
                   title: 'TIMELINESS', field: 'time', render: rowData =>
@@ -225,7 +221,8 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
-                  }
+                  },
+                  sorting: false
                 }
               ]}
               data={
