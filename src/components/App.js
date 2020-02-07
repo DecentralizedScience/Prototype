@@ -5,7 +5,7 @@ import Header from './Header'
 import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core'
 
-const styles = theme => console.log(theme) || ({
+const styles = theme => ({
   root: {
     margin: 20,
     padding: 20

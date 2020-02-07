@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box'
 
 import Background from '../assets/DS_background.png'
 
-const styles = theme => console.log(theme) || ({
+const styles = theme => ({
   root: {
     margin: -20,
     marginBottom: -100,

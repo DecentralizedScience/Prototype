@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-const styles = theme => console.log(theme) || ({
+const styles = theme => ({
   root: {
     margin: 20,
     padding: 20,

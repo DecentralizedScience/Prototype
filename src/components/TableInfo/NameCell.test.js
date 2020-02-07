@@ -11,7 +11,6 @@ describe('<NameCell />', () => {
   it('Renders the name of the user', () => {
     const name = faker.name.findName()
     const nameCell = shallow(<NameCell name={name} />);
-    console.log(nameCell);
     expect(nameCell.text()).to.include(name);
   })
 
