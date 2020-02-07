@@ -15,19 +15,6 @@ const styles = theme => console.log(theme) || ({
 
 class TableToolbar extends Component {
 
-  constructor(props){
-    super(props)
-    this.state={
-      checked: false
-    }
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      checked: event.target.checked
-    })
-  }
-
   render(){
     const {classes} = this.props
 
@@ -42,8 +29,8 @@ class TableToolbar extends Component {
           <FormControlLabel
             control={
               <Switch
-                checked={this.state.checkedA}
-                onChange={this.handleChange}
+                checked={this.props.checked}
+                onChange={this.props.onChange}
                 value="checked"
                 color="primary"
                 inputProps={{ 'aria-label': 'primary checkbox' }}

@@ -63,6 +63,19 @@ const USERS_QUERY = gql`
 
 class UserList extends Component {
 
+  constructor(props){
+    super(props)
+    this.state={
+      unoccupied: false
+    }
+  }
+
+  handleSwitchChange = (event) => {
+    this.setState({
+      unoccupied: event.target.checked
+    })
+  }
+
   render(){
 
     return (
@@ -147,7 +160,10 @@ class UserList extends Component {
               title="RECOMMENDED REVIEWERS"
               components={{
                 Toolbar: props => (
-                  <TableToolbar />
+                  <TableToolbar
+                    onChange={this.handleSwitchChange}
+                    checked={this.state.unoccupied}
+                  />
                 )
               }}
               columns={[
@@ -156,7 +172,17 @@ class UserList extends Component {
                   sorting: false,
                   cellStyle: {
                     width: "50px"
-                  }
+                  },
+                  customFilterAndSearch: (term, rowData) => {
+                    let revs=0
+                    rowData.reviews.map(review => {
+                      if(review.dateCompleted==undefined && review.declined==0){
+                        revs=revs+1
+                      }
+                    })
+                    return (revs < term)
+                  },
+                  defaultFilter: this.state.unoccupied ? 1 : 0
                 },
                 { title: 'NAME', field: 'name',
                   render: rowData =>
