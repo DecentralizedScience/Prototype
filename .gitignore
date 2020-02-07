@@ -1,3 +1,5 @@
 node_modules/
 server/src/serverConfig.json
 src/config.json
+cypress/screenshots
+cypress/videos

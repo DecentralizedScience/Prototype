@@ -38,7 +38,9 @@
     "eject": "react-scripts eject",
     "postinstall": "cd server && npm install",
     "server": "npm start --prefix server",
-    "mocked": "npm run mocked --prefix server"
+    "mocked": "npm run mocked --prefix server",
+    "e2e": "cypress open",
+    "e2e:run": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -67,6 +69,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "cypress": "^4.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "faker": "^4.1.0",

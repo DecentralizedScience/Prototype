@@ -58,6 +58,7 @@ class Header extends Component {
             <InputBase
               className={classes.input}
               placeholder="Search by name or interest"
+              autoFocus
               value={this.props.value}
               onChange={this.props.onChange}
               inputProps={{
