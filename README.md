@@ -74,6 +74,7 @@ A browser window should then open, with our web app working and connected to the
 To deploy the app you sould build it and serve it.
 
 ### Build
+- configure your `src/config.json`file, and set the host to your server name, port to `433` and path to the path you want to use for your server, for instance `graphql`
 `npm run build` commands builds the solution
 
 ### Protect the data
@@ -96,8 +97,8 @@ You can use basic .htpaccess protection. For that, install `apache2-utils` and s
 ### Serve
 - First install `serve`: `npm install -g serve`
 - Then serve the app: `serve -s build`
-- configure your `src/config.json`file, and set the host to your server name, port to `433` and path to the path you want to use for your server, for instance `DSServer`
-- The static files at `build/` folder should also be served. For that you can use nginx, with a configuration similar to:
+
+- The static files of `npm run build` are at `build/` folder should be served. For that you can use nginx, with a configuration similar to:
 
 ```
 server {
@@ -113,14 +114,8 @@ server {
     ssl_stapling_verify on;
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
 
-    location /decentralized-science/home {
-        alias <your_path_to_build/_folder>;
-    }
     location /decentralized-science {
-        location /decentralized-science/ {
-            proxy_pass     http://localhost:5000;
-        }
-        root /decentralized-science;
+        alias <your_path_to_build/_folder>;
     }
 
     location <path_at_your_/src/config.json> {
