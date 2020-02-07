@@ -14,7 +14,7 @@ jobs:
       script: npm test -- --watchAll=false --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
     - stage: build
       node_js: node
-      script: cp src/config.sample.json src/config.sample & npm run build
+      script: cp src/config.sample.json src/config.json & npm run build
     - stage: serve
       node_js: node
       script: npm run mocked
