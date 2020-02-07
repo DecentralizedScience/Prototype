@@ -32,7 +32,7 @@ type Review {
   dateAssigned: String! @fake(type: pastDate)
   dateCompleted: String @fake(type: pastDate)
   dateDue: String @fake(type: futureDate)
-  declined: Int @examples(values:[0, 1, 2, 3, 4, 5, 6])
+  declined: Int @examples(values:[0, 1])
   quality: Int @examples(values:[0, 1, 2, 3, 4, 5])
   recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
   submission: Submission!
@@ -68,4 +68,3 @@ type Abstract {
 type Doi {
   url: String @examples(values:["10.24251/HICSS.2019.560"])
 }
-
