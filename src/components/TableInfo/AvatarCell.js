@@ -101,4 +101,4 @@ class AvatarCell extends Component{
   }
 }
 
-export default AvatarCell
+export { AvatarCell as default, GreenBadge as GreenBadge, RedBadge as RedBadge }

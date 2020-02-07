@@ -1,10 +1,8 @@
 import React from 'react';
 import UserList from './UserList';
 import { MockedProvider } from '@apollo/react-testing';
-import '@testing-library/jest-dom/extend-expect'
-import {  } from 'react-dom/test-utils';
 
-import { render, fireEvent, waitForElement } from '@testing-library/react'
+import { render, waitForElement } from '@testing-library/react'
 
 import {USERS_QUERY} from './UserList';
 import testData from './UserList.testdata.json';
