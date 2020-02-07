@@ -1,4 +1,4 @@
-import AvatarCell, { GreenBadge, RedBadge } from './AvatarCell.js'
+import AvatarCell, { GreenBadge, RedBadge, YellowBadge } from './AvatarCell.js'
 import React from 'react';
 import TestRenderer from 'react-test-renderer'
 
@@ -6,7 +6,7 @@ import TestRenderer from 'react-test-renderer'
 describe('<AvatarCell />', () => {
   describe('Renders the status with correct color', () => {
     it('Green when one review and review declined', () => {
-      const reviews = [{
+      const reviewsGreen = [{
         "id": "MzYyODc1MjU5NA==",
         "dateAssigned": "1566479462369",
         "dateCompleted": "1565209759215",
@@ -47,13 +47,152 @@ describe('<AvatarCell />', () => {
           }
         }
       }]
-      const testRenderer = TestRenderer.create(<AvatarCell reviews={reviews} />)
+
+      //Test green badge
+      const testRendererGreen = TestRenderer.create(<AvatarCell reviews={reviewsGreen} />)
       //console.log(testRenderer.toJSON())
-      expect(testRenderer.root.findByType(GreenBadge))
+      expect(testRendererGreen.root.findByType(GreenBadge))
       expect(() => {
-        testRenderer.root.findByType(RedBadge)
+        testRendererGreen.root.findByType(RedBadge)
       }).toThrow()
     })
+
+    it('Yellow when one review and review never answered', () => {
+      const reviewsYellow = [{
+        "id": "MzYyODc1MjU5NA==",
+        "dateAssigned": "1566479462369",
+        "dateCompleted": undefined,
+        "dateDue": "1603740536999",
+        "declined": 0,
+        "quality": 1,
+        "recommendation": 0,
+        "reviewComments": [
+          {
+            "id": "NzY4Nzc1NjQzNw==",
+            "text": "Quia ut atque quibusdam labore. Quia in reprehenderit dolor ut. Asperiores ea et sit nobis maxime quidem non. Error aut quia aliquid fugiat numquam vel et.\n \rId rem error at ut sunt illum et et quo. Eos tenetur et. Velit et voluptatibus qui sunt.\n \rMinus eligendi veritatis commodi error odio voluptatem omnis dignissimos. Pariatur numquam rerum nemo aut. Est et sit alias qui cupiditate aut enim."
+          },
+        ],
+        "submission": {
+          "keywords": {
+            "keywords": "extranet Buckinghamshire payment"
+          },
+          "title": {
+            "text": "Et vitae dolores molestiae eos."
+          },
+          "abstract": {
+            "text": "Qui similique molestiae fugit non suscipit culpa. Ducimus quo tempore vero. Eius qui sit autem veniam soluta eos aut. Quisquam fugit esse dolores at sunt.\n \rUt est magni adipisci cum reiciendis. Facilis quia ipsa exercitationem voluptatem dolor sed in et. Ut doloremque perferendis est pariatur veritatis qui amet. Deleniti non adipisci. Ab ipsa cumque est nostrum quia sint animi ipsa. Natus deserunt consequatur debitis eius qui quo autem facilis omnis.\n \rDolorem molestiae quae repellat reprehenderit sed. Rerum consectetur non est omnis. Animi iure dolore quia minus magnam at amet. Et suscipit quia vel odio aspernatur. Eligendi aut perferendis."
+          },
+          "doi": {
+            "url": "10.24251/HICSS.2019.560"
+          }
+        }
+      }]
+
+      //Test yellow badge
+      const testRendererYellow = TestRenderer.create(<AvatarCell reviews={reviewsYellow} />)
+      expect(testRendererYellow.root.findByType(YellowBadge))
+      expect(() => {
+        testRendererYellow.root.findByType(RedBadge)
+      }).toThrow()
+    })
+
+    it('Red when three reviews and none of them answered', () => {
+      const reviewsRed = [{
+        "id": "MzYyODc1MjU5NA==",
+        "dateAssigned": "1566479462369",
+        "dateCompleted": undefined,
+        "dateDue": "1603740536999",
+        "declined": 0,
+        "quality": 1,
+        "recommendation": 0,
+        "reviewComments": [
+          {
+            "id": "NzY4Nzc1NjQzNw==",
+            "text": "Quia ut atque quibusdam labore. Quia in reprehenderit dolor ut. Asperiores ea et sit nobis maxime quidem non. Error aut quia aliquid fugiat numquam vel et.\n \rId rem error at ut sunt illum et et quo. Eos tenetur et. Velit et voluptatibus qui sunt.\n \rMinus eligendi veritatis commodi error odio voluptatem omnis dignissimos. Pariatur numquam rerum nemo aut. Est et sit alias qui cupiditate aut enim."
+          },
+        ],
+        "submission": {
+          "keywords": {
+            "keywords": "extranet Buckinghamshire payment"
+          },
+          "title": {
+            "text": "Et vitae dolores molestiae eos."
+          },
+          "abstract": {
+            "text": "Qui similique molestiae fugit non suscipit culpa. Ducimus quo tempore vero. Eius qui sit autem veniam soluta eos aut. Quisquam fugit esse dolores at sunt.\n \rUt est magni adipisci cum reiciendis. Facilis quia ipsa exercitationem voluptatem dolor sed in et. Ut doloremque perferendis est pariatur veritatis qui amet. Deleniti non adipisci. Ab ipsa cumque est nostrum quia sint animi ipsa. Natus deserunt consequatur debitis eius qui quo autem facilis omnis.\n \rDolorem molestiae quae repellat reprehenderit sed. Rerum consectetur non est omnis. Animi iure dolore quia minus magnam at amet. Et suscipit quia vel odio aspernatur. Eligendi aut perferendis."
+          },
+          "doi": {
+            "url": "10.24251/HICSS.2019.560"
+          }
+        }
+      },
+      {
+        "id": "QzYyODc1MjU5NA==",
+        "dateAssigned": "1566479462369",
+        "dateCompleted": undefined,
+        "dateDue": "1603740536999",
+        "declined": 0,
+        "quality": 1,
+        "recommendation": 0,
+        "reviewComments": [
+          {
+            "id": "NzY4Nzc1NjQzNw==",
+            "text": "Quia ut atque quibusdam labore. Quia in reprehenderit dolor ut. Asperiores ea et sit nobis maxime quidem non. Error aut quia aliquid fugiat numquam vel et.\n \rId rem error at ut sunt illum et et quo. Eos tenetur et. Velit et voluptatibus qui sunt.\n \rMinus eligendi veritatis commodi error odio voluptatem omnis dignissimos. Pariatur numquam rerum nemo aut. Est et sit alias qui cupiditate aut enim."
+          },
+        ],
+        "submission": {
+          "keywords": {
+            "keywords": "extranet Buckinghamshire payment"
+          },
+          "title": {
+            "text": "Et vitae dolores molestiae eos."
+          },
+          "abstract": {
+            "text": "Qui similique molestiae fugit non suscipit culpa. Ducimus quo tempore vero. Eius qui sit autem veniam soluta eos aut. Quisquam fugit esse dolores at sunt.\n \rUt est magni adipisci cum reiciendis. Facilis quia ipsa exercitationem voluptatem dolor sed in et. Ut doloremque perferendis est pariatur veritatis qui amet. Deleniti non adipisci. Ab ipsa cumque est nostrum quia sint animi ipsa. Natus deserunt consequatur debitis eius qui quo autem facilis omnis.\n \rDolorem molestiae quae repellat reprehenderit sed. Rerum consectetur non est omnis. Animi iure dolore quia minus magnam at amet. Et suscipit quia vel odio aspernatur. Eligendi aut perferendis."
+          },
+          "doi": {
+            "url": "10.24251/HICSS.2019.560"
+          }
+        }
+      },
+      {
+        "id": "QzYyODc1MjU5NA==",
+        "dateAssigned": "1566479462369",
+        "dateCompleted": undefined,
+        "dateDue": "1603740536999",
+        "declined": 0,
+        "quality": 1,
+        "recommendation": 0,
+        "reviewComments": [
+          {
+            "id": "NzY4Nzc1NjQzNw==",
+            "text": "Quia ut atque quibusdam labore. Quia in reprehenderit dolor ut. Asperiores ea et sit nobis maxime quidem non. Error aut quia aliquid fugiat numquam vel et.\n \rId rem error at ut sunt illum et et quo. Eos tenetur et. Velit et voluptatibus qui sunt.\n \rMinus eligendi veritatis commodi error odio voluptatem omnis dignissimos. Pariatur numquam rerum nemo aut. Est et sit alias qui cupiditate aut enim."
+          },
+        ],
+        "submission": {
+          "keywords": {
+            "keywords": "extranet Buckinghamshire payment"
+          },
+          "title": {
+            "text": "Et vitae dolores molestiae eos."
+          },
+          "abstract": {
+            "text": "Qui similique molestiae fugit non suscipit culpa. Ducimus quo tempore vero. Eius qui sit autem veniam soluta eos aut. Quisquam fugit esse dolores at sunt.\n \rUt est magni adipisci cum reiciendis. Facilis quia ipsa exercitationem voluptatem dolor sed in et. Ut doloremque perferendis est pariatur veritatis qui amet. Deleniti non adipisci. Ab ipsa cumque est nostrum quia sint animi ipsa. Natus deserunt consequatur debitis eius qui quo autem facilis omnis.\n \rDolorem molestiae quae repellat reprehenderit sed. Rerum consectetur non est omnis. Animi iure dolore quia minus magnam at amet. Et suscipit quia vel odio aspernatur. Eligendi aut perferendis."
+          },
+          "doi": {
+            "url": "10.24251/HICSS.2019.560"
+          }
+        }
+      }]
+
+      //Test red badge
+      const testRendererRed = TestRenderer.create(<AvatarCell reviews={reviewsRed} />)
+      expect(testRendererRed.root.findByType(RedBadge))
+      expect(() => {
+        testRendererRed.root.findByType(GreenBadge)
+      }).toThrow()
+    })
+
   })
 
 })
