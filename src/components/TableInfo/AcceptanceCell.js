@@ -140,7 +140,7 @@ class AcceptanceCell extends Component {
     })
 
     //Round to two decimals
-    let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
+    let percentage = total ? Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100 : 0
 
     return [accept, minorChanges, majorChanges, reject, total, percentage]
   };
