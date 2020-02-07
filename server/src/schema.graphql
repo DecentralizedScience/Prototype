@@ -1,6 +1,6 @@
 type Query {
   info: String!
-  users: [User!]!
+  users: [User!]! @listLength(min: 5, max: 25)
   submissions: [Submission!]!
 }
 
@@ -11,7 +11,7 @@ type User {
   email: String! @fake(type:email)
   url: String!
   interests: [Interest!]!
-  reviews: [Review!]
+  reviews: [Review!] @listLength(min: 0, max: 5)
 }
 
 type Interest {
@@ -30,13 +30,13 @@ type ReviewComment {
 type Review {
   id: ID!
   dateAssigned: String! @fake(type: pastDate)
-  dateCompleted: String @fake(type: pastDate)
+  dateCompleted: String @examples(values: [null, null, null, null, 1550819997547, 999999999999 ])
   dateDue: String @fake(type: futureDate)
-  declined: Int @examples(values:[0, 1])
+  declined: Int @examples(values:[0, 0, 0, 1])
   quality: Int @examples(values:[0, 1, 2, 3, 4, 5])
   recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
   submission: Submission!
-  reviewComments: [ReviewComment]
+  reviewComments: [ReviewComment] @listLength(min: 0, max: 5)
 }
 
 type Keywords {
