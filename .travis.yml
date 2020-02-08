@@ -22,4 +22,4 @@ jobs:
       script: export CYPRESS_baseUrl=http://localhost:5000
     - stage: e2e testing
       node_js: node
-      script: npm e2e:run
+      script: npm run e2e:run
