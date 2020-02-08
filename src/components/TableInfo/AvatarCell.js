@@ -55,18 +55,18 @@ class AvatarCell extends Component{
       }
     }
 
-    let ColloredBadge
+    let ColoredBadge
     if(revs===0){
-      ColloredBadge = GreenBadge
+      ColoredBadge = GreenBadge
     } else if(revs>0 && revs<3){
-      ColloredBadge = YellowBadge
+      ColoredBadge = YellowBadge
     } else {
-      ColloredBadge = RedBadge
+      ColoredBadge = RedBadge
     }
 
     return(
       <HtmlTooltip title={<div>{revs} reviews pending</div>}>
-        <ColloredBadge
+        <ColoredBadge
           variant="dot"
           showZero
           anchorOrigin={{
@@ -75,7 +75,7 @@ class AvatarCell extends Component{
           }}
         >
           <img src={this.state.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-        </ColloredBadge>
+        </ColoredBadge>
       </HtmlTooltip>
     )
   }
