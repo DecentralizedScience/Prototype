@@ -13,27 +13,29 @@ const HtmlTooltip = withStyles(theme => ({
   },
 }))(Tooltip);
 
-const RedBadge = withStyles(theme => ({
-  badge: {
-    backgroundColor: '#f44336',
-    color: "white"
-  },
-}))(Badge);
+let red = '#f44336'
+  , yellow = '#fbc02d'
+  , green = '#4caf50'
 
-const YellowBadge = withStyles(theme => ({
-  badge: {
-    backgroundColor: '#fbc02d',
-    color: "black"
-  },
-}))(Badge);
+const coloredBadeStyle = color => {
+  return (theme => ({
+    badge: {
+      backgroundColor: color,
+    },
+  }))
+}
 
-const GreenBadge = withStyles(theme => ({
-  badge: {
-    backgroundColor: '#4caf50',
-    color: "white"
-  },
-}))(Badge);
+const RedBadge = withStyles(
+  coloredBadeStyle(red)
+)(Badge);
 
+const YellowBadge = withStyles(
+  coloredBadeStyle(yellow)
+)(Badge);
+
+const GreenBadge = withStyles(
+  coloredBadeStyle(green)
+)(Badge);
 
 class AvatarCell extends Component{
 
@@ -53,52 +55,29 @@ class AvatarCell extends Component{
       }
     }
 
+    let ColloredBadge
     if(revs===0){
-      return(
-        <HtmlTooltip title={<div>{revs} reviews pending</div>}>
-          <GreenBadge
-            variant="dot"
-            showZero
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right'
-            }}
-          >
-            <img src={this.state.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-          </GreenBadge>
-        </HtmlTooltip>
-      )
+      ColloredBadge = GreenBadge
     } else if(revs>0 && revs<3){
-      return(
-        <HtmlTooltip title={<div>{revs} reviews pending</div>}>
-          <YellowBadge
-            variant="dot"
-            showZero
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right'
-            }}
-          >
-            <img src={this.state.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-          </YellowBadge>
-        </HtmlTooltip>
-      )
+      ColloredBadge = YellowBadge
     } else {
-      return(
-        <HtmlTooltip title={<div>{revs} reviews pending</div>}>
-          <RedBadge
-            variant="dot"
-            showZero
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right'
-            }}
-          >
-            <img src={this.state.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
-          </RedBadge>
-        </HtmlTooltip>
-      )
+      ColloredBadge = RedBadge
     }
+
+    return(
+      <HtmlTooltip title={<div>{revs} reviews pending</div>}>
+        <ColloredBadge
+          variant="dot"
+          showZero
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+        >
+          <img src={this.state.avatar} alt="avatar" style={{width: 40, borderRadius: '50%'}}/>
+        </ColloredBadge>
+      </HtmlTooltip>
+    )
   }
 }
 
