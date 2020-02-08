@@ -92,10 +92,10 @@ class UserList extends Component {
 
           const calculateTimeliness = (reviews) => {
             let declined=0, onTime=0, late=0, never=0, total=0
-            reviews.map(review => {
+            for (const review of reviews) {
               if(review.declined){
                 declined++
-              } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+              } else if(!review.dateCompleted){
                 never++
               } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
                 onTime++
@@ -103,7 +103,7 @@ class UserList extends Component {
                 late++
               }
               total++
-            })
+            }
 
             //Round to two decimals
             let percentage = Math.round(((((onTime+declined+late/2)/total)*100)+ Number.EPSILON)*100)/100
@@ -113,12 +113,13 @@ class UserList extends Component {
 
           const calculateAcceptance = (reviews) => {
             let accept=0, minorChanges=0, majorChanges=0, reject=0, total=0
-            reviews.map(review => {
-              if(review.recommendation==1){
+
+            for (const review of reviews) {
+              if(review.recommendation===1){
                 accept++
-              } else if(review.recommendation==2){
+              } else if(review.recommendation===2){
                 minorChanges++
-              } else if(review.recommendation==3){
+              } else if(review.recommendation===3){
                 majorChanges++
               } else if(review.recommendation>3){
                 reject++
@@ -126,7 +127,7 @@ class UserList extends Component {
 
               if(review.recommendation>0)
               total++
-            })
+            }
 
             //Round to two decimals
             let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
@@ -136,16 +137,16 @@ class UserList extends Component {
 
           const calculateRating = (reviews) => {
             let sum=0, num=0
-            reviews.map(review => {
-              if(review.quality!=undefined){
+            for (const review of reviews) {
+              if(review.quality!==null){
                 sum=sum+review.quality
                 num++
               }
-            })
+            }
 
             // Round to two decimals
             let rating
-            if(num==0) {
+            if(num===0) {
               rating = 0
             } else {
               rating = Math.round(((sum/num)+ Number.EPSILON)*100)/100
@@ -175,11 +176,12 @@ class UserList extends Component {
                   },
                   customFilterAndSearch: (term, rowData) => {
                     let revs=0
-                    rowData.reviews.map(review => {
-                      if(review.dateCompleted==undefined && review.declined==0){
+                    for (const review of rowData.reviews) {
+                      if(!review.dateCompleted && !review.declined){
                         revs=revs+1
                       }
-                    })
+                    }
+
                     return (revs < term)
                   },
                   defaultFilter: this.state.unoccupied ? 1 : 0
@@ -200,9 +202,9 @@ class UserList extends Component {
                   customFilterAndSearch: (term, rowData) => {
                     let inputTerms = term.split(' ');
                     let found=true;
-                    inputTerms.map(term => {
-                       found = found && rowData.interests.find(interest => interest.text.toLowerCase().includes(term.toLowerCase()))!=undefined
-                    })
+                    for (const term of inputTerms) {
+                       found = found && rowData.interests.find(interest => interest.text.toLowerCase().includes(term.toLowerCase()))!==undefined
+                    }
                     return found
                   },
                   render: rowData =>
@@ -293,29 +295,27 @@ class UserList extends Component {
               detailPanel={
                 //Details for debugging
                 rowData => {
-                  let declined=0, onTime=0, late=0, never=0, total=0, qqqqq=0
-                  rowData.reviews.map(review =>{
+                  let declined=0, onTime=0, late=0, never=0, total=0
+                  for(const review of rowData.reviews) {
                     if(review.declined){
                       declined++
-                    } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+                    } else if(!review.dateCompleted){
                       never++
                     } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
                       onTime++
                     } else if(new Date(review.dateCompleted)>new Date(review.dateDue)){
                       late++
-                    } else {
-                      qqqqq++
                     }
                     total++
-                  })
+                  }
 
                   let sumQuality=0, numQuality=0
-                  rowData.reviews.map(review => {
-                    if(review.quality!=undefined){
+                  for (const review of rowData.reviews) {
+                    if(review.quality!==null){
                       sumQuality=sumQuality+review.quality
                       numQuality++
                     }
-                  })
+                  }
 
                   return(
                     <div>
@@ -357,4 +357,4 @@ class UserList extends Component {
   }
 }
 
-export { UserList as default, USERS_QUERY as USERS_QUERY}
+export { UserList as default, USERS_QUERY}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -38,13 +37,6 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
 class ReviewerDetails extends Component {
 
   state = {
@@ -55,22 +47,14 @@ class ReviewerDetails extends Component {
     this.setState({value: val})
   }
 
-  //classes = useStyles();
-  //const [value, setValue] = React.useState(0);
 
   handleChange = (event, newValue) => {
     this.setValue(newValue);
   };
 
-  constructor(props){
-    super(props);
-
-  }
   render(){
 
-
     return (
-      //<div className={this.classes.root}>
       <div>
         <AppBar position="static">
           <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">

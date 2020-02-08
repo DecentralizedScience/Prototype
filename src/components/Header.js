@@ -48,7 +48,7 @@ class Header extends Component {
       </Typography>*/
       <Paper className={classes.root}>
         <React.Fragment>
-          <img src={require('../assets/DS_logo.png')} height='85'/>
+          <img alt='Decentralized Science logo' src={require('../assets/DS_logo.png')} height='85'/>
         </React.Fragment>
         <Box className={classes.search}>
           <Typography variant='h5' align='center' color='white' gutterBottom paragraph className={classes.font}>

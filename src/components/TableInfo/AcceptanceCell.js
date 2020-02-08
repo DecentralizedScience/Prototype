@@ -124,21 +124,26 @@ class AcceptanceCell extends Component {
 
   calculateAcceptance = (reviews) => {
     let accept=0, minorChanges=0, majorChanges=0, reject=0, total=0
-    reviews.map(review => {
-      if(review.recommendation==1){
-        accept++
-      } else if(review.recommendation==2){
-        minorChanges++
-      } else if(review.recommendation==3){
-        majorChanges++
-      } else if(review.recommendation>3){
-        reject++
+    for (const review of reviews) {
+       switch(review.recommendation) {
+         case 1:
+          accept++
+          break
+         case 2:
+          minorChanges++
+          break
+        case 3:
+          majorChanges++
+          break
+        default:
+          if (review.recommendation > 3)
+          reject++
+          break
       }
 
       if(review.recommendation>0)
       total++
-    })
-
+    }
     //Round to two decimals
     let percentage = total ? Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100 : 0
 
@@ -147,14 +152,13 @@ class AcceptanceCell extends Component {
 
 
   render() {
-    let accept, minorChanges, majorChanges, reject, total, percentage
+    let accept, minorChanges, majorChanges, reject, percentage
     let acceptance = this.calculateAcceptance(this.state.reviews)
 
     accept = acceptance[0]
     minorChanges = acceptance[1]
     majorChanges = acceptance[2]
     reject = acceptance[3]
-    total = acceptance[4]
     percentage = acceptance[5]
 
     const accData=[

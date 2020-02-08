@@ -14,12 +14,12 @@ class RatingCell extends Component {
 
   calculateRating = (reviews) => {
     let sum=0, num=0
-    reviews.map(review => {
-      if(review.quality!=undefined){
+    for (const review of reviews) {
+      if(review.quality!==null){
         sum=sum+review.quality
         num++
       }
-    })
+    }
 
     // Round to two decimals
     let rating = Math.round(((sum/num)+ Number.EPSILON)*100)/100
@@ -34,7 +34,7 @@ class RatingCell extends Component {
     rating = this.calculateRating(this.state.reviews)[1]
 
 
-    if(num==0){
+    if(num===0){
       return(
         <Tooltip title="No information available">
           <span>

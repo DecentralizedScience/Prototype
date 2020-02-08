@@ -47,12 +47,13 @@ class AvatarCell extends Component{
 
   render(){
     let revs=0
-    this.state.reviews.map(review => {
-      if(review.dateCompleted==undefined && review.declined==0){
+    for (const review of this.state.reviews) {
+      if(!review.dateCompleted && !review.declined){
         revs=revs+1
       }
-    })
-    if(revs==0){
+    }
+
+    if(revs===0){
       return(
         <HtmlTooltip title={<div>{revs} reviews pending</div>}>
           <GreenBadge
@@ -101,4 +102,4 @@ class AvatarCell extends Component{
   }
 }
 
-export { AvatarCell as default, GreenBadge as GreenBadge, RedBadge as RedBadge, YellowBadge as YellowBadge }
+export { AvatarCell as default, GreenBadge, RedBadge, YellowBadge }

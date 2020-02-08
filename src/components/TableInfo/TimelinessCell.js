@@ -122,10 +122,10 @@ class TimelinessCell extends Component{
 
   calculateTimeliness = (reviews) => {
     let declined=0, onTime=0, late=0, never=0, total=0
-    reviews.map(review => {
+    for (const review of reviews) {
       if(review.declined){
         declined++
-      } else if(review.dateCompleted==" " || review.dateCompleted==undefined){
+      } else if(!review.dateCompleted){
         never++
       } else if(new Date(review.dateCompleted)<=new Date(review.dateDue)){
         onTime++
@@ -133,7 +133,7 @@ class TimelinessCell extends Component{
         late++
       }
       total++
-    })
+    }
 
     //Round to two decimals
     let percentage = Math.round(((((onTime+declined+late/2)/total)*100)+ Number.EPSILON)*100)/100
@@ -143,14 +143,13 @@ class TimelinessCell extends Component{
 
 
   render(){
-    let declined, onTime, late, never, total, percentage
+    let declined, onTime, late, never, percentage
     let timeliness = this.calculateTimeliness(this.state.reviews)
 
     declined = timeliness[0]
     onTime = timeliness[1]
     late = timeliness[2]
     never = timeliness[3]
-    total = timeliness[4]
     percentage = timeliness[5]
 
     const timeData=[

@@ -11,17 +11,19 @@ class ReviewsTable extends Component {
   }
 
   recommendationToText(rec){
-    if (rec==1) {
-      return "Accept"
-    } else if (rec==2) {
-      return "Accept with minor changes"
-    } else if (rec==3) {
-      return "Major changes"
-    } else if (rec==4) {
-      return "Reject (Resubmit elsewhere)"
-    } else if (rec==0 || rec==null) {
-      return ""
-    } else {
+    switch(rec) {
+      case 1:
+        return "Accept"
+      case 2:
+        return "Accept with minor changes"
+      case 3:
+        return "Major changes"
+      case 4:
+        return "Reject (Resubmit elsewhere)"
+      case 0:
+      case null:
+        return ""
+      default:
       return "Reject"
     }
   }
