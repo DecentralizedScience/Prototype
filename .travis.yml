@@ -12,13 +12,12 @@ jobs:
     - stage: Produce Coverage
       node_js: node
       script: npm test -- --watchAll=false --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
-    - stage: build
+    - stage: build, serve & e2e testing
       node_js: node
-      script: cp src/config.sample.json src/config.json & npm run build
-    - stage: serve & e2e testing
-      node_js: node
+      env:
+        - CYPRESS_baseUrl=http://localhost:5000
       script:
-        - npm run mocked
-        - npm run serve
-        - export CYPRESS_baseUrl=http://localhost:5000
+        - cp src/config.sample.json src/config.json & npm run build
+        - npm run mocked &
+        - npm run serve &
         - npm run e2e:run
