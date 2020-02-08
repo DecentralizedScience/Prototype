@@ -17,7 +17,8 @@ jobs:
       script: cp src/config.sample.json src/config.json & npm run build
     - stage: serve & e2e testing
       node_js: node
-      script: npm run mocked
-      script: npm run serve
-      script: export CYPRESS_baseUrl=http://localhost:5000
-      script: npm run e2e:run
+      script:
+        - npm run mocked
+        - npm run serve
+        - export CYPRESS_baseUrl=http://localhost:5000
+        - npm run e2e:run
