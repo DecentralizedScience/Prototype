@@ -15,6 +15,7 @@ import InterestsCell from './TableInfo/InterestsCell.js'
 import NameCell from './TableInfo/NameCell.js'
 import AvatarCell from './TableInfo/AvatarCell.js'
 import TableToolbar from './TableToolbar.js'
+import TableFilters from './TableFilters.js'
 
 
 const USERS_QUERY = gql`
@@ -66,14 +67,7 @@ class UserList extends Component {
   constructor(props){
     super(props)
     this.state={
-      unoccupied: false
     }
-  }
-
-  handleSwitchChange = (event) => {
-    this.setState({
-      unoccupied: event.target.checked
-    })
   }
 
   render(){
@@ -161,10 +155,17 @@ class UserList extends Component {
               title="RECOMMENDED REVIEWERS"
               components={{
                 Toolbar: props => (
-                  <TableToolbar
-                    onChange={this.handleSwitchChange}
-                    checked={this.state.unoccupied}
-                  />
+                  <div>
+                    <TableToolbar
+                      onChange={this.props.onSwitchChange}
+                      checked={this.props.unoccupied}
+                    />
+                    <TableFilters
+                      labels={this.props.labels}
+                      key={this.props.labels}
+                      labelDelete={this.props.onLabelDelete}
+                    />
+                  </div>
                 )
               }}
               columns={[
@@ -184,7 +185,7 @@ class UserList extends Component {
 
                     return (revs < term)
                   },
-                  defaultFilter: this.state.unoccupied ? 1 : 0
+                  defaultFilter: this.props.unoccupied ? 1 : 0
                 },
                 { title: 'NAME', field: 'name',
                   render: rowData =>
@@ -208,7 +209,10 @@ class UserList extends Component {
                     return found
                   },
                   render: rowData =>
-                  <InterestsCell interests={rowData.interests} />,
+                  <InterestsCell
+                    interests={rowData.interests}
+                    labelClick={this.props.onLabelClick}
+                  />,
                   headerStyle: {
                     fontSize: "12px",
                   },

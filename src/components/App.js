@@ -17,7 +17,9 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      searchValue: ''
+      searchValue: '',
+      unoccupied: false,
+      labels: []
     }
   }
 
@@ -26,6 +28,28 @@ class App extends Component {
       searchValue: event.target.value
     })
   }
+
+  handleSwitchChange = (event) => {
+    this.setState({
+      unoccupied: event.target.checked
+    })
+  }
+
+  handleLabelClick = (event) => {
+    console.log(event.target)
+    if(!this.state.labels.includes(event.target.textContent)){
+      this.setState({
+        labels: this.state.labels.concat(event.target.textContent)
+      })
+    }
+  }
+
+  handleLabelDelete = (labelToDelete) => () => {
+    this.setState({
+      labels: this.state.labels.filter(label => label !== labelToDelete)
+    })
+  }
+
 
   render() {
     const {classes } = this.props
@@ -37,6 +61,11 @@ class App extends Component {
         <UserList
           value={this.state.searchValue}
           key={this.state.searchValue}
+          onSwitchChange={this.handleSwitchChange}
+          unoccupied={this.state.unoccupied}
+          onLabelClick={this.handleLabelClick}
+          onLabelDelete={this.handleLabelDelete}
+          labels={this.state.labels}
         />
       </Paper>
     )

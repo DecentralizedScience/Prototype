@@ -20,7 +20,9 @@ class InterestsCell extends Component{
               <Chip
                 key={interest.id}
                 label={interest.text}
+                value={interest.text}
                 color='primary'
+                onClick={this.props.labelClick}
               />
             </Tooltip>
           )
