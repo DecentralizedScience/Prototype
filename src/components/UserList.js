@@ -208,6 +208,7 @@ class UserList extends Component {
                     }
                     return found
                   },
+                  defaultFilter: this.props.labels.join(' '),
                   render: rowData =>
                   <InterestsCell
                     interests={rowData.interests}
