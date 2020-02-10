@@ -4,6 +4,9 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Chip from '@material-ui/core/Chip'
 
 class TableFilters extends Component {
+  static defaultProps = {
+    labels: []
+  }
 
   constructor(props) {
     super(props)
@@ -11,6 +14,8 @@ class TableFilters extends Component {
       labels: this.props.labels
     }
   }
+
+
 
   render() {
     return(

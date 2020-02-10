@@ -64,6 +64,11 @@ const USERS_QUERY = gql`
 
 class UserList extends Component {
 
+  static defaultProps = {
+    labels: []
+  }
+
+
   constructor(props){
     super(props)
     this.state={
