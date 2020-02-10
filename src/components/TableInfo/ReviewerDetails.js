@@ -5,7 +5,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import ReviewsTable from './ReviewsTable.js'
+import ReviewsTable from './ReviewsTable.js';
+import DevelopmentOnly, { isDevelopment } from '../DevelopmentOnly';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +60,7 @@ class ReviewerDetails extends Component {
         <AppBar position="static">
           <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
             <Tab label="Reviews" {...a11yProps(0)} />
-            <Tab label="Papers" {...a11yProps(1)} />
+            {isDevelopment()?<Tab label="Papers" {...a11yProps(1)} />:null}
           </Tabs>
         </AppBar>
         <TabPanel value={this.state.value} index={0}>

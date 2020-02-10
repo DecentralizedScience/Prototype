@@ -16,7 +16,7 @@ import NameCell from './TableInfo/NameCell.js'
 import AvatarCell from './TableInfo/AvatarCell.js'
 import TableToolbar from './TableToolbar.js'
 import TableFilters from './TableFilters.js'
-
+import DevelopmentOnly from './DevelopmentOnly.js'
 
 const USERS_QUERY = gql`
   {
@@ -325,21 +325,22 @@ class UserList extends Component {
                   return(
                     <div>
                       <ReviewerDetails data={rowData}/>
+                      <DevelopmentOnly>
+                        {rowData.keywords}
+                        <p>Reviews</p>
 
-                      {rowData.keywords}
-                      <p>Reviews</p>
-
-                      <p></p>
-                      <p>TIMELINESS</p>
-                      <p>On time: {onTime}</p>
-                      <p>Declined: {declined}</p>
-                      <p>Late: {late}</p>
-                      <p>Never: {never}</p>
-                      <p>Total: {total}</p>
-                      <p>------------------------</p>
-                      <p>QUALITY</p>
-                      <p>Total: {sumQuality}</p>
-                      <p>Number of evaluations: {numQuality}</p>
+                        <p></p>
+                        <p>TIMELINESS</p>
+                        <p>On time: {onTime}</p>
+                        <p>Declined: {declined}</p>
+                        <p>Late: {late}</p>
+                        <p>Never: {never}</p>
+                        <p>Total: {total}</p>
+                        <p>------------------------</p>
+                        <p>QUALITY</p>
+                        <p>Total: {sumQuality}</p>
+                        <p>Number of evaluations: {numQuality}</p>
+                      </DevelopmentOnly>
                     </div>
                   )
                 }
