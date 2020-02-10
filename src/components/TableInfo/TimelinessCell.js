@@ -143,13 +143,14 @@ class TimelinessCell extends Component{
 
 
   render(){
-    let declined, onTime, late, never, percentage
+    let declined, onTime, late, never, total, percentage
     let timeliness = this.calculateTimeliness(this.state.reviews)
 
     declined = timeliness[0]
     onTime = timeliness[1]
     late = timeliness[2]
     never = timeliness[3]
+    total = timeliness[4]
     percentage = timeliness[5]
 
     const timeData=[
@@ -179,22 +180,38 @@ class TimelinessCell extends Component{
       }
     ]
 
-    return(
-      <HtmlTooltip
-        title={
-          <React.Fragment>
-            <MyResponsivePie data={timeData}/>
-          </React.Fragment>
-        }
-        interactive
-      >
-        <Button
-          startIcon={<Icon>alarm</Icon>}
+    if(total===0){
+      return(
+        <Tooltip title="No information available">
+          <span>
+            <Button
+              startIcon={<Icon>alarm</Icon>}
+              disabled
+            >
+              -%
+            </Button>
+          </span>
+        </Tooltip>
+      )
+    } else {
+      return(
+        <HtmlTooltip
+          title={
+            <React.Fragment>
+              <MyResponsivePie data={timeData}/>
+            </React.Fragment>
+          }
+          interactive
         >
-          {percentage}%
-        </Button>
-      </HtmlTooltip>
-    )
+          <Button
+            startIcon={<Icon>alarm</Icon>}
+          >
+            {percentage}%
+          </Button>
+        </HtmlTooltip>
+      )
+    }
+
   }
 }
 

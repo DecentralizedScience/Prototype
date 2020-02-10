@@ -145,20 +145,21 @@ class AcceptanceCell extends Component {
       total++
     }
     //Round to two decimals
-    let percentage = total ? Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100 : 0
+    let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
 
     return [accept, minorChanges, majorChanges, reject, total, percentage]
   };
 
 
   render() {
-    let accept, minorChanges, majorChanges, reject, percentage
+    let accept, minorChanges, majorChanges, reject, total, percentage
     let acceptance = this.calculateAcceptance(this.state.reviews)
 
     accept = acceptance[0]
     minorChanges = acceptance[1]
     majorChanges = acceptance[2]
     reject = acceptance[3]
+    total = acceptance[4]
     percentage = acceptance[5]
 
     const accData=[
@@ -188,22 +189,38 @@ class AcceptanceCell extends Component {
       }
     ]
 
-    return(
-      <HtmlTooltip
-        title={
-          <React.Fragment>
-            <MyResponsivePie data={accData}/>
-          </React.Fragment>
-        }
-        interactive
-      >
-        <Button
-          startIcon={<Icon>thumb_up</Icon>}
+    if (total===0){
+      return(
+        <Tooltip title="No information available">
+          <span>
+            <Button
+              startIcon={<Icon>thumb_up</Icon>}
+              disabled
+            >
+              -%
+            </Button>
+          </span>
+        </Tooltip>
+      )
+    } else {
+      return(
+        <HtmlTooltip
+          title={
+            <React.Fragment>
+              <MyResponsivePie data={accData}/>
+            </React.Fragment>
+          }
+          interactive
         >
-          {percentage}%
-        </Button>
-      </HtmlTooltip>
-    )
+          <Button
+            startIcon={<Icon>thumb_up</Icon>}
+          >
+            {percentage}%
+          </Button>
+        </HtmlTooltip>
+      )
+    }
+
   }
 }
 
