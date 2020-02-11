@@ -196,7 +196,7 @@ class UserList extends Component {
                   render: rowData =>
                     <NameCell name={rowData.name} url={rowData.url} />,
                   cellStyle: {
-                    width: "300px"
+                    width: "20%"
                   },
                   headerStyle: {
                     fontSize: "12px",
@@ -228,7 +228,7 @@ class UserList extends Component {
                   title: 'TIMELINESS', field: 'time', render: rowData =>
                     <TimelinessCell reviews={rowData.reviews} />,
                   cellStyle: {
-                    width: "100px"
+                    width: "4%"
                   },
                   headerStyle: {
                     fontSize: "12px",
@@ -239,7 +239,7 @@ class UserList extends Component {
                   title: 'ACCEPTANCE', field: 'accept', render: rowData =>
                     <AcceptanceCell accept={rowData.accept} reviews={rowData.reviews} />,
                   cellStyle: {
-                    width: "100px"
+                    width: "4%"
                   },
                   headerStyle: {
                     fontSize: "12px",
@@ -250,7 +250,7 @@ class UserList extends Component {
                   title: 'RATING', field: 'rating', render: rowData =>
                     <RatingCell reviews={rowData.reviews} />,
                   cellStyle: {
-                    width: "100px"
+                    width: "4%"
                   },
                   headerStyle: {
                     fontSize: "12px",
@@ -261,7 +261,7 @@ class UserList extends Component {
                   render: rowData =>
                     <EmailCell email={rowData.email} />,
                   cellStyle: {
-                    width: "70px"
+                    width: "2%"
                   },
                   headerStyle: {
                     fontSize: "12px",
