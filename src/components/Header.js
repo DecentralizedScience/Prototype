@@ -31,6 +31,7 @@ const styles = theme => ({
     background: "white",
     padding:10,
     width: '30%',
+    borderRadius: 36
   },
   iconButton: {
     padding: 10,
