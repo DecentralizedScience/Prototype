@@ -27,7 +27,6 @@ const styles = theme => ({
     color: '#a7cee2'
   },
   input: {
-    marginLeft: theme.spacing(3),
     flex: 1,
     background: "white",
     padding:10,
@@ -63,7 +62,7 @@ class Header extends Component {
               onChange={this.props.onChange}
               inputProps={{
                 'aria-label': 'reviewers search',
-                style: {textAlign: 'center'}
+                style: {textAlign: 'left', marginLeft:10}
               }}
               endAdornment={
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
