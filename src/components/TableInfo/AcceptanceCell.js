@@ -3,30 +3,37 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
 import Icon from '@material-ui/core/Icon'
 import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import { Pie } from '@nivo/pie'
 
 const HtmlTooltip = withStyles(theme => ({
   tooltip: {
-    backgroundColor: '#f5f5f9',
+    backgroundColor: '#ffffff',
     color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 400,
+    maxWidth: 300,
     fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
+    border: '2px solid #dadde9',
   },
 }))(Tooltip);
+
+const styles = theme => ({
+  typography: {
+    color: "#374784",
+    marginTop: 20
+  }
+})
 
 const MyResponsivePie = ({ data }) => (
   <Pie
     data={data}
     height={400}
-    width={400}
-    margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-    innerRadius={0.5}
+    width={300}
+    margin={{ top: 10, right: 30, bottom: 100, left: 30 }}
+    innerRadius={0.55}
     padAngle={0.7}
     cornerRadius={3}
-    colors={{ scheme: 'accent' }}
     borderWidth={1}
-    borderColor={{ from: 'color', modifiers: [ ['darker', 0.2 ] ] }}
+    borderColor={{ from: 'color', modifiers: [ ['brighter', 0.2 ] ] }}
     enableRadialLabels={false}
     radialLabelsSkipAngle={10}
     radialLabelsTextOffset={6}
@@ -37,10 +44,11 @@ const MyResponsivePie = ({ data }) => (
     radialLabelsLinkStrokeWidth={1}
     radialLabelsLinkColor={{ from: 'color' }}
     slicesLabelsSkipAngle={10}
-    slicesLabelsTextColor="#333333"
+    slicesLabelsTextColor={d => d.textColor}
     animate={true}
     motionStiffness={90}
     motionDamping={15}
+    colors={d => d.color}
     defs={[
       {
         id: 'dots',
@@ -91,7 +99,8 @@ const MyResponsivePie = ({ data }) => (
       {
         anchor: 'bottom',
         direction: 'column',
-        translateY: 56,
+        translateY: 75,
+        translateX: -10,
         itemWidth: 100,
         itemHeight: 18,
         itemTextColor: '#999',
@@ -107,6 +116,13 @@ const MyResponsivePie = ({ data }) => (
         ]
       }
     ]}
+    theme={{
+      legends: {
+        text: {
+          fontSize: 14,
+        }
+      }
+    }}
   />
 )
 
@@ -152,6 +168,8 @@ class AcceptanceCell extends Component {
 
 
   render() {
+    const {classes} = this.props
+
     let accept, minorChanges, majorChanges, reject, total, percentage
     let acceptance = this.calculateAcceptance(this.state.reviews)
 
@@ -167,25 +185,29 @@ class AcceptanceCell extends Component {
         "id": "Accept",
         "label": "accept",
         "value": accept,
-        "color": "hs1(125, 70%, 50%)"
+        "color": "#374784",
+        "textColor": "#ffffff"
       },
       {
         "id": "Minor Changes",
         "label": "minorChanges",
         "value": minorChanges,
-        "color": "hs1(355, 70%, 50%)"
+        "color": "#a7cee2",
+        "textColor": "#ffffff"
       },
       {
         "id": "Major Changes",
         "label": "majorChanges",
         "value": majorChanges,
-        "color": "hs1(217, 70%, 50%)"
+        "color": "#f3eccf",
+        "textColor": "#333333"
       },
       {
         "id": "Reject",
         "label": "reject",
         "value": reject,
-        "color": "hs1(186, 70%, 50%)"
+        "color": "#ef696a",
+        "textColor": "#ffffff"
       }
     ]
 
@@ -207,6 +229,9 @@ class AcceptanceCell extends Component {
         <HtmlTooltip
           title={
             <React.Fragment>
+              <Typography variant='h6' align='center' className={classes.typography}>
+                ACCEPTANCE
+              </Typography>
               <MyResponsivePie data={accData}/>
             </React.Fragment>
           }
@@ -224,4 +249,4 @@ class AcceptanceCell extends Component {
   }
 }
 
-export default AcceptanceCell
+export default withStyles(styles)(AcceptanceCell)
