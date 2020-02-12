@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 import Icon from '@material-ui/core/Icon'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined'
 import { Pie } from '@nivo/pie'
 
 const HtmlTooltip = withStyles(theme => ({
@@ -216,7 +217,7 @@ class AcceptanceCell extends Component {
         <Tooltip title="No information available">
           <span>
             <Button
-              startIcon={<Icon>thumb_up</Icon>}
+              startIcon={<ThumbUpOutlinedIcon />}
               disabled
             >
               -%
@@ -238,7 +239,10 @@ class AcceptanceCell extends Component {
           interactive
         >
           <Button
-            startIcon={<Icon>thumb_up</Icon>}
+            style={{
+              color: "#374784"
+            }}
+            startIcon={<ThumbUpOutlinedIcon />}
           >
             {percentage}%
           </Button>

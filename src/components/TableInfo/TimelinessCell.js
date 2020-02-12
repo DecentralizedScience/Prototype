@@ -229,6 +229,9 @@ class TimelinessCell extends Component{
           interactive
         >
           <Button
+            style={{
+              color: "#374784"
+            }}
             startIcon={<Icon>alarm</Icon>}
           >
             {percentage}%

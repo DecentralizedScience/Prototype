@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
-import StarIcon from '@material-ui/icons/Star'
+import StarBorderIcon from '@material-ui/icons/StarBorder'
 
 class RatingCell extends Component {
 
@@ -39,7 +39,7 @@ class RatingCell extends Component {
         <Tooltip title="No information available">
           <span>
             <Button
-              startIcon={<StarIcon />}
+              startIcon={<StarBorderIcon />}
               disabled
             >
               -/5
@@ -50,7 +50,10 @@ class RatingCell extends Component {
     } else {
       return(
         <Button
-          startIcon={<StarIcon />}
+          style={{
+            color: "#374784"
+          }}
+          startIcon={<StarBorderIcon />}
         >
           {rating}/5
         </Button>

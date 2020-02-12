@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
-import MailIcon from '@material-ui/icons/Mail'
+import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import CloseIcon from '@material-ui/icons/Close'
 import Snackbar from '@material-ui/core/Snackbar'
 
@@ -41,7 +41,7 @@ class EmailCell extends Component {
             aria-label="mail"
             onClick={this.handleClick}
           >
-            <MailIcon style={{ color: "#0285BB" }}/>
+            <MailOutlineIcon style={{ color: "#374784" }}/>
           </IconButton>
         </CopyToClipboard>
         <Snackbar
