@@ -6,7 +6,9 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
   chip:{
     borderRadius: 5,
-    margin: 5
+    margin: 5,
+    backgroundColor: '#a7cee2',
+    fontWeight: 'bold'
   }
 })
 
