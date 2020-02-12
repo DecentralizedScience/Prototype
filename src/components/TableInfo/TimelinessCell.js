@@ -91,12 +91,13 @@ const MyResponsivePie = ({ data }) => (
       {
         anchor: 'bottom',
         direction: 'column',
-        translateY: 56,
+        translateY: 70,
         itemWidth: 100,
         itemHeight: 18,
         itemTextColor: '#999',
         symbolSize: 13,
         symbolShape: 'square',
+        margin: '100',
         effects: [
           {
             on: 'hover',
