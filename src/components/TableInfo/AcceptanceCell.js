@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
-import Icon from '@material-ui/core/Icon'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined'
