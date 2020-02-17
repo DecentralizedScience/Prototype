@@ -12,9 +12,9 @@ import Background from '../assets/DS_background.png'
 
 const styles = theme => ({
   root: {
-    margin: -20,
+    margin: -60,
     marginBottom: -100,
-    padding: 40,
+    padding: 60,
     paddingBottom: 150,
     //background: '#21305c'
     backgroundImage: `url(${Background})`
@@ -29,8 +29,9 @@ const styles = theme => ({
   input: {
     flex: 1,
     background: "white",
-    padding:10,
-    width: '30%',
+    padding:20,
+    marginRight: -70,
+    width: 850,
     borderRadius: 36
   },
   iconButton: {
@@ -43,16 +44,15 @@ class Header extends Component {
   render() {
     const {classes} = this.props
     return(
-      /*<Typography variant='h4' align='center' gutterBottom>
-        Recommended Reviewers
-      </Typography>*/
       <Paper className={classes.root}>
         <React.Fragment>
           <img alt='Decentralized Science logo' src={require('../assets/DS_logo.png')} height='85'/>
         </React.Fragment>
         <Box className={classes.search}>
-          <Typography variant='h5' align='center' color='white' gutterBottom paragraph className={classes.font}>
-            SEARCH THE BEST REVIEWER FOR YOUR PAPER
+          <Typography variant='h4' align='center' color='white' gutterBottom paragraph className={classes.font}>
+            <Box fontWeight="fontWeightBold" >
+              SEARCH THE BEST REVIEWER FOR YOUR PAPER
+            </Box>
           </Typography>
           <div align='center'>
             <InputBase
@@ -65,12 +65,10 @@ class Header extends Component {
                 'aria-label': 'reviewers search',
                 style: {textAlign: 'left', marginLeft:10}
               }}
-              endAdornment={
-                <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                  <SearchIcon />
-                </IconButton>
-              }
             />
+            <IconButton type="submit" className={classes.iconButton} aria-label="search">
+              <SearchIcon style={{fontSize: 40}}/>
+            </IconButton>
           </div>
         </Box>
       </Paper>

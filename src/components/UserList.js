@@ -225,7 +225,7 @@ class UserList extends Component {
                   sorting: false
                 },
                 {
-                  title: 'TIMELINESS', field: 'time', render: rowData =>
+                  title: 'TIME', field: 'time', render: rowData =>
                     <TimelinessCell reviews={rowData.reviews} />,
                   cellStyle: {
                     width: "4%"
@@ -236,7 +236,7 @@ class UserList extends Component {
                   customSort: (a, b) => calculateTimeliness(a.reviews)[5] - calculateTimeliness(b.reviews)[5]
                 },
                 {
-                  title: 'ACCEPTANCE', field: 'accept', render: rowData =>
+                  title: 'ACCEPTS', field: 'accept', render: rowData =>
                     <AcceptanceCell accept={rowData.accept} reviews={rowData.reviews} />,
                   cellStyle: {
                     width: "4%"
@@ -302,9 +302,14 @@ class UserList extends Component {
                   })
                 })
               }
-              detailPanel={
-                //Details for debugging
-                rowData => {
+              detailPanel={[{
+                tooltip: 'Show reviews and papers',
+                /*icon: "arrow_forward_ios",
+                iconProps: {
+                  fontSize: 'small',
+                  color: '#0285bb'
+                },*/
+                render: rowData => {
                   let declined=0, onTime=0, late=0, never=0, total=0
                   for(const review of rowData.reviews) {
                     if(review.declined){
@@ -348,8 +353,8 @@ class UserList extends Component {
                       </DevelopmentOnly>
                     </div>
                   )
-                }
-              }
+                },
+              }]}
               localization={{
                 toolbar: {
                   searchPlaceholder: 'Search by interest or name'
@@ -358,7 +363,14 @@ class UserList extends Component {
               options={{
                 draggable: false,
                 sort: true,
-                searchText: this.props.value
+                searchText: this.props.value,
+                headerStyle: {
+                  backgroundColor: '#374784',
+                  color: 'white'
+                }
+              }}
+              style={{
+                margin: 0
               }}
             />
           )
