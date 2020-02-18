@@ -1,7 +1,28 @@
 import React, { Component } from 'react'
 import MaterialTable from 'material-table'
 import * as xss from 'xss'
+
 import Link from '@material-ui/core/Link'
+import Box from '@material-ui/core/Box'
+import { withStyles } from '@material-ui/core/styles'
+import DotIcon from '@material-ui/icons/FiberManualRecord'
+
+import Stars from './Stars.js'
+
+const styles = theme => ({
+  root: {
+    margin: 20,
+    marginBottom: 0,
+    marginTop: 0,
+    padding: 20,
+    paddingTop: 0
+  },
+  stars: {
+    marginLeft: 40,
+    marginRight: 0,
+    paddingRight: 0
+  }
+})
 
 class ReviewsTable extends Component {
 
@@ -22,13 +43,32 @@ class ReviewsTable extends Component {
         return "Reject (Resubmit elsewhere)"
       case 0:
       case null:
-        return ""
+        return '\u2014'
       default:
       return "Reject"
     }
   }
 
+  recommendationToColor(rec){
+    switch(rec) {
+      case 1:
+        return <DotIcon style={{color: '#4caf50', fontSize: 'small'}} />
+      case 2:
+        return <DotIcon style={{color: '#a7cee2', fontSize: 'small'}} />
+      case 3:
+        return <DotIcon style={{color: '#f3eccf', fontSize: 'small'}} />
+      case 4:
+        return <DotIcon style={{color: '#ef696a', fontSize: 'small'}}/>
+      case 0:
+      case null:
+        return ""
+      default:
+        return <DotIcon style={{color: '#ef696a', fontSize: 'small'}}/>
+    }
+  }
+
   render() {
+    const {classes} = this.props
     return (
       <div>
         <MaterialTable
@@ -68,7 +108,25 @@ class ReviewsTable extends Component {
             },
             { title: 'REVIEW', field: 'text',
               render: rowData =>
-                <div dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ((rowData.recommendation>0) ? '' : '<i>Review pending</i>')}}></div>,
+                <div>
+                  <Box display="flex" className={classes.root}>
+                    <Box p={1} flexGrow={1}>
+                    </Box>
+                    <Box p={1}>
+                      Recommendation: {this.recommendationToColor(rowData.recommendation)}{this.recommendationToText(rowData.recommendation)}
+                    </Box>
+                    <Box p={1} className={classes.stars}>
+                      <Stars number={rowData.quality}/>
+                    </Box>
+                  </Box>
+                  <div
+                    dangerouslySetInnerHTML={{__html: (rowData.reviewComments[0]) ? ' </h3>' + xss(rowData.reviewComments[0].text) : ((rowData.recommendation>0) ? '' : '<i>Review pending</i>')}}
+                    style={{
+                      lineHeight: 1.75
+                    }}
+                  >
+                  </div>
+                </div>,
               headerStyle: {
                 fontSize: "12px",
               }
@@ -106,4 +164,4 @@ class ReviewsTable extends Component {
   }
 }
 
-export default ReviewsTable
+export default withStyles(styles)(ReviewsTable)
