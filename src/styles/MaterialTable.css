@@ -1,0 +1,12 @@
+/*.MuiTable-root {
+  margin: 40px;
+  width: auto !important;
+}*/
+
+.MuiTableHead-root {
+  margin: 40px;
+}
+
+.MuiTableBody-root {
+  margin:40px
+}

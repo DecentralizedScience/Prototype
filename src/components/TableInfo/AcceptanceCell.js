@@ -185,7 +185,7 @@ class AcceptanceCell extends Component {
         "id": "Accept",
         "label": "accept",
         "value": accept,
-        "color": "#374784",
+        "color": '#4caf50',
         "textColor": "#ffffff"
       },
       {
