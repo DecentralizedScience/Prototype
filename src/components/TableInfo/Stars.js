@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-import StarBorderIcon from '@material-ui/icons/StarBorder'
-import StarIcon from '@material-ui/icons/Star'
-import StarHalfIcon from '@material-ui/icons/StarHalf'
+import Rating from '@material-ui/lab/Rating'
 
 class Stars extends Component {
 
@@ -13,28 +11,22 @@ class Stars extends Component {
     }
   }
 
-  computeStars(rating) {
-    const starArray = new Array(5)
-    for(let i = 0; i<5; i++){
-      if (rating >= i+1) {
-        starArray[i] = <StarIcon style={{color: '#fbc02d'}} />
-      } else if (rating > i && rating < i+1) {
-        starArray[i] = <StarHalfIcon style={{color: '#fbc02d'}} />
-      } else {
-        starArray[i] = <StarBorderIcon style={{color: '#fbc02d'}} />
-      }
-    }
-
-    return starArray
+  handleChange = (event, newValue) => {
+    console.log(event)
+    this.setState({
+      number: newValue
+    })
   }
 
   render() {
 
-    const starArray = this.computeStars(this.state.number)
-
     return(
       <div>
-        {starArray}
+        <Rating
+          name="read-only"
+          value={this.state.number}
+          onChange={this.handleChange}
+        />
       </div>
     )
   }
