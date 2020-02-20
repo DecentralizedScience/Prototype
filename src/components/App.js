@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom'
+
 import UserList from './UserList'
 import Header from './Header'
+import Register from './Register/Register'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core'
@@ -54,20 +61,29 @@ class App extends Component {
   render() {
     const {classes } = this.props
     return (
-      <Paper className={classes.root}>
-        <Header
-          onChange={this.handleValueChange}
-        />
-        <UserList
-          value={this.state.searchValue}
-          key={this.state.searchValue}
-          onSwitchChange={this.handleSwitchChange}
-          unoccupied={this.state.unoccupied}
-          onLabelClick={this.handleLabelClick}
-          onLabelDelete={this.handleLabelDelete}
-          labels={this.state.labels}
-        />
-      </Paper>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Paper className={classes.root}>
+              <Header
+                onChange={this.handleValueChange}
+              />
+              <UserList
+                value={this.state.searchValue}
+                key={this.state.searchValue}
+                onSwitchChange={this.handleSwitchChange}
+                unoccupied={this.state.unoccupied}
+                onLabelClick={this.handleLabelClick}
+                onLabelDelete={this.handleLabelDelete}
+                labels={this.state.labels}
+              />
+            </Paper>
+          </Route>
+          <Route exact path="/join">
+            <Register />
+          </Route>
+        </Switch>
+      </Router>
     )
   }
 }
