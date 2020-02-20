@@ -37,6 +37,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "preinstall": "git submodule update",
     "postinstall": "cd server && npm install && cd ../peer-review-app && npm install",
     "server": "npm start --prefix server",
     "mocked": "npm run mocked --prefix server",
