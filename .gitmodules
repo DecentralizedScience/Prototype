@@ -1,0 +1,3 @@
+[submodule "peer-review-app"]
+	path = peer-review-app
+	url = https://github.com/DecentralizedScience/peer-review-app.git

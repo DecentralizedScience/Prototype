@@ -37,12 +37,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "cd server && npm install",
+    "postinstall": "cd server && npm install && cd ../peer-review-app && npm install",
     "server": "npm start --prefix server",
     "mocked": "npm run mocked --prefix server",
     "e2e": "cypress open",
     "serve": "serve -s build",
-    "e2e:run": "cypress run"
+    "e2e:run": "cypress run",
+    "bloxberg-server": "env PORT=3002 npm start --prefix peer-review-app/server"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -125,6 +125,22 @@ server {
     }
 ```
 
+## Using [Bloxgerg](https://bloxberg.org/)'s Blockchain [peer-review-app](https://github.com/bloxberg-org/peer-review-app)
+
+Decentralized Science connects to Bloxberg Blockchain and it's peer reviewing app. In their blockchain, users can register their previous peer reviews, and import their [Publons](https://publons.com/) and [F1000Research](https://f1000research.com/) profiles.
+
+### Database configuration
+Following [database configuration instructions](https://github.com/DecentralizedScience/peer-review-app#configure-database-connection), configure your mongodb connection information:
+
+- Copy sample configuration file:
+`cp peer-review-app/server/config_template.js peer-review-app/server/config.js`
+
+- Edit the configuration file to include your mongodb connection details, for instance, set `exports.databaseURI` to the default value ` = 'mongodb://localhost:27017'`.
+
+### Running blockchain server
+
+run `npm run bloxberg-server` to start the server
+
 ### Enjoy!
 
 Your can access your password protected Decentralized Science Prototype at `https://<your_server_name>/decentralized-science/`
