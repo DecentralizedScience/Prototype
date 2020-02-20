@@ -11,6 +11,13 @@ To run and install this application you need:
 
 * [node](https://nodejs.org) and [npm](https://www.npmjs.com/)
 
+## Download
+First, clone this repo.
+
+Then, run:
+
+`git submodule init`
+
 ## How to run this prototype
 
 To install, run
