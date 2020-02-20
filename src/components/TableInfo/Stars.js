@@ -7,26 +7,42 @@ class Stars extends Component {
   constructor(props){
     super(props)
     this.state={
-      number: this.props.number
+      rating: this.props.rating
     }
   }
 
   handleChange = (event, newValue) => {
     console.log(event)
     this.setState({
-      number: newValue
+      rating: newValue
     })
+  }
+
+  renderStars(){
+    if(this.state.rating===null){
+      return (
+        <Rating
+          name="simple-controlled"
+          value={this.state.rating}
+          onChange={this.handleChange}
+        />
+      )
+    } else {
+      return (
+        <Rating
+          name="read-only"
+          value={this.state.rating}
+          readOnly
+        />
+      )
+    }
   }
 
   render() {
 
     return(
       <div>
-        <Rating
-          name="read-only"
-          value={this.state.number}
-          onChange={this.handleChange}
-        />
+        {this.renderStars()}
       </div>
     )
   }

@@ -116,7 +116,7 @@ class ReviewsTable extends Component {
                       Recommendation: {this.recommendationToColor(rowData.recommendation)}{this.recommendationToText(rowData.recommendation)}
                     </Box>
                     <Box p={1} className={classes.stars}>
-                      <Stars number={rowData.quality}/>
+                      <Stars rating={rowData.quality}/>
                     </Box>
                   </Box>
                   <div
