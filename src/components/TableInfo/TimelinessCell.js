@@ -176,7 +176,7 @@ class TimelinessCell extends Component{
         "id": "On time",
         "label": "onTime",
         "value": onTime,
-        "color": '#4caf50',
+        "color": '#308380',
         "textColor": "#ffffff"
       },
       {
