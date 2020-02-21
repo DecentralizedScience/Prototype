@@ -8,9 +8,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const styles = theme => ({
   root: {
-    margin: 20,
-    marginBottom: 0,
-    padding: 20,
+    marginTop: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginLeft: -10,
+    marginRight: -24
   }
 })
 

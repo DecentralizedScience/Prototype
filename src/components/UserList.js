@@ -200,6 +200,7 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   width: "300px"
                 },
@@ -221,6 +222,7 @@ class UserList extends Component {
                   />,
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   sorting: false
                 },
@@ -232,6 +234,7 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   customSort: (a, b) => calculateTimeliness(a.reviews)[5] - calculateTimeliness(b.reviews)[5]
                 },
@@ -243,6 +246,7 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   customSort: (a, b) => calculateAcceptance(a.reviews)[5] - calculateAcceptance(b.reviews)[5]
                 },
@@ -254,6 +258,7 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   customSort: (a, b) => calculateRating(a.reviews)[1] - calculateRating(b.reviews)[1]
                 },
@@ -265,6 +270,7 @@ class UserList extends Component {
                   },
                   headerStyle: {
                     fontSize: "12px",
+                    fontWeight: 'bold',
                   },
                   sorting: false
                 }
@@ -366,11 +372,13 @@ class UserList extends Component {
                 searchText: this.props.value,
                 headerStyle: {
                   backgroundColor: '#374784',
-                  color: 'white'
+                  color: 'white',
+                  padding: 25
                 }
               }}
               style={{
-                margin: 0
+                paddingLeft: 40,
+                paddingRight: 40
               }}
             />
           )
