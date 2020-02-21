@@ -8,6 +8,7 @@ import {
 import UserList from './UserList'
 import Header from './Header'
 import Register from './Register/Register'
+import Terms from './Register/Terms.js'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core'
@@ -81,6 +82,9 @@ class App extends Component {
           </Route>
           <Route exact path="/join">
             <Register />
+          </Route>
+          <Route exact path="/terms-and-conditions">
+            <Terms />
           </Route>
         </Switch>
       </Router>

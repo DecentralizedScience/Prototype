@@ -1,116 +1,172 @@
-import React, { Component } from 'react'
-
-import Paper from '@material-ui/core/Paper'
-import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import React, { Component } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const styles = theme => ({
-  root: {
-    margin: 20,
-    padding: 20,
-    backgroundColor: '#a7cee2'
-  }
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: '#374784',
+    padding: 7,
+    width: theme.spacing(9),
+    height: '130%'
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 })
 
-class Register extends Component {
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Decentralized Science
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+class Register extends Component{
 
   render(){
     const { classes } = this.props
 
-    return(
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        styles={{ minHeight: '100vh' }}
-      >
-        <Paper className={classes.root}>
-          <div style={{padding:20}}>
-            <Grid
-              container
-              direction="Column"
-              alignItems="center"
-            >
-              <p>Welcome to Decentralized Science! To join us, fill the following form:</p>
-            </Grid>
-          </div>
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-          >
-            <div>
-              <TextField
-                required
-                id="name"
-                label="Name"
-                variant="outlined"
-                margin="normal"
-                style={{backgroundColor: "white", margin: 10}}
-              />
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar
+            className={classes.avatar}
+            alt="Decentralized Science"
+            src={require("../../assets/DS_logo_square.png")}
+          />
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  id="surname"
-                  label="Surname"
+                  autoComplete="fname"
+                  name="firstName"
                   variant="outlined"
-                  margin="normal"
-                  style={{backgroundColor: "white", margin: 10}}
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
                 />
-            </div>
-            <div>
-              <TextField
-                required
-                id="email"
-                label="E-mail"
-                variant="outlined"
-                margin="normal"
-                style={{backgroundColor: "white"}}
-              />
-            </div>
-            <div>
-              <TextField
-                required
-                id="password"
-                label="Password"
-                variant="outlined"
-                type="password"
-                margin="normal"
-                style={{backgroundColor: "white"}}
-              />
-            </div>
-          </Grid>
-
-          <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-            <Button variant="contained" style={{margin:20, backgroundColor:'#374784', color:'white'}}>
-              Register
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to subscribe to the Decentralized Science newsletter."
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label={
+                    <div>
+                    I accept the &nbsp;
+                    <Link href="/terms-and-conditions">
+                      terms and conditions
+                    </Link>
+                    .
+                    </div>
+                  }
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
             </Button>
-          </Grid>
-        </Paper>
-      </Grid>
-      /*<form className={classes.form} noValidate autocomplete="off">
-        <div>
-          <TextField required id="standard-required" label="Required" defaultValue="Hello World" />
-          <TextField disabled id="standard-disabled" label="Disabled" defaultValue="Hello World" />
-          <TextField
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-          />
-          <TextField
-            id="standard-read-only-input"
-            label="Read Only"
-            defaultValue="Hello World"
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
         </div>
-      </form>*/
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
     )
   }
 }
