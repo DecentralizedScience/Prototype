@@ -30,8 +30,13 @@ class Register extends Component {
       >
         <Paper className={classes.root}>
           <div style={{padding:20}}>
-            <p>Welcome to Decentralized Science!</p>
-            <p>To join us, fill the following form:</p>
+            <Grid
+              container
+              direction="Column"
+              alignItems="center"
+            >
+              <p>Welcome to Decentralized Science! To join us, fill the following form:</p>
+            </Grid>
           </div>
           <Grid
             container
@@ -45,16 +50,16 @@ class Register extends Component {
                 label="Name"
                 variant="outlined"
                 margin="normal"
+                style={{backgroundColor: "white", margin: 10}}
               />
-            </div>
-            <div>
-              <TextField
-                required
-                id="surname"
-                label="Surname"
-                variant="outlined"
-                margin="normal"
-              />
+                <TextField
+                  required
+                  id="surname"
+                  label="Surname"
+                  variant="outlined"
+                  margin="normal"
+                  style={{backgroundColor: "white", margin: 10}}
+                />
             </div>
             <div>
               <TextField
@@ -63,6 +68,18 @@ class Register extends Component {
                 label="E-mail"
                 variant="outlined"
                 margin="normal"
+                style={{backgroundColor: "white"}}
+              />
+            </div>
+            <div>
+              <TextField
+                required
+                id="password"
+                label="Password"
+                variant="outlined"
+                type="password"
+                margin="normal"
+                style={{backgroundColor: "white"}}
               />
             </div>
           </Grid>
