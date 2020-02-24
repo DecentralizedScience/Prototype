@@ -136,7 +136,7 @@ class Register extends Component{
                   label={
                     <div>
                     I accept the &nbsp;
-                    <Link href="/terms-and-conditions">
+                    <Link href="/terms-and-conditions" target="_blank">
                       terms and conditions
                     </Link>
                     .

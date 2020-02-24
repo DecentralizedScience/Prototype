@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 class TermsAndConds extends Component {
 
@@ -9,7 +10,11 @@ class TermsAndConds extends Component {
         <Typography>
           TERMS AND CONDITIONS
         </Typography>
-        <p>These are the terms and conditions</p>
+        <p>These are the &nbsp;
+        <Link href="/terms-and-conditions">
+          terms and conditions
+        </Link>
+        </p>
        </div>
      )
   }
