@@ -2,6 +2,7 @@ import escape from 'pg-escape'
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
+import UserDS from '../mongoModels/UserDSSchema'
 
 var config
 try {
@@ -303,9 +304,58 @@ const QueryRoot = new GraphQLObjectType({
   })
 })
 
+const MutationRoot = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    signup: {
+      type: UserDS,
+      args: {
+        name: {
+          type: GraphQLString
+        },
+        surname: {
+          type: GraphQLString
+        },
+        username: {
+          type: GraphQLString
+        },
+        email: {
+          type: GraphQLString
+        },
+        password: {
+          type: GraphQLString
+        }
+      },
+      resolve: (parent, args, context, resolveInfo) => {
+        console.log(args.name, args.name, args.surname, args.username, args.email, args.password)
+        let schema = new UserDS({
+            _id: args.username,
+            ...args
+          }
+        )
+        console.log(schema)
+        UserDS.findById(schema.id).then(user => {
+          console.error('User with address' + user + ' already registered!');
+          // TODO Throw error here
+          return;
+        });
+
+        schema.save().then(() => {
+          console.log('Successfully saved the scholar');
+        }
+        ).catch(
+          // TODO Throw error here
+          err => console.log(err));
+        return schema
+      },
+    }
+  })
+});
+
 const schema = new GraphQLSchema({
   description: 'a test schema',
-  query: QueryRoot
+  query: QueryRoot,
+  mutation: MutationRoot
 })
 
 const server = new GraphQLServer({
