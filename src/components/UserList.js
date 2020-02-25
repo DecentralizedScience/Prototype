@@ -264,9 +264,9 @@ class UserList extends Component {
                 },
                 { title: 'E-MAIL', field: 'email',
                   render: rowData =>
-                    <EmailCell email={rowData.email} />,
+                    <EmailCell email={rowData.email} name={rowData.name} />,
                   cellStyle: {
-                    width: "2%"
+                    width: "12%"
                   },
                   headerStyle: {
                     fontSize: "12px",

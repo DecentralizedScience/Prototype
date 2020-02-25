@@ -1,10 +1,51 @@
 import React, { Component } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
-import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import CloseIcon from '@material-ui/icons/Close'
-import Snackbar from '@material-ui/core/Snackbar'
+//import Snackbar from '@material-ui/core/Snackbar'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import MuiDialogTitle from '@material-ui/core/DialogTitle'
+import MuiDialogContent from '@material-ui/core/DialogContent'
+import MuiDialogActions from '@material-ui/core/DialogActions'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import LaptopIcon from '@material-ui/icons/LaptopMac'
+import Grid from '@material-ui/core/Grid'
+
+const styles = theme => ({
+  root: {
+    margin:0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+  dialog: {
+    paddingBottom: 50
+  }
+})
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose, ...other } = props
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  )
+})
+
+const DialogContent = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(2)
+  }
+}))(MuiDialogContent)
 
 class EmailCell extends Component {
 
@@ -12,11 +53,26 @@ class EmailCell extends Component {
     super(props);
     this.state={
       email: this.props.email,
-      open: false
+      name: this.props.name,
+      open: false,
+      dialogOpen:false
     }
   }
 
-  setOpen(val){
+  setDialogOpen(val){
+    this.setState({dialogOpen: val})
+  }
+
+  handleDialogClickOpen = () => {
+    this.setDialogOpen(true)
+  }
+
+  handleDialogClose = () => {
+    this.setDialogOpen(false)
+  }
+
+  //A snackbar is shown at the end of the process. This code will come in handy
+  /*setOpen(val){
     this.setState({open: val})
   }
 
@@ -30,21 +86,71 @@ class EmailCell extends Component {
     }
 
     this.setOpen(false);
-  }
+  }*/
 
   render() {
+    const {classes} = this.props
     return(
       <div>
-        <CopyToClipboard text={this.state.email}
-          onCopy={() => this.setState({copied: true})}>
-          <IconButton
-            aria-label="mail"
-            onClick={this.handleClick}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleDialogClickOpen}
+          style={{fontSize:"12px"}}
+        >
+          REQUEST A REVIEW
+        </Button>
+        <Dialog
+          onClose={this.handleDialogClose}
+          aria-labelledby="request-review-dialog"
+          open={this.state.dialogOpen}
+        >
+          <DialogTitle
+            id="request-review-dialog"
+            onClose={this.handleDialogClose}
           >
-            <MailOutlineIcon style={{ color: "#374784" }}/>
-          </IconButton>
-        </CopyToClipboard>
-        <Snackbar
+            Modal title
+          </DialogTitle>
+          <DialogContent
+            className={classes.dialog}
+          >
+            <Grid container spacing={2} alignItems="center" justify="center" direction="column" style={{paddingLeft: 70, paddingRight:70}}>
+              <Grid item xs={12} sm={12}>
+                <Typography variant="h4" gutterBottom>
+                  Request a review
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <LaptopIcon style={{fontSize: 80, color: "#A7CEE2"}} />
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <Typography gutterBottom align="center">
+                  Are you sure you want to send your paper to {this.state.name}?
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={()=>{}}
+                  style={{fontSize:"12px", marginRight: 10, paddingLeft:35, paddingRight: 35}}
+                >
+                  NO, THANKS
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{}}
+                  style={{fontSize:"12px", marginLeft: 10}}
+                >
+                  REQUEST A REVIEW
+                </Button>
+              </Grid>
+            </Grid>
+          </DialogContent>
+        </Dialog>
+        {/*A snackbar is shown at the end of the process. This code will come in handy*/}
+        {/*<Snackbar
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -66,10 +172,10 @@ class EmailCell extends Component {
               <CloseIcon />
             </IconButton>
         ]}
-        />
+        />*/}
       </div>
     )
   }
 }
 
-export default EmailCell
+export default withStyles(styles)(EmailCell)
