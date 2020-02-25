@@ -46,7 +46,7 @@ type Review {
   dateCompleted: String @examples(values: [null, null, null, null, 1550819997547, 999999999999 ])
   dateDue: String @fake(type: futureDate)
   declined: Int @examples(values:[0, 0, 0, 1])
-  quality: Int @examples(values:[0, 1, 2, 3, 4, 5])
+  quality: Int @examples(values:[null, null, null, 0, 1, 2, 3, 4, 5])
   recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
   submission: Submission!
   reviewComments: [ReviewComment] @listLength(min: 0, max: 5)
