@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const UserDSSchema = new mongoose.Schema({
   _id: String,
-  userName: String,
-  firstName: String,
-  lastName: String,
+  username: String,
+  name: String,
+  surname: String,
   email: String,
+  password: String,
   profilePicture: Buffer,
   reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 });

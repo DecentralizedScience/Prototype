@@ -16,8 +16,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation($name: String!, $surname: String!, $username: String!, $email: String!, $password: String!) {
-    signup(name: $name, surname: $surname, username: $username, email: $email, password: $password) {
+  mutation SignupMutation($firstName: String!, $surname: String!, $username: String!, $email: String!, $password: String!) {
+    signup(name: $firstName, surname: $surname, username: $username, email: $email, password: $password) {
       id
       name
       surname

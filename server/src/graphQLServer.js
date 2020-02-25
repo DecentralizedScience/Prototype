@@ -2,7 +2,7 @@ import escape from 'pg-escape'
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
-import UserDS from '../mongoModels/UserDSSchema'
+import UserDS from '../mongoModels/UserDS'
 
 var config
 try {
@@ -20,6 +20,29 @@ var knex = require('knex')({
 const { graphql } = require('graphql')
 const { GraphQLServer } = require('graphql-yoga')
 
+const UserDecSci = new GraphQLObjectType({
+  name: 'UserDS',
+  fields: () => ({
+    id: {
+      type: GraphQLString
+    },
+    name: {
+      type: GraphQLString
+    },
+    surname: {
+      type: GraphQLString
+    },
+    username: {
+      type: GraphQLString
+    },
+    password: {
+      type: GraphQLString
+    },
+    email: {
+      type: GraphQLString
+    }
+  })
+})
 
 const User = new GraphQLObjectType({
   name: 'User',
@@ -306,50 +329,54 @@ const QueryRoot = new GraphQLObjectType({
 
 const MutationRoot = new GraphQLObjectType({
   name: 'Mutation',
-  fields: () => ({
-    signup: {
-      type: UserDS,
-      args: {
-        name: {
-          type: GraphQLString
-        },
-        surname: {
-          type: GraphQLString
-        },
-        username: {
-          type: GraphQLString
-        },
-        email: {
-          type: GraphQLString
-        },
-        password: {
-          type: GraphQLString
-        }
+  fields:{
+  signup: {
+    type: UserDecSci,
+    args:{
+      name: {
+        type: GraphQLString
       },
-      resolve: (parent, args, context, resolveInfo) => {
-        console.log(args.name, args.name, args.surname, args.username, args.email, args.password)
+      surname: {
+        type: GraphQLString
+      },
+      username: {
+        type: GraphQLString
+      },
+      password: {
+        type: GraphQLString
+      },
+      email: {
+        type: GraphQLString
+      }
+    },
+    resolve: async (_, args) => {
+      console.log('Args', args);
         let schema = new UserDS({
             _id: args.username,
             ...args
           }
         )
-        console.log(schema)
-        UserDS.findById(schema.id).then(user => {
-          console.error('User with address' + user + ' already registered!');
-          // TODO Throw error here
-          return;
-        });
+        console.log('Schema', schema)
 
-        schema.save().then(() => {
-          console.log('Successfully saved the scholar');
-        }
-        ).catch(
-          // TODO Throw error here
-          err => console.log(err));
-        return schema
-      },
+        UserDS.findById(schema._id, (error, user) => {
+          if (error) {
+            // TODO Throw error here
+            console.error(error)
+            return null;
+          }
+          if (user) {
+            console.log('User:' + user);
+            // TODO Throw error here
+            return null;
+
+          }
+        })
+
+        await schema.save()
+        console.log('saved schema: ', schema);
+      }
     }
-  })
+  }
 });
 
 const schema = new GraphQLSchema({
