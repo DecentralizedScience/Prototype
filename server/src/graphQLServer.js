@@ -2,7 +2,8 @@ import escape from 'pg-escape'
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
-import UserDS from '../mongoModels/UserDS'
+import mongo from '../../peer-review-app/server/utils/mongo'
+import UserDS  from '../mongoModels/UserDS'
 
 var config
 try {
@@ -19,6 +20,9 @@ var knex = require('knex')({
 
 const { graphql } = require('graphql')
 const { GraphQLServer } = require('graphql-yoga')
+
+
+mongo.connectToServer()
 
 const UserDecSci = new GraphQLObjectType({
   name: 'UserDS',
@@ -350,6 +354,7 @@ const MutationRoot = new GraphQLObjectType({
       }
     },
     resolve: async (_, args) => {
+
       console.log('Args', args);
         let schema = new UserDS({
             _id: args.username,
@@ -357,23 +362,11 @@ const MutationRoot = new GraphQLObjectType({
           }
         )
         console.log('Schema', schema)
+        await schema.save().then((schema, e)=>{
+          console.log('saved schema: ', schema, 'Error', e);
+        }).catch(e => console.error(e))
 
-        UserDS.findById(schema._id, (error, user) => {
-          if (error) {
-            // TODO Throw error here
-            console.error(error)
-            return null;
-          }
-          if (user) {
-            console.log('User:' + user);
-            // TODO Throw error here
-            return null;
-
-          }
-        })
-
-        await schema.save()
-        console.log('saved schema: ', schema);
+        return schema
       }
     }
   }
