@@ -177,7 +177,6 @@ class Register extends Component{
             <Mutation mutation={SIGNUP_MUTATION} variables={{ firstName, surname, username, email, password }}>
               {signupMutation => (
                 <Button
-                  type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
