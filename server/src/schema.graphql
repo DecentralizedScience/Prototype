@@ -14,6 +14,19 @@ type User {
   reviews: [Review!] @listLength(min: 0, max: 5)
 }
 
+type UserDS {
+  id: ID!
+  name: String!
+  surname: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  signup(name: String!, surname: String!, username: String!, email: String!, password: String!): UserDS
+}
+
 type Interest {
   id: ID!
   text: String! @fake(type: words)

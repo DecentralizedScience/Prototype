@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +14,19 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+const SIGNUP_MUTATION = gql`
+  mutation SignupMutation($name: String!, $surname: String!, $username: String!, $email: String!, $password: String!) {
+    signup(name: $name, surname: $surname, username: $username, email: $email, password: $password) {
+      id
+      name
+      surname
+      username
+      email
+      password
+    }
+  }
+`
 
 const styles = theme => ({
   paper: {
@@ -49,9 +65,17 @@ function Copyright() {
 }
 
 class Register extends Component{
+  state = {
+    firstName: '',
+    surname: '',
+    username: '',
+    email: '',
+    password: ''
+  }
 
   render(){
     const { classes } = this.props
+    const { firstName, surname, username, email, password } = this.state
 
     return (
       <Container component="main" maxWidth="xs">
@@ -77,6 +101,7 @@ class Register extends Component{
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={e => this.setState({ firstName: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -88,6 +113,7 @@ class Register extends Component{
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
+                  onChange={e => this.setState({ surname: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +125,7 @@ class Register extends Component{
                   label="Username"
                   name="username"
                   autoComplete="username"
+                  onChange={e => this.setState({ username: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,6 +137,7 @@ class Register extends Component{
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={e => this.setState({ email: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -122,6 +150,7 @@ class Register extends Component{
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={e => this.setState({ password: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -145,15 +174,20 @@ class Register extends Component{
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
+            <Mutation mutation={SIGNUP_MUTATION} variables={{ firstName, surname, username, email, password }}>
+              {signupMutation => (
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={signupMutation}
+                >
+                  Sign Up
+                </Button>
+              )}
+            </Mutation>
             <Grid container justify="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
