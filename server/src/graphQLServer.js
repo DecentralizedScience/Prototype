@@ -120,23 +120,6 @@ const ReviewComment = new GraphQLObjectType({
   }
 })
 
-const SubmissionSetting = new GraphQLObjectType({
-  name: 'SubmissionSetting',
-  // Preferring english version if available
-  sqlTable: 'SELECT * WHEN locale = \'en_US\' then 1 else 2 end as SortingId FROM submission_settings ORDER BY SortingId;',
-  uniqueKey: ['submission_id', 'locale', 'setting_name'],
-  fields: {
-    text: {
-      type: GraphQLString,
-      sqlColumn: 'setting_value'
-    },
-    locale: {
-      type: GraphQLString,
-      sqlColumn: 'locale'
-    }
-  }
-})
-
 const Title = new GraphQLObjectType({
   name: 'Title',
   sqlTable: '(SELECT submission_id, setting_value, locale, IF(locale = \'en_US\', 1, 2) as SortingId FROM submission_settings WHERE setting_name = \'title\' ORDER BY SortingId)',
