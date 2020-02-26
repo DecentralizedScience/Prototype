@@ -2,8 +2,10 @@ import escape from 'pg-escape'
 import { GraphQLSchema } from 'graphql'
 import { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } from 'graphql'
 import joinMonster from 'join-monster'
-import mongo from '../../peer-review-app/server/utils/mongo'
-import UserDS  from '../mongoModels/UserDS'
+import UserDSmodel from '../mongoModels/UserDS'
+import mongoose from 'mongoose';
+import configMongoose from '../../peer-review-app/server/config';
+
 
 var config
 try {
@@ -18,11 +20,22 @@ var knex = require('knex')({
   connection: config
 });
 
-const { graphql } = require('graphql')
 const { GraphQLServer } = require('graphql-yoga')
 
 
-mongo.connectToServer()
+// Mongo Database connection
+var _db;
+
+const dbConfig = configMongoose.database;
+const dbURI = configMongoose.databaseURI;
+
+mongoose.connect(dbURI, dbConfig)
+_db = mongoose.connection;
+_db.on('error', console.error.bind(console, '> error occurred from the database:'));
+_db.once('open', () => {
+  console.log('> successfully opened the database');
+});
+
 
 const UserDecSci = new GraphQLObjectType({
   name: 'UserDS',
@@ -355,18 +368,27 @@ const MutationRoot = new GraphQLObjectType({
     },
     resolve: async (_, args) => {
 
-      console.log('Args', args);
-        let schema = new UserDS({
+        let schema = new UserDSmodel({
             _id: args.username,
             ...args
           }
         )
-        console.log('Schema', schema)
-        await schema.save().then((schema, e)=>{
-          console.log('saved schema: ', schema, 'Error', e);
-        }).catch(e => console.error(e))
 
-        return schema
+        let found = await UserDSmodel.findById(schema._id)
+
+        if (found)
+          return new Error('User with id '+ schema._id + ' already exists' )
+
+        return await schema.save().then((schema, e)=>{
+          console.log('saved user schema: ', schema);
+          return schema
+        }).catch(
+          e => {
+            console.error(e);
+            return new Error('Error tring to save user: ' + schema);
+          }
+        )
+
       }
     }
   }
