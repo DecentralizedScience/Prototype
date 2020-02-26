@@ -310,7 +310,7 @@ class EmailCell extends Component {
               <Grid item xs={12} sm={8} style={{marginBottom: -18}}>
                 <Typography gutterBottom align="center" className={classes.dialogText}>
                   Please &nbsp;
-                  <Link href="/terms-and-conditions">
+                  <Link href="mailto:support@decentralized.science?Subject=Issue%20with%20OJS%20login" target="_top">
                     contact us
                   </Link>
                 </Typography>
@@ -318,7 +318,7 @@ class EmailCell extends Component {
             </Grid>
           </DialogContent>
         </Dialog>
-        
+
         {/*Success snackbar*/}
         <Snackbar
           anchorOrigin={{
