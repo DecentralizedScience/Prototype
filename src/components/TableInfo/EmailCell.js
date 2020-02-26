@@ -24,6 +24,11 @@ const styles = theme => ({
   },
   dialog: {
     paddingBottom: 50
+  },
+  dialogText: {
+    paddingBottom: 15,
+    marginTop: -15,
+    color: '#727474'
   }
 })
 
@@ -123,7 +128,7 @@ class EmailCell extends Component {
                 <LaptopIcon style={{fontSize: 80, color: "#A7CEE2"}} />
               </Grid>
               <Grid item xs={12} sm={8}>
-                <Typography gutterBottom align="center">
+                <Typography gutterBottom align="center" className={classes.dialogText}>
                   Are you sure you want to send your paper to {this.state.name}?
                 </Typography>
               </Grid>
