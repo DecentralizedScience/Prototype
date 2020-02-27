@@ -6,14 +6,14 @@ import MaterialTable from "material-table";
 
 import gravatar from 'gravatar'
 
-import ReviewerDetails from './TableInfo/ReviewerDetails.js';
-import EmailCell from './TableInfo/EmailCell.js'
-import RatingCell from './TableInfo/RatingCell.js'
-import AcceptanceCell from './TableInfo/AcceptanceCell.js'
-import TimelinessCell from './TableInfo/TimelinessCell.js'
-import InterestsCell from './TableInfo/InterestsCell.js'
-import NameCell from './TableInfo/NameCell.js'
-import AvatarCell from './TableInfo/AvatarCell.js'
+import ReviewerDetails from './TableInfo/ReviewDetails/ReviewerDetails.js';
+import EmailCell from './TableInfo/Email/EmailCell.js'
+import RatingCell from './TableInfo/Rating/RatingCell.js'
+import AcceptanceCell from './TableInfo/Acceptance/AcceptanceCell.js'
+import TimelinessCell from './TableInfo/Timeliness/TimelinessCell.js'
+import InterestsCell from './TableInfo/Interests/InterestsCell.js'
+import NameCell from './TableInfo/Name/NameCell.js'
+import AvatarCell from './TableInfo/Avatar/AvatarCell.js'
 import TableToolbar from './TableToolbar.js'
 import TableFilters from './TableFilters.js'
 import DevelopmentOnly from './DevelopmentOnly.js'

@@ -225,7 +225,7 @@ class EmailCell extends Component {
                   First, we need your credentials on OJS
                 </Typography>
               </Grid>
-              <img src={require("../../assets/ojs.png")} alt="OJS logo" width="10%" class="center"/>
+              <img src={require("../../../assets/ojs.png")} alt="OJS logo" width="10%" class="center"/>
               <Grid item xs={12} style={{marginBottom: -15}}>
                 <TextField
                   autoComplete="username"
