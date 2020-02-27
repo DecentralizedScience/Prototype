@@ -10,6 +10,7 @@ Decentralized science prototype (WIP)
 To run and install this application you need:
 
 * [node](https://nodejs.org) and [npm](https://www.npmjs.com/)
+* [MongoDB](https://www.mongodb.com/)
 
 ## Download
 First, clone this repo.
@@ -25,6 +26,18 @@ To install, run
 ```
 npm install
 ```
+
+Before running the server, you have to start the mongoDB service. Check if it is already running:
+```
+service mongod status
+```
+
+If it is not, start the service:
+```
+sudo service mongod start
+```
+
+> **Note:** It might be *mongodb* insted of *mongod* for certain Linux distributions, such as OpenSuse
 
 ### Run server
 
