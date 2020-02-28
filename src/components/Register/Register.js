@@ -54,8 +54,8 @@ const styles = theme => ({
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {'Copyleft 🄯 '}
+      <Link color="inherit" href="https://decentralized.science/" target="_blank">
         Decentralized Science
       </Link>{' '}
       {new Date().getFullYear()}
@@ -151,6 +151,19 @@ class Register extends Component{
                   id="password"
                   autoComplete="current-password"
                   onChange={e => this.setState({ password: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="repeat-password"
+                  label="Repeat Password"
+                  type="password"
+                  id="repeat-password"
+                  autoComplete="current-password"
+                  onChange={() => {}}
                 />
               </Grid>
               <Grid item xs={12}>
