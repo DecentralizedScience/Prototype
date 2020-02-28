@@ -21,6 +21,7 @@
     "gravatar": "^1.8.0",
     "knex": "^0.20.2",
     "material-table": "^1.54.1",
+    "material-ui-chip-input": "^2.0.0-beta.2",
     "mongoose": "^5.9.2",
     "mysql": "^2.17.1",
     "react": "^16.11.0",
