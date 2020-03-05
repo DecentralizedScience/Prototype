@@ -105,7 +105,12 @@ class UserList extends Component {
             }
 
             //Round to two decimals
-            let percentage = Math.round(((((onTime+declined+late/2)/total)*100)+ Number.EPSILON)*100)/100
+            let percentage
+            if(total===0) {
+              percentage = -1
+            } else {
+              percentage = Math.round(((((onTime+declined+late/2)/total)*100)+ Number.EPSILON)*100)/100
+            }
 
             return [declined, onTime, late, never, total, percentage]
           };
@@ -129,7 +134,12 @@ class UserList extends Component {
             }
 
             //Round to two decimals
-            let percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
+            let percentage
+            if(total===0) {
+              percentage=-1
+            } else {
+             percentage = Math.round(((((accept+minorChanges+majorChanges/2)/total)*100)+ Number.EPSILON)*100)/100
+           }
 
             return [accept, minorChanges, majorChanges, reject, total, percentage]
           };
