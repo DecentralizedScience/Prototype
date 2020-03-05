@@ -16,11 +16,7 @@ class NameCell extends Component {
 
   render(){
     let web
-    if (!this.state.url) {
-      web = scholarSearch+this.state.name.split(' ').join('+')
-    } else {
-      web = this.state.url
-    }
+    web = scholarSearch+this.state.name.split(' ').join('+')
     return (
       <Typography>
         <Link href={web} target="_blank">

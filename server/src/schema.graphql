@@ -42,10 +42,10 @@ type ReviewComment {
 
 type Review {
   id: ID!
-  dateAssigned: String! @fake(type: pastDate)
-  dateCompleted: String @examples(values: [null, null, null, null, 1550819997547, 999999999999 ])
-  dateDue: String @fake(type: futureDate)
-  declined: Int @examples(values:[0, 0, 0, 1])
+  dateAssigned: String! @examples(values: ["Sat Feb 20 2016 00:00:00 GMT+0100 (GMT+01:00)"])
+  dateCompleted: String @examples(values: [null, "Mon Jan 23 2017 10:09:59 GMT+0100 (GMT+01:00)", "Tue Apr 24 2018 00:00:00 GMT+0200 (GMT+02:00)"])
+  dateDue: String @examples(values: ["Mon Feb 20 2017 00:00:00 GMT+0100 (GMT+01:00)"])
+  declined: Int @examples(values:[null, null, null, 1])
   quality: Int @examples(values:[null, null, null, 0, 1, 2, 3, 4, 5])
   recommendation: Int  @examples(values:[0, 1, 2, 3, 4])
   submission: Submission!
