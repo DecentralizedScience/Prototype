@@ -256,20 +256,12 @@ class EmailCell extends Component {
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  style={{marginRight:10}}
+                  style={{paddingLeft: 55, paddingRight: 55}}
                   variant="contained"
                   color="primary"
                   onClick={this.handleSnackbarClickOpen}
                 >
                   LOGIN WITH OJS
-                </Button>
-                <Button
-                  style={{marginLeft:10}}
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleDialogFailClickOpen}
-                >
-                  WRONG LOGIN
                 </Button>
               </Grid>
             </Grid>
