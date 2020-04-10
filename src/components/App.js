@@ -11,6 +11,8 @@ import Register from './Register/Register'
 import Terms from './Register/Terms.js'
 import Profile from './Profile/Profile.js'
 
+import '../styles/Icons.css'
+
 import { withStyles } from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core'
 
@@ -21,7 +23,7 @@ const styles = theme => ({
   }
 })
 
-class App extends Component {
+class ReviewerSearch extends Component {
 
   constructor(props){
     super(props)
@@ -63,23 +65,32 @@ class App extends Component {
   render() {
     const {classes } = this.props
     return (
+      <Paper className={classes.root}>
+      <Header
+      onChange={this.handleValueChange}
+      />
+      <UserList
+      value={this.state.searchValue}
+      key={this.state.searchValue}
+      onSwitchChange={this.handleSwitchChange}
+      unoccupied={this.state.unoccupied}
+      onLabelClick={this.handleLabelClick}
+      onLabelDelete={this.handleLabelDelete}
+      labels={this.state.labels}
+      />
+      </Paper>
+    )
+  }
+}
+
+class App extends Component {
+
+  render() {
+    return (
       <Router>
         <Switch>
           <Route exact path="/">
-            <Paper className={classes.root}>
-              <Header
-                onChange={this.handleValueChange}
-              />
-              <UserList
-                value={this.state.searchValue}
-                key={this.state.searchValue}
-                onSwitchChange={this.handleSwitchChange}
-                unoccupied={this.state.unoccupied}
-                onLabelClick={this.handleLabelClick}
-                onLabelDelete={this.handleLabelDelete}
-                labels={this.state.labels}
-              />
-            </Paper>
+            <ReviewerSearch/>
           </Route>
           <Route exact path="/join">
             <Register />
@@ -96,4 +107,8 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App)
+let RS = (withStyles(styles)(ReviewerSearch))
+
+export { RS as ReviewerSearch}
+
+export default withStyles(styles)(App);
