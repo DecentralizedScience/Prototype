@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import './styles/Chip.css';
 import './styles/MaterialTable.css'
-import App from './components/App';
+import App, {ReviewerSearch} from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 import { ApolloProvider } from 'react-apollo'
@@ -60,7 +60,23 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+window.ReactDOM = ReactDOM;
+window.React = React;
+
+let RS = () => (
+  <MuiThemeProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <ReviewerSearch/>
+      </ApolloProvider>
+  </MuiThemeProvider>
+)
+
+window.ReviewerSeach = RS
+
+export { RS as ReviewerSearch };
