@@ -5,6 +5,10 @@
 # Prototype
 Decentralized science prototype (WIP)
 
+## Community
+* join our [community forum](https://discuss.decentralized.science/)
+* connect at our [developers' chat](https://dec-sci.zulipchat.com/#narrow/stream/238971-development) 
+
 ## Requisites
 
 To run and install this application you need:
